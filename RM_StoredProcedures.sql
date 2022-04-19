@@ -214,3 +214,48 @@ BEGIN
     INSERT INTO user_relationships(relationship_id, user_id) VALUES (@id, usr_id);
 END$
 DELIMITER ;
+
+
+-- EXPERIMENTAL ----------------------------------------------------------------------------------------------------------
+
+DELIMITER $
+CREATE PROCEDURE sp_deleteUserAcquaintance (usr_id INT, acq_id INT)
+BEGIN
+	DELETE FROM user_acquaintance_relationships WHERE user_id = usr_id AND acquaintance_id = acq_id;
+END$
+DELIMITER ;
+
+
+DELIMITER $
+CREATE TRIGGER tg_del_deleteAllAcquaintancesWhichIdIsNotReferencedInUserAcquaintanceRelationships AFTER DELETE ON user_acquaintance_relationships FOR EACH ROW
+BEGIN
+	IF((SELECT COUNT(*) FROM user_acquaintance_relationships WHERE acquaintance_id = OLD.acquaintance_id) = 0)
+    THEN DELETE FROM acquaintances WHERE id = OLD.acquaintance_id;
+	END IF;
+END$
+DELIMITER ;
+
+
+DELIMITER $
+CREATE PROCEDURE sp_deleteUserCity (usr_id INT, ct_id INT)
+BEGIN
+	DELETE FROM user_cities WHERE user_id = usr_id AND city_id = ct_id;
+END$
+DELIMITER $
+
+
+DELIMITER $
+CREATE TRIGGER tg_del_
+
+CREATE PROCEDURE sp_deleteCity (ct_id INT)
+BEGIN
+	#MAKE INTO AN INDEPENDANT PROCEDURE
+	DELETE FROM user_acquaintance_relationships 
+	WHERE acquaintance_id IN (SELECT id FROM acquaintances WHERE city_id = ct);
+    
+    #MAKE INTO AN INDEPENDAT PROCEDURE
+    DELETE FROM acquaintances WHERE city_id = ct;
+
+    DELETE FROM user_cities WHERE city_id = ct;
+END$
+DELIMITER ;
