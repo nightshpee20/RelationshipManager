@@ -25,10 +25,10 @@ namespace rmanager
         private void setDataGridValues(string name)
         {
             
-            MySqlDataAdapter da = new MySqlDataAdapter($"SELECT uc.id, c.city, uc.user_id " +
+            MySqlDataAdapter da = new MySqlDataAdapter($"SELECT c.city, c.id, uc.user_id " +
                                                        $"FROM user_cities uc " +
                                                        $"JOIN cities c ON uc.city_id = c.id " +
-                                                       $"WHERE user_id = {user_id} " +
+                                                       $"WHERE user_id IN ({user_id}, 2) " +
                                                        $"ORDER BY c.city ASC;", Connect.con);
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
@@ -48,13 +48,13 @@ namespace rmanager
         //editDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString()
         private void editDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            MySqlCommand cmd;
             int city_id = (int) editDataGridView.Rows[e.RowIndex].Cells[1].Value;
-            if (e.ColumnIndex == 3)
+            if (e.ColumnIndex == 3) 
             {
                 Utilities.MySqlCommandImproved($"DELETE FROM user_acquaintance_relationships " +
                                                $"WHERE user_id = {user_id}" +
                                                $"AND acquaintance_id IN (SELECT id FROM acquaintances WHERE city_id = {city_id});");
+
                 Utilities.MySqlCommandImproved($"DELETE FROM acquaintaces WHERE city_id = {city_id}");
 
                 Utilities.MySqlCommandImproved($"DELETE FROM user_cities " +

@@ -71,7 +71,7 @@ namespace rmanager
             // occupationLabel
             // 
             this.occupationLabel.AutoSize = true;
-            this.occupationLabel.Location = new System.Drawing.Point(22, 377);
+            this.occupationLabel.Location = new System.Drawing.Point(22, 287);
             this.occupationLabel.Name = "occupationLabel";
             this.occupationLabel.Size = new System.Drawing.Size(168, 32);
             this.occupationLabel.TabIndex = 2;
@@ -89,7 +89,7 @@ namespace rmanager
             // cityLabel
             // 
             this.cityLabel.AutoSize = true;
-            this.cityLabel.Location = new System.Drawing.Point(22, 289);
+            this.cityLabel.Location = new System.Drawing.Point(22, 376);
             this.cityLabel.Name = "cityLabel";
             this.cityLabel.Size = new System.Drawing.Size(72, 32);
             this.cityLabel.TabIndex = 4;
@@ -135,7 +135,7 @@ namespace rmanager
             // 
             this.occupationsDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.occupationsDropDown.FormattingEnabled = true;
-            this.occupationsDropDown.Location = new System.Drawing.Point(28, 412);
+            this.occupationsDropDown.Location = new System.Drawing.Point(28, 322);
             this.occupationsDropDown.Name = "occupationsDropDown";
             this.occupationsDropDown.Size = new System.Drawing.Size(262, 39);
             this.occupationsDropDown.TabIndex = 9;
@@ -144,7 +144,7 @@ namespace rmanager
             // 
             this.citiesDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.citiesDropDown.FormattingEnabled = true;
-            this.citiesDropDown.Location = new System.Drawing.Point(28, 324);
+            this.citiesDropDown.Location = new System.Drawing.Point(28, 411);
             this.citiesDropDown.Name = "citiesDropDown";
             this.citiesDropDown.Size = new System.Drawing.Size(262, 39);
             this.citiesDropDown.TabIndex = 10;
@@ -187,7 +187,7 @@ namespace rmanager
             // citiesDropDownEditButton
             // 
             this.citiesDropDownEditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.citiesDropDownEditButton.Location = new System.Drawing.Point(296, 324);
+            this.citiesDropDownEditButton.Location = new System.Drawing.Point(296, 411);
             this.citiesDropDownEditButton.Name = "citiesDropDownEditButton";
             this.citiesDropDownEditButton.Size = new System.Drawing.Size(66, 39);
             this.citiesDropDownEditButton.TabIndex = 16;
@@ -198,7 +198,7 @@ namespace rmanager
             // occupationsDropDrownEditButton
             // 
             this.occupationsDropDrownEditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.occupationsDropDrownEditButton.Location = new System.Drawing.Point(296, 412);
+            this.occupationsDropDrownEditButton.Location = new System.Drawing.Point(296, 322);
             this.occupationsDropDrownEditButton.Name = "occupationsDropDrownEditButton";
             this.occupationsDropDrownEditButton.Size = new System.Drawing.Size(66, 39);
             this.occupationsDropDrownEditButton.TabIndex = 17;
