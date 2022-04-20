@@ -60,10 +60,10 @@ DELIMITER ;
 
 
 /* CHECKED */
-DELIMITER $ 
-CREATE PROCEDURE sp_insertMeeting (usr_id INT, acq_id INT, dt DATETIME, rsn_id INT, cmnts VARCHAR(1000) CHARACTER SET utf16)
+DELIMITER $
+CREATE PROCEDURE sp_insertLocation (loc VARCHAR(60) CHARACTER SET utf16)
 BEGIN
-	INSERT INTO meetings(user_id, acquaintance_id, date_time, reason_id, comments) VALUES (usr_id, acq_id, dt, rsn_id, cmnts);
+	INSERT INTO locations(location) VALUES(loc);
 END$
 DELIMITER ;
 
@@ -155,6 +155,34 @@ BEGIN
     END IF;
     
     INSERT INTO user_cities(city_id, user_id) VALUES (@id, usr_id);
+END$
+DELIMITER ;
+
+
+-- Similar to sp_insertUserAcquaintance
+/* CHECKED */
+DELIMITER $
+CREATE PROCEDURE sp_insertUserLocation (loc VARCHAR(60) CHARACTER SET utf16, usr_id INT)
+BEGIN
+	IF
+		((SELECT COUNT(*) FROM locations WHERE location = loc) = 0)
+	THEN
+		CALL sp_insertLocation(loc);
+        SET @id := (SELECT id FROM locations WHERE location = loc);
+	ELSE
+		SET @id := (SELECT id FROM locations WHERE location = loc);
+	END IF;
+    
+    INSERT INTO user_locations(location_id, user_id) VALUES(@id, user_id);
+END$
+DELIMITER ;
+
+
+/* CHECKED */
+DELIMITER $ 
+CREATE PROCEDURE sp_insertUserMeeting (usr_id INT, acq_id INT, dt DATETIME, rsn_id INT, loc_id INT, cmnts VARCHAR(1000) CHARACTER SET utf16)
+BEGIN
+	INSERT INTO meetings(user_id, acquaintance_id, date_time, reason_id, location_id, comments) VALUES (usr_id, acq_id, dt, rsn_id, loc_id, cmnts);
 END$
 DELIMITER ;
 

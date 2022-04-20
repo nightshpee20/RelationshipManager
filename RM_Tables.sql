@@ -3,7 +3,7 @@ CREATE DATABASE rmdb;
 USE rmdb;
 
 -- TABLES
-CREATE TABLE users ( /*CHECKED*/
+CREATE TABLE users ( /* CHECKED */
 	id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(30) UNIQUE NOT NULL,
     password VARCHAR(30) NOT NULL,
@@ -32,25 +32,22 @@ CREATE TABLE users ( /*CHECKED*/
     CHECK (LENGTH(mobile_number) = 10)
 	);
     
-CREATE TABLE cities ( /*CHECKED*/
+CREATE TABLE cities ( /* CHECKED */
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	city VARCHAR(40) CHARACTER SET utf16 UNIQUE NOT NULL
 	);
 
-CREATE TABLE user_cities (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    city_id INT NOT NULL,
+CREATE TABLE user_cities ( /* CHECKED */
     user_id INT NOT NULL,
+    city_id INT NOT NULL,
     
-    FOREIGN KEY (city_id)
-    REFERENCES cities(id)
-	ON DELETE CASCADE,
+    PRIMARY KEY (user_id, city_id),
     
     FOREIGN KEY (user_id)
     REFERENCES users(id),
     
-    CONSTRAINT uq_citiesUsers
-    UNIQUE (city_id, user_id)
+    FOREIGN KEY (city_id)
+    REFERENCES cities(id)
 	);
    
 CREATE TABLE locations ( /* CHECKED */
@@ -71,80 +68,74 @@ CREATE TABLE user_locations ( /* CHECKED */
     REFERENCES locations(id)
     );
     
-CREATE TABLE occupations ( /*CHECKED*/
+CREATE TABLE occupations ( /* CHECKED */
 	id INT PRIMARY KEY AUTO_INCREMENT,
     occupation VARCHAR(30) CHARACTER SET utf16 UNIQUE NOT NULL
 	);
 
-CREATE TABLE user_occupations ( /*CHECKED*/
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    occupation_id INT NOT NULL,
+CREATE TABLE user_occupations ( /* CHECKED */
     user_id INT NOT NULL,
+    occupation_id INT NOT NULL,
     
-    FOREIGN KEY (occupation_id)
-    REFERENCES occupations(id),
+    PRIMARY KEY (user_id, occupation_id),
     
     FOREIGN KEY (user_id)
     REFERENCES users(id),
     
-    CONSTRAINT uq_occupationsUsers 
-    UNIQUE (occupation_id, user_id)
+    FOREIGN KEY (occupation_id)
+    REFERENCES occupations(id)
 	);
 
-CREATE TABLE reasons ( /*CHECKED*/
+CREATE TABLE reasons ( /* CHECKED */
 	id INT PRIMARY KEY AUTO_INCREMENT,
     reason VARCHAR(50) CHARACTER SET utf16 UNIQUE NOT NULL
 	);
 
-CREATE TABLE user_reasons ( /*CHECKED*/
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    reason_id INT NOT NULL,
+CREATE TABLE user_reasons ( /* CHECKED */
     user_id INT NOT NULL,
+    reason_id INT NOT NULL,
     
-    FOREIGN KEY (reason_id)
-    REFERENCES reasons(id),
+    PRIMARY KEY (user_id, reason_id),
     
     FOREIGN KEY (user_id)
     REFERENCES users(id),
     
-    CONSTRAINT uq_reasonsUsers 
-    UNIQUE (reason_id, user_id)
+    FOREIGN KEY (reason_id)
+    REFERENCES reasons(id)
     );
     
-CREATE TABLE relationships ( /*CHECKED*/
+CREATE TABLE relationships ( /* CHECKED */
 	id INT PRIMARY KEY AUTO_INCREMENT,
     relationship VARCHAR(30) CHARACTER SET utf16 UNIQUE NOT NULL
 	);
 
-CREATE TABLE user_relationships ( /*CHECKED*/
-	id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE user_relationships ( /* CHECKED */
     relationship_id INT NOT NULL,
     user_id INT NOT NULL,
     
-    FOREIGN KEY (relationship_id)
-    REFERENCES relationships(id),
+    PRIMARY KEY (user_id, relationship_id),
     
     FOREIGN KEY (user_id)
     REFERENCES users(id),
     
-    CONSTRAINT uq_relationshipsUsers 
-    UNIQUE (relationship_id, user_id)
+    FOREIGN KEY (relationship_id)
+    REFERENCES relationships(id)
     );
     
-CREATE TABLE acquaintances ( /*CHECKED*/
+CREATE TABLE acquaintances ( /* CHECKED */
 	id INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(30) CHARACTER SET utf16 NOT NULL,
     last_name VARCHAR(30) CHARACTER SET utf16 NOT NULL,
     gender CHAR(1) NOT NULL,
-    occupation_id INT DEFAULT(1),
+    occupation_id INT NOT NULL,
     city_id INT NOT NULL,
     address VARCHAR(40) CHARACTER SET utf16,
     
     FOREIGN KEY (occupation_id)
-    REFERENCES user_occupations(id),
+    REFERENCES occupations(id),
     
     FOREIGN KEY (city_id)
-    REFERENCES user_cities(id),
+    REFERENCES cities(id),
     
     CONSTRAINT uq_acquaintancesRecords
     UNIQUE (first_name, last_name, city_id),
@@ -152,15 +143,16 @@ CREATE TABLE acquaintances ( /*CHECKED*/
     CONSTRAINT chk_genderValue
     CHECK (gender IN ('m','f'))
     );
-    
-CREATE TABLE meetings ( /*CHECKED*/
+
+CREATE TABLE user_meetings ( /* CHECKED */
 	user_id INT,
-    acquaintance_id INT NOT NULL,
+    acquaintance_id INT,
     date_time DATETIME,
     reason_id INT NOT NULL,
+    location_id INT NOT NULL,
     comments VARCHAR(1000) CHARACTER SET utf16,
     
-    PRIMARY KEY (user_id, date_time),
+    PRIMARY KEY (user_id, acquaintance_id, date_time),
     
     FOREIGN KEY (user_id)
     REFERENCES users(id),
@@ -169,10 +161,13 @@ CREATE TABLE meetings ( /*CHECKED*/
     REFERENCES acquaintances(id),
     
     FOREIGN KEY (reason_id)
-    REFERENCES reasons(id)
+    REFERENCES reasons(id),
+    
+    FOREIGN KEY (location_id)
+    REFERENCES locations(id)
     );
     
-CREATE TABLE user_acquaintance_relationships ( /*CHECKED*/
+CREATE TABLE user_acquaintance_relationships ( /* CHECKED */
 	user_id INT,
     acquaintance_id INT,
     relationship_id INT NOT NULL,
