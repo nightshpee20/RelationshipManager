@@ -53,6 +53,24 @@ CREATE TABLE user_cities (
     UNIQUE (city_id, user_id)
 	);
    
+CREATE TABLE locations ( /* CHECKED */
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    location VARCHAR(60) CHARACTER SET utf16 UNIQUE NOT NULL
+    );
+    
+CREATE TABLE user_locations ( /* CHECKED */
+	user_id INT,
+    location_id INT,
+    
+    PRIMARY KEY (user_id, location_id),
+    
+    FOREIGN KEY (user_id)
+    REFERENCES users(id),
+    
+    FOREIGN KEY (location_id)
+    REFERENCES locations(id)
+    );
+    
 CREATE TABLE occupations ( /*CHECKED*/
 	id INT PRIMARY KEY AUTO_INCREMENT,
     occupation VARCHAR(30) CHARACTER SET utf16 UNIQUE NOT NULL
