@@ -86,17 +86,30 @@ namespace rmanager
         //editDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString()
         private void editDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            string message = string.Empty;
+            switch(name)
+            {
+                case "cities":
+                    message = "Everything referencing this city (Acquaintances, Meetings, Locations) will be deleted as well! Are you sure you wish to continue?";
+                    break;
+                case "occupations":
+                    message = "Everything referencing this occupation (Acquaintances, Meetings(indirectly through acquaintances)) will be deleted as well! Are you sure you wish to continue?";
+                    break;
+                case "relationships":
+                    message = "Everything referencing this relationship (Acquaintances) will be deleted as well! Are you sure you wish to continue?";
+                    break;
+            }
+
             int city_id = (int) editDataGridView.Rows[e.RowIndex].Cells[1].Value;
             if (e.ColumnIndex == 3) 
             {
-                if(MessageBox.Show("Everything referencing this city (Acquaintances, Meetings, Locations) will be deleted as well! Are you sure you wish to continue?",
+                if(MessageBox.Show(message,
                                    "WARNING!", 
                                    MessageBoxButtons.YesNo, 
                                    MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     Utilities.MySqlCommandImproved($"DELETE FROM user_{name} WHERE user_id = {user_id} AND {column_name}_id = {city_id}");
                     editDataGridView.Rows.RemoveAt(e.RowIndex);
-                   //setDataGridValues(name);
                 }
    
             }
