@@ -9,10 +9,10 @@ BEGIN
     THEN SELECT * FROM acquaintances;
     ELSEIF tcode = 'c'
     THEN SELECT * FROM cities;
-    ELSEIF tcode = 'm'
-    THEN SELECT * FROM meetings;
     ELSEIF tcode = 'o'
     THEN SELECT * FROM occupations;
+    ELSEIF tcode = 'l'
+    THEN SELECT * FROM locations;
     ELSEIF tcode = 'rea'
     THEN SELECT * FROM reasons;
     ELSEIF tcode = 'rel'
@@ -23,13 +23,17 @@ BEGIN
     THEN SELECT * FROM user_acquaintance_relationships ORDER BY user_id, acquaintance_id;
     ELSEIF tcode = 'uc'
     THEN SELECT * FROM user_cities;
+    ELSEIF tcode = 'ul'
+    THEN SELECT * FROM user_locations;
+	ELSEIF tcode = 'um'
+    THEN SELECT * FROM user_meetings;
     ELSEIF tcode = 'uo'
     THEN SELECT * FROM user_occupations;
     ELSEIF tcode = 'urea'
     THEN SELECT * FROM user_reasons;
     ELSEIF tcode = 'urel'
     THEN SELECT * FROM user_relationships;
-    ELSE SELECT 'There is no such table! Try: \'a\', \'c\', \'m\', \'o\', \'rea\', \'rel\', \'u\', \'ua\', \'uo\', \'urea\', \'urel\'.'
+    ELSE SELECT 'There is no such table! Try: \'a\', \'c\', \'l\', \'o\', \'rea\', \'rel\', \'u\', \'ua\', \'uc\', \'ul\', \'um\', \'uo\', \'urea\', \'urel\'.'
     AS 'Error!' FROM DUAL;
     END IF;
 END$
@@ -61,9 +65,9 @@ DELIMITER ;
 
 /* CHECKED */
 DELIMITER $
-CREATE PROCEDURE sp_insertLocation (loc VARCHAR(60) CHARACTER SET utf16)
+CREATE PROCEDURE sp_insertLocation (loc VARCHAR(60) CHARACTER SET utf16, ct_id INT)
 BEGIN
-	INSERT INTO locations(location) VALUES(loc);
+	INSERT INTO locations(location, city_id) VALUES(loc, ct_id);
 END$
 DELIMITER ;
 
@@ -122,11 +126,10 @@ BEGIN
                                                   city_id = ct_id) = 0)
 	THEN 
 		CALL sp_insertAcquaintance(fn, ln, gen, ocp_id, ct_id, adrs);
-		SET @id := (SELECT id FROM acquaintances WHERE first_name = fn AND last_name = ln AND city_id = ct_id);
-	ELSE
-		SET @id := (SELECT id FROM acquaintances WHERE first_name = fn AND last_name = ln AND city_id = ct_id);
 	END IF;
-	
+    
+	SET @id := (SELECT id FROM acquaintances WHERE first_name = fn AND last_name = ln AND city_id = ct_id);
+    
     IF
 		(rel_id IN (SELECT relationship_id FROM user_relationships WHERE user_id = usr_id))
 	THEN
@@ -149,11 +152,9 @@ BEGIN
 		((SELECT COUNT(*) FROM cities WHERE city = ct) = 0)
     THEN 
 		CALL sp_insertCity(ct);
-		SET @id := (SELECT id FROM cities WHERE city = ct);
-    ELSE
-		SET @id := (SELECT id FROM cities WHERE city = ct);
     END IF;
     
+    SET @id := (SELECT id FROM cities WHERE city = ct);
     INSERT INTO user_cities(city_id, user_id) VALUES (@id, usr_id);
 END$
 DELIMITER ;
@@ -162,20 +163,20 @@ DELIMITER ;
 -- Similar to sp_insertUserAcquaintance
 /* CHECKED */
 DELIMITER $
-CREATE PROCEDURE sp_insertUserLocation (loc VARCHAR(60) CHARACTER SET utf16, usr_id INT)
+CREATE PROCEDURE sp_insertUserLocation (loc VARCHAR(60) CHARACTER SET utf16, ct_id INT, usr_id INT)
 BEGIN
 	IF
-		((SELECT COUNT(*) FROM locations WHERE location = loc) = 0)
+		((SELECT COUNT(*) FROM locations WHERE location = loc AND city_id = ct_id) = 0) 
+        AND ((SELECT COUNT(city_id) FROM user_cities WHERE user_id = usr_id AND city_id = ct_id) = 1)
 	THEN
-		CALL sp_insertLocation(loc);
-        SET @id := (SELECT id FROM locations WHERE location = loc);
-	ELSE
-		SET @id := (SELECT id FROM locations WHERE location = loc);
+		CALL sp_insertLocation(loc, ct_id);
 	END IF;
     
-    INSERT INTO user_locations(location_id, user_id) VALUES(@id, user_id);
+    SET @id := (SELECT id FROM locations WHERE location = loc AND city_id = ct_id);
+	INSERT INTO user_locations(user_id, location_id) VALUES(usr_id, @id);
 END$
 DELIMITER ;
+drop procedure sp_insertUserLocation;
 
 
 /* CHECKED */
@@ -196,11 +197,9 @@ BEGIN
 		((SELECT COUNT(*) FROM occupations WHERE occupation = occ) = 0)
     THEN 
 		CALL sp_insertOccupation(occ);
-		SET @id := (SELECT id FROM occupations WHERE occupation = occ);
-    ELSE
-		SET @id := (SELECT id FROM occupations WHERE occupation = occ);
     END IF;
     
+    SET @id := (SELECT id FROM occupations WHERE occupation = occ);
     INSERT INTO user_occupations(occupation_id, user_id) VALUES (@id, usr_id);
 END$
 DELIMITER ;
@@ -215,11 +214,9 @@ BEGIN
 		((SELECT COUNT(*) FROM reasons WHERE reason = rsn) = 0)
     THEN 
 		CALL sp_insertReason(rsn);
-		SET @id := (SELECT id FROM reasons WHERE reason = rsn);
-    ELSE
-		SET @id := (SELECT id FROM reasons WHERE reason = rsn);
     END IF;
     
+    SET @id := (SELECT id FROM reasons WHERE reason = rsn);
     INSERT INTO user_reasons(reason_id, user_id) VALUES (@id, usr_id);
 END$
 DELIMITER ;
@@ -234,11 +231,9 @@ BEGIN
 		((SELECT COUNT(*) FROM relationships WHERE relationship = rel) = 0)
     THEN 
 		INSERT INTO relationships(relationship) VALUES (rel);
-		SET @id := (SELECT id FROM relationships WHERE relationship = rel);
-    ELSE
-		SET @id := (SELECT id FROM relationships WHERE relationship = rel);
     END IF;
     
+    SET @id := (SELECT id FROM relationships WHERE relationship = rel);
     INSERT INTO user_relationships(relationship_id, user_id) VALUES (@id, usr_id);
 END$
 DELIMITER ;

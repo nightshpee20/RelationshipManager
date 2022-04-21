@@ -52,9 +52,16 @@ CREATE TABLE user_cities ( /* CHECKED */
    
 CREATE TABLE locations ( /* CHECKED */
 	id INT PRIMARY KEY AUTO_INCREMENT,
-    location VARCHAR(60) CHARACTER SET utf16 UNIQUE NOT NULL
-    );
+    location VARCHAR(60) CHARACTER SET utf16 NOT NULL,
+    city_id INT NOT NULL,
     
+    FOREIGN KEY (city_id)
+    REFERENCES cities(id),
+    
+    CONSTRAINT uq_locationsRecords
+    UNIQUE (location, city_id)
+    );
+   
 CREATE TABLE user_locations ( /* CHECKED */
 	user_id INT,
     location_id INT,
