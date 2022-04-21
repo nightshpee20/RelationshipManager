@@ -80,8 +80,18 @@ namespace rmanager
                 {
                     Id = (int)dt.Rows[i]["id"],
                     Value = (string)dt.Rows[i][column_name]
-                });   
+                });  
             }
+            setEditButtonText();
+        }
+        private void setEditButtonText()
+        {
+            for (int i = 0; i < editDataGridView.Rows.Count; i++)
+            {
+                var button = (DataGridViewButtonCell)editDataGridView.Rows[i].Cells[2];
+                button.Value = "Edit";
+            }
+            
         }
         //editDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString()
         private void editDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -111,7 +121,15 @@ namespace rmanager
                     Utilities.MySqlCommandImproved($"DELETE FROM user_{name} WHERE user_id = {user_id} AND {column_name}_id = {city_id}");
                     editDataGridView.Rows.RemoveAt(e.RowIndex);
                 }
-   
+            }
+
+            if (e.ColumnIndex == 2)
+            {
+                setEditButtonText();
+                var button = (DataGridViewButtonCell)editDataGridView.Rows[e.RowIndex].Cells[2];
+                //if (e.RowIndex == button.RowIndex) MessageBox.Show("yes"); else MessageBox.Show("no");
+                if (button.Value.ToString() == "Edit") button.Value = "Commit";
+                else button.Value = "Edit";
             }
         }
     }

@@ -17,8 +17,8 @@ namespace rmanager
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new mainForm());
-            Application.Run(new addAcquaintanceForm(1));
-            //Application.Run(new editForm("user_cities", 1));
+            //Application.Run(new addAcquaintanceForm(1));
+            Application.Run(new editForm("occupations", 1));
         }
     }
 }

@@ -90,7 +90,6 @@ namespace rmanager
             this.edit.MinimumWidth = 6;
             this.edit.Name = "edit";
             this.edit.Text = "Edit";
-            this.edit.UseColumnTextForButtonValue = true;
             // 
             // delete
             // 
