@@ -44,10 +44,12 @@ CREATE TABLE user_cities ( /* CHECKED */
     PRIMARY KEY (user_id, city_id),
     
     FOREIGN KEY (user_id)
-    REFERENCES users(id),
+    REFERENCES users(id)
+    ON DELETE CASCADE,
     
     FOREIGN KEY (city_id)
     REFERENCES cities(id)
+    ON DELETE CASCADE
 	);
    
 CREATE TABLE locations ( /* CHECKED */
@@ -56,7 +58,8 @@ CREATE TABLE locations ( /* CHECKED */
     city_id INT NOT NULL,
     
     FOREIGN KEY (city_id)
-    REFERENCES cities(id),
+    REFERENCES cities(id)
+    ON DELETE CASCADE,
     
     CONSTRAINT uq_locationsRecords
     UNIQUE (location, city_id)
@@ -69,10 +72,12 @@ CREATE TABLE user_locations ( /* CHECKED */
     PRIMARY KEY (user_id, location_id),
     
     FOREIGN KEY (user_id)
-    REFERENCES users(id),
+    REFERENCES users(id)
+    ON DELETE CASCADE,
     
     FOREIGN KEY (location_id)
     REFERENCES locations(id)
+    ON DELETE CASCADE
     );
     
 CREATE TABLE occupations ( /* CHECKED */
@@ -87,10 +92,12 @@ CREATE TABLE user_occupations ( /* CHECKED */
     PRIMARY KEY (user_id, occupation_id),
     
     FOREIGN KEY (user_id)
-    REFERENCES users(id),
+    REFERENCES users(id)
+    ON DELETE CASCADE,
     
     FOREIGN KEY (occupation_id)
     REFERENCES occupations(id)
+    ON DELETE CASCADE
 	);
 
 CREATE TABLE reasons ( /* CHECKED */
@@ -105,10 +112,12 @@ CREATE TABLE user_reasons ( /* CHECKED */
     PRIMARY KEY (user_id, reason_id),
     
     FOREIGN KEY (user_id)
-    REFERENCES users(id),
+    REFERENCES users(id)
+    ON DELETE CASCADE,
     
     FOREIGN KEY (reason_id)
     REFERENCES reasons(id)
+    ON DELETE CASCADE
     );
     
 CREATE TABLE relationships ( /* CHECKED */
@@ -123,10 +132,12 @@ CREATE TABLE user_relationships ( /* CHECKED */
     PRIMARY KEY (user_id, relationship_id),
     
     FOREIGN KEY (user_id)
-    REFERENCES users(id),
+    REFERENCES users(id)
+    ON DELETE CASCADE,
     
     FOREIGN KEY (relationship_id)
     REFERENCES relationships(id)
+    ON DELETE CASCADE
     );
     
 CREATE TABLE acquaintances ( /* CHECKED */
@@ -139,10 +150,12 @@ CREATE TABLE acquaintances ( /* CHECKED */
     address VARCHAR(40) CHARACTER SET utf16,
     
     FOREIGN KEY (occupation_id)
-    REFERENCES occupations(id),
+    REFERENCES occupations(id)
+    ON DELETE CASCADE,
     
     FOREIGN KEY (city_id)
-    REFERENCES cities(id),
+    REFERENCES cities(id)
+    ON DELETE CASCADE,
     
     CONSTRAINT uq_acquaintancesRecords
     UNIQUE (first_name, last_name, city_id),
@@ -162,16 +175,20 @@ CREATE TABLE user_meetings ( /* CHECKED */
     PRIMARY KEY (user_id, acquaintance_id, date_time),
     
     FOREIGN KEY (user_id)
-    REFERENCES users(id),
+    REFERENCES users(id)
+    ON DELETE CASCADE,
     
     FOREIGN KEY (acquaintance_id)
-    REFERENCES acquaintances(id),
+    REFERENCES acquaintances(id)
+    ON DELETE CASCADE,
     
     FOREIGN KEY (reason_id)
-    REFERENCES reasons(id),
+    REFERENCES reasons(id)
+    ON DELETE CASCADE,
     
     FOREIGN KEY (location_id)
     REFERENCES locations(id)
+    ON DELETE CASCADE
     );
     
 CREATE TABLE user_acquaintance_relationships ( /* CHECKED */
@@ -182,12 +199,15 @@ CREATE TABLE user_acquaintance_relationships ( /* CHECKED */
     PRIMARY KEY (user_id, acquaintance_id),
     
 	FOREIGN KEY (user_id)
-    REFERENCES users(id),
+    REFERENCES users(id)
+    ON DELETE CASCADE,
     
 	FOREIGN KEY (acquaintance_id)
-    REFERENCES acquaintances(id),
+    REFERENCES acquaintances(id)
+    ON DELETE CASCADE,
     
     FOREIGN KEY (relationship_id)
     REFERENCES relationships(id)
+    ON DELETE CASCADE
     );
         

@@ -6,33 +6,33 @@ DELIMITER $
 CREATE PROCEDURE showt (tcode VARCHAR(5)) 
 BEGIN
 	IF tcode = 'a'
-    THEN SELECT * FROM acquaintances;
+    THEN SELECT * FROM acquaintances ORDER BY id;
     ELSEIF tcode = 'c'
-    THEN SELECT * FROM cities;
+    THEN SELECT * FROM cities ORDER BY id;
     ELSEIF tcode = 'o'
-    THEN SELECT * FROM occupations;
+    THEN SELECT * FROM occupations ORDER BY id;
     ELSEIF tcode = 'l'
-    THEN SELECT * FROM locations;
+    THEN SELECT * FROM locations ORDER BY id;
     ELSEIF tcode = 'rea'
-    THEN SELECT * FROM reasons;
+    THEN SELECT * FROM reasons ORDER BY id;
     ELSEIF tcode = 'rel'
-    THEN SELECT * FROM relationships;
+    THEN SELECT * FROM relationships ORDER BY id;
     ELSEIF tcode = 'u'
-    THEN SELECT * FROM users;
+    THEN SELECT * FROM users ORDER BY id;
     ELSEIF tcode = 'ua'
     THEN SELECT * FROM user_acquaintance_relationships ORDER BY user_id, acquaintance_id;
     ELSEIF tcode = 'uc'
-    THEN SELECT * FROM user_cities;
+    THEN SELECT * FROM user_cities ORDER BY user_id;
     ELSEIF tcode = 'ul'
-    THEN SELECT * FROM user_locations;
+    THEN SELECT * FROM user_locations ORDER BY user_id;
 	ELSEIF tcode = 'um'
-    THEN SELECT * FROM user_meetings;
+    THEN SELECT * FROM user_meetings ORDER BY user_id;
     ELSEIF tcode = 'uo'
-    THEN SELECT * FROM user_occupations;
+    THEN SELECT * FROM user_occupations ORDER BY user_id;
     ELSEIF tcode = 'urea'
-    THEN SELECT * FROM user_reasons;
+    THEN SELECT * FROM user_reasons ORDER BY user_id;
     ELSEIF tcode = 'urel'
-    THEN SELECT * FROM user_relationships;
+    THEN SELECT * FROM user_relationships ORDER BY user_id;
     ELSE SELECT 'There is no such table! Try: \'a\', \'c\', \'l\', \'o\', \'rea\', \'rel\', \'u\', \'ua\', \'uc\', \'ul\', \'um\', \'uo\', \'urea\', \'urel\'.'
     AS 'Error!' FROM DUAL;
     END IF;
@@ -166,24 +166,36 @@ DELIMITER $
 CREATE PROCEDURE sp_insertUserLocation (loc VARCHAR(60) CHARACTER SET utf16, ct_id INT, usr_id INT)
 BEGIN
 	IF
-		((SELECT COUNT(*) FROM locations WHERE location = loc AND city_id = ct_id) = 0) 
-        AND ((SELECT COUNT(city_id) FROM user_cities WHERE user_id = usr_id AND city_id = ct_id) = 1)
+		((SELECT COUNT(city_id) FROM user_cities WHERE user_id = usr_id AND city_id = ct_id) = 1)
 	THEN
-		CALL sp_insertLocation(loc, ct_id);
+		IF
+			((SELECT COUNT(*) FROM locations WHERE location = loc AND city_id = ct_id) = 0) 
+		THEN
+			CALL sp_insertLocation(loc, ct_id);
+		END IF;
+            SET @id := (SELECT id FROM locations WHERE location = loc AND city_id = ct_id);
+			INSERT INTO user_locations(user_id, location_id) VALUES(usr_id, @id);
+	ELSE
+		SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Invalid city_id and user_id combination!', MYSQL_ERRNO = 1001;
 	END IF;
-    
-    SET @id := (SELECT id FROM locations WHERE location = loc AND city_id = ct_id);
-	INSERT INTO user_locations(user_id, location_id) VALUES(usr_id, @id);
 END$
 DELIMITER ;
-drop procedure sp_insertUserLocation;
 
 
 /* CHECKED */
 DELIMITER $ 
 CREATE PROCEDURE sp_insertUserMeeting (usr_id INT, acq_id INT, dt DATETIME, rsn_id INT, loc_id INT, cmnts VARCHAR(1000) CHARACTER SET utf16)
 BEGIN
-	INSERT INTO meetings(user_id, acquaintance_id, date_time, reason_id, location_id, comments) VALUES (usr_id, acq_id, dt, rsn_id, loc_id, cmnts);
+	IF
+		((SELECT COUNT(*) FROM user_reasons WHERE user_id = usr_id AND reason_id = rsn_id) = 0)
+        OR ((SELECT COUNT(*) FROM user_locations WHERE user_id = usr_id AND location_id = loc_id) = 0)
+	THEN
+		SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Invalid reason_id or location_id for this user!', MYSQL_ERRNO = 1001;
+	ELSE
+		INSERT INTO user_meetings(user_id, acquaintance_id, date_time, reason_id, location_id, comments) VALUES (usr_id, acq_id, dt, rsn_id, loc_id, cmnts);
+	END IF;
 END$
 DELIMITER ;
 
@@ -235,50 +247,5 @@ BEGIN
     
     SET @id := (SELECT id FROM relationships WHERE relationship = rel);
     INSERT INTO user_relationships(relationship_id, user_id) VALUES (@id, usr_id);
-END$
-DELIMITER ;
-
-
--- EXPERIMENTAL ----------------------------------------------------------------------------------------------------------
-
-DELIMITER $
-CREATE PROCEDURE sp_deleteUserAcquaintance (usr_id INT, acq_id INT)
-BEGIN
-	DELETE FROM user_acquaintance_relationships WHERE user_id = usr_id AND acquaintance_id = acq_id;
-END$
-DELIMITER ;
-
-
-DELIMITER $
-CREATE TRIGGER tg_del_deleteAllAcquaintancesWhichIdIsNotReferencedInUserAcquaintanceRelationships AFTER DELETE ON user_acquaintance_relationships FOR EACH ROW
-BEGIN
-	IF((SELECT COUNT(*) FROM user_acquaintance_relationships WHERE acquaintance_id = OLD.acquaintance_id) = 0)
-    THEN DELETE FROM acquaintances WHERE id = OLD.acquaintance_id;
-	END IF;
-END$
-DELIMITER ;
-
-
-DELIMITER $
-CREATE PROCEDURE sp_deleteUserCity (usr_id INT, ct_id INT)
-BEGIN
-	DELETE FROM user_cities WHERE user_id = usr_id AND city_id = ct_id;
-END$
-DELIMITER $
-
-
-DELIMITER $
-CREATE TRIGGER tg_del_
-
-CREATE PROCEDURE sp_deleteCity (ct_id INT)
-BEGIN
-	#MAKE INTO AN INDEPENDANT PROCEDURE
-	DELETE FROM user_acquaintance_relationships 
-	WHERE acquaintance_id IN (SELECT id FROM acquaintances WHERE city_id = ct);
-    
-    #MAKE INTO AN INDEPENDAT PROCEDURE
-    DELETE FROM acquaintances WHERE city_id = ct;
-
-    DELETE FROM user_cities WHERE city_id = ct;
 END$
 DELIMITER ;
