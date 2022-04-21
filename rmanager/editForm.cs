@@ -14,22 +14,60 @@ namespace rmanager
     public partial class editForm : Form
     {
         private int user_id;
+        private string name;
+        private string column_name;
         public editForm(string name, int user_id)
         {
             InitializeComponent();
             this.Text = Utilities.CapitalizeFirstLetters($"{name} Edit Form");
             this.user_id = user_id;
+            this.name = name;
+            switch(name)
+            {
+                case "cities":
+                    column_name = "city";
+                    break;
+                case "occupations":
+                    column_name = "occupation";
+                    break;
+                case "relationships":
+                    column_name = "relationship";
+                    break;
+            }
             setDataGridValues(name);
         }
         
         private void setDataGridValues(string name)
         {
+            MySqlDataAdapter da = new MySqlDataAdapter();
+            switch(name)
+            {
+                case "cities":
+                    da = new MySqlDataAdapter($"SELECT c.city, c.id, uc.user_id " +
+                                              $"FROM user_cities uc " +
+                                              $"JOIN cities c ON uc.city_id = c.id " +
+                                              $"WHERE user_id = {user_id} " +
+                                              $"ORDER BY c.city ASC;", Connect.con);
+                    break;
+
+                case "occupations":
+                    da = new MySqlDataAdapter($"SELECT o.occupation, o.id, uo.user_id " +
+                                              $"FROM user_occupations uo " +
+                                              $"JOIN occupations o ON uo.occupation_id = o.id " +
+                                              $"WHERE user_id = {user_id} " +
+                                              $"ORDER BY o.occupation ASC;", Connect.con);
+                    break;
+
+                case "relationships":
+                    da = new MySqlDataAdapter($"SELECT r.relationship, r.id, ur.user_id " +
+                                              $"FROM user_relationships ur " +
+                                              $"JOIN relationships r ON ur.relationship_id = r.id " +
+                                              $"WHERE user_id = {user_id} " +
+                                              $"ORDER BY r.relationship ASC;", Connect.con);
+                    break;
+
+            }
             
-            MySqlDataAdapter da = new MySqlDataAdapter($"SELECT c.city, c.id, uc.user_id " +
-                                                       $"FROM user_cities uc " +
-                                                       $"JOIN cities c ON uc.city_id = c.id " +
-                                                       $"WHERE user_id IN ({user_id}, 2) " +
-                                                       $"ORDER BY c.city ASC;", Connect.con);
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
        
@@ -41,7 +79,7 @@ namespace rmanager
                 editFormDataGridRecordBindingSource.Add(new editFormDataGridRecord()
                 {
                     Id = (int)dt.Rows[i]["id"],
-                    Value = (string)dt.Rows[i]["city"]
+                    Value = (string)dt.Rows[i][column_name]
                 });   
             }
         }
@@ -51,17 +89,16 @@ namespace rmanager
             int city_id = (int) editDataGridView.Rows[e.RowIndex].Cells[1].Value;
             if (e.ColumnIndex == 3) 
             {
-                Utilities.MySqlCommandImproved($"DELETE FROM user_acquaintance_relationships " +
-                                               $"WHERE user_id = {user_id}" +
-                                               $"AND acquaintance_id IN (SELECT id FROM acquaintances WHERE city_id = {city_id});");
-
-                Utilities.MySqlCommandImproved($"DELETE FROM acquaintaces WHERE city_id = {city_id}");
-
-                Utilities.MySqlCommandImproved($"DELETE FROM user_cities " +
-                                               $"WHERE city_id = {city_id}" +
-                                               $"AND user_id = {user_id};");
-                
-               
+                if(MessageBox.Show("Everything referencing this city (Acquaintances, Meetings, Locations) will be deleted as well! Are you sure you wish to continue?",
+                                   "WARNING!", 
+                                   MessageBoxButtons.YesNo, 
+                                   MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    Utilities.MySqlCommandImproved($"DELETE FROM user_{name} WHERE user_id = {user_id} AND {column_name}_id = {city_id}");
+                    editDataGridView.Rows.RemoveAt(e.RowIndex);
+                   //setDataGridValues(name);
+                }
+   
             }
         }
     }

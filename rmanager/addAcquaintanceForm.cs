@@ -106,6 +106,18 @@ namespace rmanager
             editForm edit = new editForm("cities", user_id);
             edit.Show();
         }
+
+        private void occupationsDropDrownEditButton_Click(object sender, EventArgs e)
+        {
+            editForm edit = new editForm("occupations", user_id);
+            edit.Show();
+        }
+
+        private void relationshipsDropDownEditButton_Click(object sender, EventArgs e)
+        {
+            editForm edit = new editForm("relationships", user_id);
+            edit.Show();
+        }
     }
 }
 

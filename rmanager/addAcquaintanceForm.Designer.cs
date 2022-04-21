@@ -204,6 +204,7 @@ namespace rmanager
             this.occupationsDropDrownEditButton.TabIndex = 17;
             this.occupationsDropDrownEditButton.Text = "Edit";
             this.occupationsDropDrownEditButton.UseVisualStyleBackColor = true;
+            this.occupationsDropDrownEditButton.Click += new System.EventHandler(this.occupationsDropDrownEditButton_Click);
             // 
             // relationshipsDropDownEditButton
             // 
@@ -214,6 +215,7 @@ namespace rmanager
             this.relationshipsDropDownEditButton.TabIndex = 18;
             this.relationshipsDropDownEditButton.Text = "Edit";
             this.relationshipsDropDownEditButton.UseVisualStyleBackColor = true;
+            this.relationshipsDropDownEditButton.Click += new System.EventHandler(this.relationshipsDropDownEditButton_Click);
             // 
             // genderLabel
             // 
