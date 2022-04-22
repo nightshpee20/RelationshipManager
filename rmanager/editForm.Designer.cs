@@ -58,6 +58,7 @@ namespace rmanager
             this.editDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editDataGridView.Location = new System.Drawing.Point(0, 0);
             this.editDataGridView.Name = "editDataGridView";
+            this.editDataGridView.ReadOnly = true;
             this.editDataGridView.RowHeadersWidth = 51;
             this.editDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.editDataGridView.RowTemplate.Height = 24;
@@ -71,6 +72,7 @@ namespace rmanager
             this.edit.HeaderText = "Edit Row";
             this.edit.MinimumWidth = 6;
             this.edit.Name = "edit";
+            this.edit.ReadOnly = true;
             this.edit.Text = "Edit";
             // 
             // delete
@@ -78,6 +80,7 @@ namespace rmanager
             this.delete.HeaderText = "Delete Row";
             this.delete.MinimumWidth = 6;
             this.delete.Name = "delete";
+            this.delete.ReadOnly = true;
             this.delete.Text = "Delete";
             this.delete.UseColumnTextForButtonValue = true;
             // 
@@ -87,6 +90,7 @@ namespace rmanager
             this.valueDataGridViewTextBoxColumn.HeaderText = "Value";
             this.valueDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.valueDataGridViewTextBoxColumn.Name = "valueDataGridViewTextBoxColumn";
+            this.valueDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -94,6 +98,7 @@ namespace rmanager
             this.idDataGridViewTextBoxColumn.HeaderText = "Id";
             this.idDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
             this.idDataGridViewTextBoxColumn.Visible = false;
             // 
             // editFormDataGridRecordBindingSource

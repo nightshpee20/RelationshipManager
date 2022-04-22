@@ -84,15 +84,6 @@ namespace rmanager
             }
            
         }
-        private void setEditButtonText()
-        {
-            for (int i = 0; i < editDataGridView.Rows.Count; i++)
-            {
-                var button = (DataGridViewButtonCell)editDataGridView.Rows[i].Cells[2];
-                button.Value = "Edit";
-            }
-            
-        }
         //editDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString()
         private void editDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -127,14 +118,27 @@ namespace rmanager
             {
                 var button = (DataGridViewButtonCell)editDataGridView.Rows[e.RowIndex].Cells[2];
                 //if (e.RowIndex == button.RowIndex) MessageBox.Show("yes"); else MessageBox.Show("no");
-                if (button.Value.ToString() == "Edit") button.Value = "Commit";
-                else button.Value = "Edit";
+                if (button.Value.ToString() == "Edit")
+                {
+                    button.Value = "Commit";
+                    //editDataGridView.ReadOnly = false;
+                }
+                else if (button.Value.ToString() == "Commit")
+                {
+                    button.Value = "Edit";
+                    //editDataGridView.ReadOnly = false;
+                }
+                
             }
         }
 
         private void editDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            setEditButtonText();
+        { 
+            for (int i = 0; i < editDataGridView.Rows.Count; i++)
+            {
+                var button = (DataGridViewButtonCell)editDataGridView.Rows[i].Cells[2];
+                button.Value = "Edit";
+            }
         }
     }
 }
