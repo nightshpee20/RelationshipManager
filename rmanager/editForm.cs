@@ -80,9 +80,9 @@ namespace rmanager
                 {
                     Id = (int)dt.Rows[i]["id"],
                     Value = (string)dt.Rows[i][column_name]
-                });  
+                });
             }
-            setEditButtonText();
+           
         }
         private void setEditButtonText()
         {
@@ -125,12 +125,16 @@ namespace rmanager
 
             if (e.ColumnIndex == 2)
             {
-                setEditButtonText();
                 var button = (DataGridViewButtonCell)editDataGridView.Rows[e.RowIndex].Cells[2];
                 //if (e.RowIndex == button.RowIndex) MessageBox.Show("yes"); else MessageBox.Show("no");
                 if (button.Value.ToString() == "Edit") button.Value = "Commit";
                 else button.Value = "Edit";
             }
+        }
+
+        private void editDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            setEditButtonText();
         }
     }
 }
