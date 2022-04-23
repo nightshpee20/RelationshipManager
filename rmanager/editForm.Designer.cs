@@ -49,6 +49,7 @@ namespace rmanager
             this.editDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.editDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.editDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.editDataGridView.ColumnHeadersVisible = false;
             this.editDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.valueDataGridViewTextBoxColumn,
             this.idDataGridViewTextBoxColumn,
@@ -58,7 +59,7 @@ namespace rmanager
             this.editDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editDataGridView.Location = new System.Drawing.Point(0, 0);
             this.editDataGridView.Name = "editDataGridView";
-            this.editDataGridView.ReadOnly = true;
+            this.editDataGridView.RowHeadersVisible = false;
             this.editDataGridView.RowHeadersWidth = 51;
             this.editDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.editDataGridView.RowTemplate.Height = 24;
