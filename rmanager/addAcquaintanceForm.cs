@@ -13,9 +13,9 @@ namespace rmanager
 {
     public partial class addAcquaintanceForm : Form
     {
-        private userProfile user;
+        private userProfileForm user;
         private int user_id;
-        public addAcquaintanceForm(userProfile user, int user_id)
+        public addAcquaintanceForm(userProfileForm user, int user_id)
         {
             InitializeComponent();
             this.user = user;

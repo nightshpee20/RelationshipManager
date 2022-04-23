@@ -71,11 +71,11 @@
     <Compile Include="Connect.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="userProfile.cs">
+    <Compile Include="userProfileForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="userProfile.Designer.cs">
-      <DependentUpon>userProfile.cs</DependentUpon>
+    <Compile Include="userProfileForm.Designer.cs">
+      <DependentUpon>userProfileForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities.cs" />
     <EmbeddedResource Include="addAcquaintanceForm.resx">
@@ -97,8 +97,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="userProfile.resx">
-      <DependentUpon>userProfile.cs</DependentUpon>
+    <EmbeddedResource Include="userProfileForm.resx">
+      <DependentUpon>userProfileForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\editFormDataGridRecord.datasource" />
     <None Include="Properties\DataSources\editFormDataGridView.datasource" />

@@ -39,7 +39,6 @@ C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\obj\Debug\Relati
 C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\obj\Debug\RelationshipManager.csproj.CoreCompileInputs.cache
 C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\obj\Debug\RelationshipManager.csproj.CopyComplete
 C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\obj\Debug\rmanager.mainForm.resources
-C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\obj\Debug\rmanager.userProfile.resources
 C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\bin\Debug\RelationshipManager.exe.config
 C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\bin\Debug\RelationshipManager.exe
 C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\bin\Debug\RelationshipManager.pdb
@@ -50,3 +49,4 @@ C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\obj\Debug\Relati
 C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\obj\Debug\RelationshipManager.pdb
 C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\obj\Debug\rmanager.editForm.resources
 C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\obj\Debug\RelationshipManager.csproj.AssemblyReference.cache
+C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\obj\Debug\rmanager.userProfileForm.resources

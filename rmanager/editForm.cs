@@ -102,82 +102,16 @@ namespace rmanager
             }
 
             int city_id = (int) editDataGridView.Rows[e.RowIndex].Cells[1].Value;
-            if (e.ColumnIndex == 3) 
+            if (e.ColumnIndex == 3)
             {
-                if(MessageBox.Show(message,
-                                   "WARNING!", 
-                                   MessageBoxButtons.YesNo, 
+                if (MessageBox.Show(message,
+                                   "WARNING!",
+                                   MessageBoxButtons.YesNo,
                                    MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     Utilities.MySqlCommandImproved($"DELETE FROM user_{name} WHERE user_id = {user_id} AND {column_name}_id = {city_id}");
                     editDataGridView.Rows.RemoveAt(e.RowIndex);
                 }
-            }
-
-            if (e.ColumnIndex == 2)
-            {
-                var button = (DataGridViewButtonCell)editDataGridView.Rows[e.RowIndex].Cells[2];
-                //if (e.RowIndex == button.RowIndex) MessageBox.Show("yes"); else MessageBox.Show("no");
-                switch(button.Value.ToString())
-                {
-                    case "Edit":
-                        button.Value = "Commit";
-                        foreach (DataGridViewRow row in editDataGridView.Rows)
-                        {
-                            if (row.Index == button.RowIndex)
-                            {
-                                editDataGridView.Rows[row.Index].Cells[0].ReadOnly = false;
-                            }
-                        }
-                        break;
-
-                    case "Commit":
-                        button.Value = "Edit";
-                        foreach (DataGridViewRow row in editDataGridView.Rows)
-                        {
-                            editDataGridView.Rows[row.Index].Cells[0].ReadOnly = true;
-                        }
-                        break;
-                }
-
-                //if (button.Value.ToString() == "Edit")
-                //{
-                //    button.Value = "Commit";
-                //    foreach (DataGridViewRow row in editDataGridView.Rows)
-                //    {
-                //        if (row.Index == button.RowIndex)
-                //        {
-                //                editDataGridView.Rows[row.Index].Cells[0].ReadOnly = false;
-                //        }
-                //    }
-                //    //DataGridViewTextBoxCell value;
-                //    //for (int i = 0; i < editDataGridView.Rows.Count; i++)
-                //    //{
-                //    //    value = (DataGridViewTextBoxCell)editDataGridView.Rows[i].Cells[0];
-                //    //    value.Value = "BRUH";
-                //    //}
-                //    //editDataGridView.ReadOnly = false;
-                //}
-                //else if (button.Value.ToString() == "Commit")
-                //{
-                //    button.Value = "Edit";
-                //    foreach (DataGridViewRow row in editDataGridView.Rows)
-                //    {
-                //        editDataGridView.Rows[row.Index].Cells[0].ReadOnly = true;
-                //    }
-                //    //editDataGridView.ReadOnly = false;
-                //}
-                
-            }
-        }
-
-        private void editDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            DataGridViewButtonCell button;
-            for (int i = 0; i < editDataGridView.Rows.Count; i++)
-            {
-                button = (DataGridViewButtonCell)editDataGridView.Rows[i].Cells[2];
-                button.Value = "Edit";
             }
         }
     }

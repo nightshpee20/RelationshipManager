@@ -12,14 +12,14 @@ using System.Data.SqlClient;
 
 namespace rmanager
 {
-    public partial class userProfile : Form
+    public partial class userProfileForm : Form
     {
         private int user_id;
         private mainForm main;
         public List<string> user_info = new List<string>();
        
 
-        public userProfile(mainForm main, int user_id)
+        public userProfileForm(mainForm main, int user_id)
         {
             InitializeComponent();
             this.main = main;

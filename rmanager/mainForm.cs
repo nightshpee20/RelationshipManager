@@ -87,7 +87,7 @@ namespace rmanager
             else 
             {
                 this.Hide();
-                userProfile user = new userProfile(this, user_id);
+                userProfileForm user = new userProfileForm(this, user_id);
                 user.Show();
             }
         }
