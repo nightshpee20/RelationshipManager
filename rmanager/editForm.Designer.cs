@@ -31,10 +31,10 @@ namespace rmanager
         {
             this.components = new System.ComponentModel.Container();
             this.editDataGridView = new System.Windows.Forms.DataGridView();
-            this.valueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.valueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.editFormDataGridRecordBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.editDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.editFormDataGridRecordBindingSource)).BeginInit();
@@ -56,20 +56,43 @@ namespace rmanager
             this.edit,
             this.delete});
             this.editDataGridView.DataSource = this.editFormDataGridRecordBindingSource;
-            this.editDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editDataGridView.Location = new System.Drawing.Point(0, 0);
             this.editDataGridView.Name = "editDataGridView";
             this.editDataGridView.RowHeadersVisible = false;
             this.editDataGridView.RowHeadersWidth = 51;
             this.editDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.editDataGridView.RowTemplate.Height = 24;
-            this.editDataGridView.Size = new System.Drawing.Size(653, 450);
+            this.editDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.editDataGridView.Size = new System.Drawing.Size(471, 132);
             this.editDataGridView.TabIndex = 0;
             this.editDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.editDataGridView_CellClick);
+            this.editDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.editDataGridView_DataBindingComplete);
+            this.editDataGridView.MouseHover += new System.EventHandler(this.editDataGridView_MouseHover);
+            // 
+            // edit
+            // 
+            this.edit.FillWeight = 33.88106F;
+            this.edit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.edit.HeaderText = "Edit Row";
+            this.edit.MinimumWidth = 6;
+            this.edit.Name = "edit";
+            this.edit.ReadOnly = true;
+            this.edit.Text = "Edit";
+            // 
+            // delete
+            // 
+            this.delete.FillWeight = 33.74866F;
+            this.delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.delete.HeaderText = "Delete Row";
+            this.delete.MinimumWidth = 6;
+            this.delete.Name = "delete";
+            this.delete.ReadOnly = true;
+            this.delete.Text = "Delete";
             // 
             // valueDataGridViewTextBoxColumn
             // 
             this.valueDataGridViewTextBoxColumn.DataPropertyName = "Value";
+            this.valueDataGridViewTextBoxColumn.FillWeight = 33.37029F;
             this.valueDataGridViewTextBoxColumn.HeaderText = "Value";
             this.valueDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.valueDataGridViewTextBoxColumn.Name = "valueDataGridViewTextBoxColumn";
@@ -84,23 +107,6 @@ namespace rmanager
             this.idDataGridViewTextBoxColumn.ReadOnly = true;
             this.idDataGridViewTextBoxColumn.Visible = false;
             // 
-            // edit
-            // 
-            this.edit.HeaderText = "Edit Row";
-            this.edit.MinimumWidth = 6;
-            this.edit.Name = "edit";
-            this.edit.ReadOnly = true;
-            this.edit.Text = "Edit";
-            // 
-            // delete
-            // 
-            this.delete.HeaderText = "Delete Row";
-            this.delete.MinimumWidth = 6;
-            this.delete.Name = "delete";
-            this.delete.ReadOnly = true;
-            this.delete.Text = "Delete";
-            this.delete.UseColumnTextForButtonValue = true;
-            // 
             // editFormDataGridRecordBindingSource
             // 
             this.editFormDataGridRecordBindingSource.DataSource = typeof(rmanager.editFormDataGridRecord);
@@ -109,8 +115,10 @@ namespace rmanager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(653, 450);
+            this.ClientSize = new System.Drawing.Size(471, 450);
             this.Controls.Add(this.editDataGridView);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "editForm";
             this.Text = "Edit Form";
             ((System.ComponentModel.ISupportInitialize)(this.editDataGridView)).EndInit();
