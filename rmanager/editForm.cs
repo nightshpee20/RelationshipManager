@@ -34,7 +34,7 @@ namespace rmanager
                     column_name = "relationship";
                     break;
             }
-            addRow("bruh");
+            addRow();
         }
         
         private void setDataGridValues(string name)
@@ -80,28 +80,35 @@ namespace rmanager
         private TextBox addTextBox()
         {
             TextBox txt = new TextBox();
+            //txt.Top = 47;
+            //txt.Left = 8;
+            //txt.Text = textBoxValue;
+            txt.Font = new Font(txt.Font.FontFamily, 12);
+            txt.Width = 122;
+
             return txt;
         }
         private Button addButton()
         {
             Button btn = new Button();
+            //btn.Top = 47;
+            //btn.Left = 134;
+            btn.Height = 31;
+            btn.Width = 80;
             return btn;
         }
-        private void addRow(string textBoxValue)
+        //TextBox txt, Button edt, Button del
+        private void addRow()
         {
-            TextBox txt = new TextBox();
-            this.Controls.Add(txt);
-            txt.Top = 35;
-            txt.Left = 25;
-            txt.Text = textBoxValue;
-            txt.Font = new Font(txt.Font.FontFamily, 16);
-            txt.Width = 122;
+            Panel pnl = new Panel();
+            this.Controls.Add(pnl);
 
-            Button btn = new Button();
-            this.Controls.Add(btn);
-            btn.Top = 35;
-            btn.Left = 157;
-            btn.Height = 31;
+            pnl.Top = 47;
+            pnl.Left = 8;
+            pnl.Height = 31;
+            pnl.Width = 290;
+            pnl.BackColor = Color.DarkGray;
+            
         }
     }
 }

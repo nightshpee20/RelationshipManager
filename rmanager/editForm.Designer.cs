@@ -30,8 +30,6 @@ namespace rmanager
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -53,31 +51,16 @@ namespace rmanager
             this.button15 = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
             this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.editFormDataGridRecordBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.editFormDataGridRecordBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(340, 43);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(106, 38);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(214, 43);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(106, 38);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(214, 87);
+            this.button3.Location = new System.Drawing.Point(178, 102);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(106, 38);
             this.button3.TabIndex = 8;
@@ -86,7 +69,7 @@ namespace rmanager
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(340, 87);
+            this.button4.Location = new System.Drawing.Point(290, 102);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(106, 38);
             this.button4.TabIndex = 7;
@@ -96,14 +79,14 @@ namespace rmanager
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(33, 87);
+            this.textBox1.Location = new System.Drawing.Point(11, 102);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(161, 38);
             this.textBox1.TabIndex = 6;
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(214, 131);
+            this.button5.Location = new System.Drawing.Point(178, 146);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(106, 38);
             this.button5.TabIndex = 11;
@@ -112,7 +95,7 @@ namespace rmanager
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(340, 131);
+            this.button6.Location = new System.Drawing.Point(290, 146);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(106, 38);
             this.button6.TabIndex = 10;
@@ -122,14 +105,14 @@ namespace rmanager
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(33, 131);
+            this.textBox2.Location = new System.Drawing.Point(11, 146);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(161, 38);
             this.textBox2.TabIndex = 9;
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(214, 175);
+            this.button7.Location = new System.Drawing.Point(178, 190);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(106, 38);
             this.button7.TabIndex = 14;
@@ -138,7 +121,7 @@ namespace rmanager
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(340, 175);
+            this.button8.Location = new System.Drawing.Point(290, 190);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(106, 38);
             this.button8.TabIndex = 13;
@@ -148,14 +131,14 @@ namespace rmanager
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(33, 175);
+            this.textBox3.Location = new System.Drawing.Point(11, 190);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(161, 38);
             this.textBox3.TabIndex = 12;
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(214, 219);
+            this.button9.Location = new System.Drawing.Point(178, 234);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(106, 38);
             this.button9.TabIndex = 17;
@@ -164,7 +147,7 @@ namespace rmanager
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(340, 219);
+            this.button10.Location = new System.Drawing.Point(290, 234);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(106, 38);
             this.button10.TabIndex = 16;
@@ -174,14 +157,14 @@ namespace rmanager
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(33, 219);
+            this.textBox4.Location = new System.Drawing.Point(11, 234);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(161, 38);
             this.textBox4.TabIndex = 15;
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(214, 263);
+            this.button11.Location = new System.Drawing.Point(178, 278);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(106, 38);
             this.button11.TabIndex = 20;
@@ -190,7 +173,7 @@ namespace rmanager
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(340, 263);
+            this.button12.Location = new System.Drawing.Point(290, 278);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(106, 38);
             this.button12.TabIndex = 19;
@@ -200,14 +183,14 @@ namespace rmanager
             // textBox5
             // 
             this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(33, 263);
+            this.textBox5.Location = new System.Drawing.Point(11, 278);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(161, 38);
             this.textBox5.TabIndex = 18;
             // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(214, 307);
+            this.button13.Location = new System.Drawing.Point(178, 322);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(106, 38);
             this.button13.TabIndex = 23;
@@ -216,7 +199,7 @@ namespace rmanager
             // 
             // button14
             // 
-            this.button14.Location = new System.Drawing.Point(340, 307);
+            this.button14.Location = new System.Drawing.Point(290, 322);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(106, 38);
             this.button14.TabIndex = 22;
@@ -226,14 +209,14 @@ namespace rmanager
             // textBox6
             // 
             this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox6.Location = new System.Drawing.Point(33, 307);
+            this.textBox6.Location = new System.Drawing.Point(11, 322);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(161, 38);
             this.textBox6.TabIndex = 21;
             // 
             // button15
             // 
-            this.button15.Location = new System.Drawing.Point(340, 351);
+            this.button15.Location = new System.Drawing.Point(290, 366);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(106, 38);
             this.button15.TabIndex = 26;
@@ -242,7 +225,7 @@ namespace rmanager
             // 
             // button16
             // 
-            this.button16.Location = new System.Drawing.Point(214, 351);
+            this.button16.Location = new System.Drawing.Point(178, 366);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(106, 38);
             this.button16.TabIndex = 25;
@@ -252,10 +235,38 @@ namespace rmanager
             // textBox7
             // 
             this.textBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox7.Location = new System.Drawing.Point(33, 351);
+            this.textBox7.Location = new System.Drawing.Point(11, 366);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(161, 38);
             this.textBox7.TabIndex = 24;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(5, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(95, 36);
+            this.label1.TabIndex = 29;
+            this.label1.Text = "label1";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(178, 58);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(106, 38);
+            this.button1.TabIndex = 32;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(290, 58);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(106, 38);
+            this.button2.TabIndex = 31;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // editFormDataGridRecordBindingSource
             // 
@@ -265,7 +276,10 @@ namespace rmanager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(471, 450);
+            this.ClientSize = new System.Drawing.Size(408, 416);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button15);
             this.Controls.Add(this.button16);
             this.Controls.Add(this.textBox7);
@@ -287,8 +301,6 @@ namespace rmanager
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "editForm";
@@ -301,8 +313,6 @@ namespace rmanager
 
         #endregion
         private System.Windows.Forms.BindingSource editFormDataGridRecordBindingSource;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox textBox1;
@@ -324,5 +334,8 @@ namespace rmanager
         private System.Windows.Forms.Button button15;
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
