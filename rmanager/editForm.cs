@@ -34,9 +34,7 @@ namespace rmanager
                     column_name = "relationship";
                     break;
             }
-            setDataGridValues(name);
-            editDataGridView.Height = 179;
-            this.Height = 218;
+            addRow("bruh");
         }
         
         private void setDataGridValues(string name)
@@ -76,77 +74,34 @@ namespace rmanager
             da.Fill(ds, name);
             dt = ds.Tables[name];
 
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                editFormDataGridRecordBindingSource.Add(new editFormDataGridRecord()
-                {
-                    Id = (int)dt.Rows[i]["id"],
-                    Value = Utilities.CapitalizeFirstLetters((string)dt.Rows[i][column_name])
-                });
-            }
 
-            editFormDataGridRecordBindingSource.Add(new editFormDataGridRecord()
-            {
-                Id = dt.Rows.Count,
-                Value = ""
-            });  
-        }
-        //editDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString()
-        private void editDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            string message = string.Empty;
-            switch(name)
-            {
-                case "cities":
-                    message = "Everything referencing this city (Acquaintances, Meetings, Locations) will be deleted as well! Are you sure you wish to continue?";
-                    break;
-                case "occupations":
-                    message = "Everything referencing this occupation (Acquaintances, Meetings(indirectly through acquaintances)) will be deleted as well! Are you sure you wish to continue?";
-                    break;
-                case "relationships":
-                    message = "Everything referencing this relationship (Acquaintances) will be deleted as well! Are you sure you wish to continue?";
-                    break;
-            }
-
-            int city_id = (int) editDataGridView.Rows[e.RowIndex].Cells[1].Value;
-            if (e.ColumnIndex == 3)
-            {
-                if(editDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "Delete")
-                { 
-                    if (MessageBox.Show(message,
-                                       "WARNING!",
-                                       MessageBoxButtons.YesNo,
-                                       MessageBoxIcon.Warning) == DialogResult.Yes)
-                    {
-                        Utilities.MySqlCommandImproved($"DELETE FROM user_{name} WHERE user_id = {user_id} AND {column_name}_id = {city_id}");
-                        editDataGridView.Rows.RemoveAt(e.RowIndex);
-                    }
-                }else
-                {
-                    this.Close();
-                }
-                
-            }
-            Point pt = Cursor.Position;
-            MessageBox.Show(pt.X + " " + pt.Y);
         }
 
-        private void editDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        private TextBox addTextBox()
         {
-            for (int i = 0; i < editDataGridView.Rows.Count - 1; i++)
-            {
-                editDataGridView.Rows[i].Cells[2].Value = "Edit";
-                editDataGridView.Rows[i].Cells[3].Value = "Delete";
-            }
-            editDataGridView.Rows[editDataGridView.Rows.Count - 1].Cells[0].ReadOnly = false;
-            editDataGridView.Rows[editDataGridView.Rows.Count - 1].Cells[2].Value = "Add New";
-            editDataGridView.Rows[editDataGridView.Rows.Count - 1].Cells[3].Value = "Exit";
+            TextBox txt = new TextBox();
+            return txt;
         }
-
-        private void editDataGridView_MouseHover(object sender, EventArgs e)
+        private Button addButton()
         {
-            
-            //MessageBox.Show(GetChildAtPoint(Cursor.Position).ToString());
+            Button btn = new Button();
+            return btn;
+        }
+        private void addRow(string textBoxValue)
+        {
+            TextBox txt = new TextBox();
+            this.Controls.Add(txt);
+            txt.Top = 35;
+            txt.Left = 25;
+            txt.Text = textBoxValue;
+            txt.Font = new Font(txt.Font.FontFamily, 16);
+            txt.Width = 122;
+
+            Button btn = new Button();
+            this.Controls.Add(btn);
+            btn.Top = 35;
+            btn.Left = 157;
+            btn.Height = 31;
         }
     }
 }
