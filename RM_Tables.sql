@@ -54,7 +54,7 @@ CREATE TABLE user_cities ( /* CHECKED */
    
 CREATE TABLE locations ( /* CHECKED */
 	id INT PRIMARY KEY AUTO_INCREMENT,
-    location VARCHAR(60) CHARACTER SET utf16 NOT NULL,
+    location VARCHAR(40) CHARACTER SET utf16 NOT NULL,
     city_id INT NOT NULL,
     
     FOREIGN KEY (city_id)

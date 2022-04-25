@@ -76,6 +76,7 @@ CALL sp_insertUserOccupation('Programmer', 1);
 CALL sp_insertUserOccupation('Professor', 1);
 CALL sp_insertUserOccupation('Yoga Instructor', 1);
 CALL sp_insertUserOccupation('Bartender', 1);
+CALL sp_insertUserOccupation('Drives a roocked to the moon', 1);
 
 CALL sp_insertUserOccupation('Unemployed', 2);
 CALL sp_insertUserOccupation('Attourney', 2);

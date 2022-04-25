@@ -65,7 +65,7 @@ DELIMITER ;
 
 /* CHECKED */
 DELIMITER $
-CREATE PROCEDURE sp_insertLocation (loc VARCHAR(60) CHARACTER SET utf16, ct_id INT)
+CREATE PROCEDURE sp_insertLocation (loc VARCHAR(40) CHARACTER SET utf16, ct_id INT)
 BEGIN
 	INSERT INTO locations(location, city_id) VALUES(loc, ct_id);
 END$
@@ -163,7 +163,7 @@ DELIMITER ;
 -- Similar to sp_insertUserAcquaintance
 /* CHECKED */
 DELIMITER $
-CREATE PROCEDURE sp_insertUserLocation (loc VARCHAR(60) CHARACTER SET utf16, ct_id INT, usr_id INT)
+CREATE PROCEDURE sp_insertUserLocation (loc VARCHAR(40) CHARACTER SET utf16, ct_id INT, usr_id INT)
 BEGIN
 	IF
 		((SELECT COUNT(city_id) FROM user_cities WHERE user_id = usr_id AND city_id = ct_id) = 1)

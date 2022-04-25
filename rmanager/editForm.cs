@@ -80,8 +80,6 @@ namespace rmanager
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                //MessageBox.Show(dt.Rows[i][0].ToString());
-                
                 if (max_width <= dt.Rows[i][0].ToString().Length) max_width = dt.Rows[i][0].ToString().Length;
             }
 
@@ -96,27 +94,37 @@ namespace rmanager
         private TextBox addTextBox(int id, string txtValue)
         {
             TextBox txt = new TextBox();
-            //txt.Top = 47;
-            //txt.Left = 8;
-            //txt.Text = textBoxValue;
+           
             txt.Name = "txt" + id;
+            
             txt.Text = txtValue;
-            txt.TextAlign = HorizontalAlignment.Center;
             txt.Font = new Font(txt.Font.FontFamily, 12);
-            txt.Width = max_width * 9;
+            txt.TextAlign = HorizontalAlignment.Center;
+
             txt.Top = 3;
-            //txt.ReadOnly = true;
+            txt.Width = max_width * 9;
+            
 
             return txt;
         }
-        private Button addButton(int id)
+        private Button addButton(int id, string type)
         {
             Button btn = new Button();
             btn.Name = "btn" + id;
-            //btn.Top = 47;
-            //btn.Left = 126;
             btn.Height = 32;
             btn.Width = 80;
+
+            switch(type)
+            {
+                case "edit":
+                    btn.Text = "Edit";
+                    break;
+
+                case "delete":
+                    btn.Text = "Delete";
+                    break;
+            }
+
             return btn;
         }
         //TextBox txt, Button edt, Button del
@@ -136,10 +144,10 @@ namespace rmanager
             TextBox txt = addTextBox(id, txtValue);
             pnl.Controls.Add(txt);
             
-            Button btn = addButton(id);
+            Button btn = addButton(id, "edit");
             btn.Left += txt.Width + 4;
             pnl.Controls.Add(btn);
-            btn = addButton(id);
+            btn = addButton(id, "delete");
             btn.Left += txt.Width + 8 + btn.Width;
             pnl.Controls.Add(btn);
             
