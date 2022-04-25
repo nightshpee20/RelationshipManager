@@ -16,6 +16,7 @@ namespace rmanager
         private int user_id;
         private string name;
         private string column_name;
+        private int max_width;
         public editForm(string name, int user_id)
         {
             InitializeComponent();
@@ -35,9 +36,9 @@ namespace rmanager
                     break;
             }
             displayTable(name);
-            addRow(1, "hellooooo");
-            addRow(2, "thereeee");
-            addRow(3, "wwwwww");
+            //addRow(1, "helloooooooooooooooooooooooooooooo");
+            //addRow(2, "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+            //addRow(3, "wwwwww");
         }
         
         private void displayTable(string name)
@@ -77,11 +78,19 @@ namespace rmanager
             da.Fill(ds, name);
             dt = ds.Tables[name];
 
-            //for (int i = 0; i < dt.Rows.Count; i++)
-            //{
-            //    MessageBox.Show(dt.Rows[i][0].ToString());
-            //    //addRow(i + 1, dt.Rows[i][0].ToString());
-            //}
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                //MessageBox.Show(dt.Rows[i][0].ToString());
+                
+                if (max_width <= dt.Rows[i][0].ToString().Length) max_width = dt.Rows[i][0].ToString().Length;
+            }
+
+            this.Width = 40 + max_width * 9 + 160;
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                addRow(i + 1, dt.Rows[i][0].ToString());
+            }
         }
 
         private TextBox addTextBox(int id, string txtValue)
@@ -92,18 +101,11 @@ namespace rmanager
             //txt.Text = textBoxValue;
             txt.Name = "txt" + id;
             txt.Text = txtValue;
+            txt.TextAlign = HorizontalAlignment.Center;
             txt.Font = new Font(txt.Font.FontFamily, 12);
-            txt.Width = txtValue.Length * 12;
+            txt.Width = max_width * 9;
             txt.Top = 3;
-            txt.ReadOnly = true;
-
-            //Experiment
-            //txt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            //txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            //txt.Location = new System.Drawing.Point(11, 278);
-            //txt.Name = "txt" + id;
-            //txt.Size = new System.Drawing.Size(161, 38);
-            //txt.TabIndex = 18;
+            //txt.ReadOnly = true;
 
             return txt;
         }
@@ -112,7 +114,7 @@ namespace rmanager
             Button btn = new Button();
             btn.Name = "btn" + id;
             //btn.Top = 47;
-            btn.Left = 126;
+            //btn.Left = 126;
             btn.Height = 32;
             btn.Width = 80;
             return btn;
@@ -127,20 +129,27 @@ namespace rmanager
             pnl.Top = 40*id;
             pnl.Left = 8;
             pnl.Height = 32;
-            pnl.Width = 290;
+            pnl.Width = max_width * 9 + 168;
             pnl.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
             pnl.BackColor = Color.DarkGray;
 
+            TextBox txt = addTextBox(id, txtValue);
+            pnl.Controls.Add(txt);
+            
             Button btn = addButton(id);
+            btn.Left += txt.Width + 4;
             pnl.Controls.Add(btn);
             btn = addButton(id);
-            btn.Left += 82;
+            btn.Left += txt.Width + 8 + btn.Width;
             pnl.Controls.Add(btn);
             
             pnl.Click += new System.EventHandler(this.pnl_Click);
 
-            TextBox txt = addTextBox(id, txtValue);
-            pnl.Controls.Add(txt);
+           if(txt.Text.Length == 40)
+            {
+                this.Width = 40 + txt.Width + 2 * btn.Width;
+            }
+            
         }
 
         private void pnl_Click(object Sender, EventArgs e)
