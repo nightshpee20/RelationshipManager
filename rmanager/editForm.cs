@@ -15,7 +15,6 @@ namespace rmanager
     {
         private int user_id;
         private string name;
-        private string column_name;
         private int max_width;
         public editForm(string name, int user_id)
         {
@@ -26,19 +25,16 @@ namespace rmanager
             switch(name)
             {
                 case "cities":
-                    column_name = "city";
+                    this.label1.Text = "Your CITIES:";
                     break;
                 case "occupations":
-                    column_name = "occupation";
+                    this.label1.Text = "Your OCCUPATIONS:";
                     break;
                 case "relationships":
-                    column_name = "relationship";
+                    this.label1.Text = "Your RELATIONSHIPS:";
                     break;
             }
             displayTable(name);
-            //addRow(1, "helloooooooooooooooooooooooooooooo");
-            //addRow(2, "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-            //addRow(3, "wwwwww");
         }
         
         private void displayTable(string name)
@@ -99,13 +95,12 @@ namespace rmanager
            
             txt.Name = "txt" + id;
             
-            txt.Text = txtValue;
+            if(txtValue != "") txt.Text = Utilities.CapitalizeFirstLetters(txtValue);
             txt.Font = new Font(txt.Font.FontFamily, 12);
             txt.TextAlign = HorizontalAlignment.Center;
 
             txt.Top = 3;
             txt.Width = max_width * 9;
-            
 
             return txt;
         }
@@ -114,23 +109,28 @@ namespace rmanager
             Button btn = new Button();
             btn.Height = 32;
             btn.Width = 80;
-            btn.Click += new System.EventHandler(this.btn_Click);
+            
             switch (type)
             {
                 case "edit":
                     btn.Text = "Edit";
                     btn.Name = "editButton_" + id;
+                    btn.TabIndex = id;
                     break;
 
                 case "delete":
                     btn.Text = "Delete";
                     btn.Name = "deleteButton_" + id;
+                    btn.TabIndex = id;
                     break;
+
                 case "add":
                     btn.Text = "Add New";
                     btn.Name = "addButton";
                     break;
             }
+
+            btn.Click += new System.EventHandler(this.btn_Click);
 
             return btn;
         }
@@ -151,13 +151,13 @@ namespace rmanager
             TextBox txt = addTextBox(id, txtValue);
             pnl.Controls.Add(txt);
 
-            //List<Button> buttons = new List<Button>();
-            Button btn = new Button(); ;
+            Button btn = new Button(); 
             if(txtValue != "")
             {
                 btn = addButton(id, "edit");
                 btn.Left += txt.Width + 4;
                 pnl.Controls.Add(btn);
+
                 btn = addButton(id, "delete");
                 btn.Left += txt.Width + 8 + btn.Width;
                 pnl.Controls.Add(btn);
@@ -190,10 +190,11 @@ namespace rmanager
             Button btn = Sender as Button;
             if(btn.Text == "Edit")
             {
-                var arr = this.Controls.Find("txt" + btn.Name.Substring(btn.Name.Length - 1), true);
+                var arr = this.Controls.Find("txt" + btn.TabIndex, true);
+                //MessageBox.Show(arr.Length.ToString());
                 TextBox txt = (TextBox) arr[0];
-                //MessageBox.Show(Utilities.CapitalizeFirstLetters(txt.Text));
-                MessageBox.Show(btn.Name);
+                MessageBox.Show(txt.Text);
+                //MessageBox.Show(btn.Name);
             }
 
         }
