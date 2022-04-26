@@ -192,7 +192,8 @@ namespace rmanager
             {
                 var arr = this.Controls.Find("txt" + btn.Name.Substring(btn.Name.Length - 1), true);
                 TextBox txt = (TextBox) arr[0];
-                MessageBox.Show(txt.Text);
+                //MessageBox.Show(Utilities.CapitalizeFirstLetters(txt.Text));
+                MessageBox.Show(btn.Name);
             }
 
         }
