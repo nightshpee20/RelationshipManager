@@ -112,7 +112,6 @@ namespace rmanager
         private Button addButton(int id, string type)
         {
             Button btn = new Button();
-            btn.Name = "btn" + id;
             btn.Height = 32;
             btn.Width = 80;
             btn.Click += new System.EventHandler(this.btn_Click);
@@ -120,13 +119,16 @@ namespace rmanager
             {
                 case "edit":
                     btn.Text = "Edit";
+                    btn.Name = "editButton_" + id;
                     break;
 
                 case "delete":
                     btn.Text = "Delete";
+                    btn.Name = "deleteButton_" + id;
                     break;
                 case "add":
                     btn.Text = "Add New";
+                    btn.Name = "addButton";
                     break;
             }
 
@@ -149,6 +151,7 @@ namespace rmanager
             TextBox txt = addTextBox(id, txtValue);
             pnl.Controls.Add(txt);
 
+            //List<Button> buttons = new List<Button>();
             Button btn = new Button(); ;
             if(txtValue != "")
             {
@@ -178,13 +181,20 @@ namespace rmanager
         private void pnl_Click(object Sender, EventArgs e)
         {
             Panel pnl = Sender as Panel;
+       
             MessageBox.Show(pnl.Name);
         }
 
         private void btn_Click(object Sender, EventArgs e)
         {
             Button btn = Sender as Button;
-            MessageBox.Show(btn.Name);
+            if(btn.Text == "Edit")
+            {
+                var arr = this.Controls.Find("txt" + btn.Name.Substring(btn.Name.Length - 1), true);
+                TextBox txt = (TextBox) arr[0];
+                MessageBox.Show(txt.Text);
+            }
+
         }
 
     }
