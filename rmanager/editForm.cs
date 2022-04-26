@@ -89,6 +89,8 @@ namespace rmanager
             {
                 addRow(i + 1, dt.Rows[i][0].ToString());
             }
+
+            addRow(dt.Rows.Count + 1, "");
         }
 
         private TextBox addTextBox(int id, string txtValue)
@@ -113,8 +115,8 @@ namespace rmanager
             btn.Name = "btn" + id;
             btn.Height = 32;
             btn.Width = 80;
-
-            switch(type)
+            btn.Click += new System.EventHandler(this.btn_Click);
+            switch (type)
             {
                 case "edit":
                     btn.Text = "Edit";
@@ -122,6 +124,9 @@ namespace rmanager
 
                 case "delete":
                     btn.Text = "Delete";
+                    break;
+                case "add":
+                    btn.Text = "Add New";
                     break;
             }
 
@@ -143,13 +148,23 @@ namespace rmanager
 
             TextBox txt = addTextBox(id, txtValue);
             pnl.Controls.Add(txt);
-            
-            Button btn = addButton(id, "edit");
-            btn.Left += txt.Width + 4;
-            pnl.Controls.Add(btn);
-            btn = addButton(id, "delete");
-            btn.Left += txt.Width + 8 + btn.Width;
-            pnl.Controls.Add(btn);
+
+            Button btn = new Button(); ;
+            if(txtValue != "")
+            {
+                btn = addButton(id, "edit");
+                btn.Left += txt.Width + 4;
+                pnl.Controls.Add(btn);
+                btn = addButton(id, "delete");
+                btn.Left += txt.Width + 8 + btn.Width;
+                pnl.Controls.Add(btn);
+            }
+            else
+            {
+                btn = addButton(id, "add");
+                btn.Left += txt.Width + 4;
+                pnl.Controls.Add(btn);
+            }
             
             pnl.Click += new System.EventHandler(this.pnl_Click);
 
@@ -165,6 +180,12 @@ namespace rmanager
             Panel pnl = Sender as Panel;
             MessageBox.Show(pnl.Name);
         }
-       
+
+        private void btn_Click(object Sender, EventArgs e)
+        {
+            Button btn = Sender as Button;
+            MessageBox.Show(btn.Name);
+        }
+
     }
 }
