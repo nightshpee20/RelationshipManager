@@ -19,9 +19,15 @@ namespace rmanager
 
             for (int i = 0; i < strSplit.Length; i++)
             {
-                newStr += (char.ToUpper(strSplit[i][0]) + strSplit[i].Substring(1) + " ");
+                if(i + 1 == strSplit.Length)
+                {
+                    newStr += (char.ToUpper(strSplit[i][0]) + strSplit[i].Substring(1));
+                }
+                else
+                {
+                    newStr += (char.ToUpper(strSplit[i][0]) + strSplit[i].Substring(1) + " ");
+                }
             }
-
             return newStr;
         }
 

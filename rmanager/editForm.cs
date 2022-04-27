@@ -83,7 +83,7 @@ namespace rmanager
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                addRow(i + 1, dt.Rows[i][0].ToString());
+                addRow(int.Parse(dt.Rows[i]["id"].ToString()), dt.Rows[i][0].ToString());
             }
 
             addRow(dt.Rows.Count + 1, "");
@@ -94,7 +94,8 @@ namespace rmanager
             TextBox txt = new TextBox();
            
             txt.Name = "txt" + id;
-            
+            txt.ReadOnly = true;
+
             if(txtValue != "") txt.Text = Utilities.CapitalizeFirstLetters(txtValue);
             txt.Font = new Font(txt.Font.FontFamily, 12);
             txt.TextAlign = HorizontalAlignment.Center;
@@ -188,13 +189,23 @@ namespace rmanager
         private void btn_Click(object Sender, EventArgs e)
         {
             Button btn = Sender as Button;
-            if(btn.Text == "Edit")
+
+            var arr = this.Controls.Find("txt" + btn.TabIndex, true);
+            TextBox txt = (TextBox)arr[0];
+
+            if (btn.Text == "Edit")
             {
-                var arr = this.Controls.Find("txt" + btn.TabIndex, true);
-                //MessageBox.Show(arr.Length.ToString());
-                TextBox txt = (TextBox) arr[0];
-                MessageBox.Show(txt.Text);
-                //MessageBox.Show(btn.Name);
+                
+                
+                //MessageBox.Show(txt.Text);
+                txt.ReadOnly = false;
+                btn.Text = "Commit";
+                MessageBox.Show(btn.TabIndex.ToString());
+                
+            }else if(btn.Text == "Commit")
+            {
+                txt.ReadOnly = true;
+                btn.Text = "Edit";
             }
 
         }
