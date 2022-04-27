@@ -83,18 +83,19 @@ namespace rmanager
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                addRow(int.Parse(dt.Rows[i]["id"].ToString()), dt.Rows[i][0].ToString());
+                addRow(int.Parse(dt.Rows[i]["id"].ToString()), dt.Rows[i][0].ToString(),i + 1);
             }
 
-            addRow(dt.Rows.Count + 1, "");
+            addRow(0, "", dt.Rows.Count + 1);
         }
 
-        private TextBox addTextBox(int id, string txtValue)
+        private TextBox addTextBox(int id, string txtValue, int count)
         {
             TextBox txt = new TextBox();
            
-            txt.Name = "txt" + id;
+            txt.Name = "txt" + count;
             txt.ReadOnly = true;
+            txt.TabIndex = id;
 
             if(txtValue != "") txt.Text = Utilities.CapitalizeFirstLetters(txtValue);
             txt.Font = new Font(txt.Font.FontFamily, 12);
@@ -105,7 +106,7 @@ namespace rmanager
 
             return txt;
         }
-        private Button addButton(int id, string type)
+        private Button addButton(int count, string type)
         {
             Button btn = new Button();
             btn.Height = 32;
@@ -115,14 +116,14 @@ namespace rmanager
             {
                 case "edit":
                     btn.Text = "Edit";
-                    btn.Name = "editButton_" + id;
-                    btn.TabIndex = id;
+                    btn.Name = "editButton_" + count;
+                    btn.TabIndex = count;
                     break;
 
                 case "delete":
                     btn.Text = "Delete";
-                    btn.Name = "deleteButton_" + id;
-                    btn.TabIndex = id;
+                    btn.Name = "deleteButton_" + count;
+                    btn.TabIndex = count;
                     break;
 
                 case "add":
@@ -136,36 +137,36 @@ namespace rmanager
             return btn;
         }
         //TextBox txt, Button edt, Button del
-        private void addRow(int id, string txtValue)
+        private void addRow(int id, string txtValue, int count)
         {
             Panel pnl = new Panel();
             this.Controls.Add(pnl);
 
-            pnl.Name = "row" + id;
-            pnl.Top = 40*id;
+            pnl.Name = "row" + count;
+            pnl.Top = 40*count;
             pnl.Left = 8;
             pnl.Height = 32;
             pnl.Width = max_width * 9 + 168;
             pnl.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
             pnl.BackColor = Color.DarkGray;
 
-            TextBox txt = addTextBox(id, txtValue);
+            TextBox txt = addTextBox(id, txtValue, count);
             pnl.Controls.Add(txt);
 
             Button btn = new Button(); 
             if(txtValue != "")
             {
-                btn = addButton(id, "edit");
+                btn = addButton(count, "edit");
                 btn.Left += txt.Width + 4;
                 pnl.Controls.Add(btn);
 
-                btn = addButton(id, "delete");
+                btn = addButton(count, "delete");
                 btn.Left += txt.Width + 8 + btn.Width;
                 pnl.Controls.Add(btn);
             }
             else
             {
-                btn = addButton(id, "add");
+                btn = addButton(count, "add");
                 btn.Left += txt.Width + 4;
                 pnl.Controls.Add(btn);
             }
@@ -175,6 +176,11 @@ namespace rmanager
            if(txt.Text.Length == 40)
             {
                 this.Width = 40 + txt.Width + 2 * btn.Width;
+            }
+
+           if(this.ClientSize.Height < (count * 42) + 57)
+            {
+                this.ClientSize = new System.Drawing.Size(int.Parse(this.Width.ToString()), (count * 40) + 57);
             }
             
         }
@@ -200,7 +206,7 @@ namespace rmanager
                 //MessageBox.Show(txt.Text);
                 txt.ReadOnly = false;
                 btn.Text = "Commit";
-                MessageBox.Show(btn.TabIndex.ToString());
+                MessageBox.Show(txt.TabIndex.ToString());
                 
             }else if(btn.Text == "Commit")
             {
