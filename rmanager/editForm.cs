@@ -84,7 +84,7 @@ namespace rmanager
                 if (max_width <= dt.Rows[i][0].ToString().Length) max_width = dt.Rows[i][0].ToString().Length;
             }
 
-            this.Width = 40 + max_width * 9 + 160;
+            this.Width = 40 + max_width * 9 + 158;
 
 
             addRow(0, "", 1);
@@ -98,6 +98,7 @@ namespace rmanager
             if (dt.Rows.Count > 12)
             {
                 this.Height = 119 + 12 * 40;
+                //this.Width += 9;
                 this.AutoScroll = true;
             }
             else
@@ -216,7 +217,10 @@ namespace rmanager
             var arr = this.Controls.Find("txt" + btn.TabIndex, true);
             TextBox txt = (TextBox)arr[0];
 
-            switch(btn.Text)
+            var arr1 = this.Controls.Find("row" + btn.TabIndex, true);
+            Panel row = (Panel)arr1[0];
+
+            switch (btn.Text)
             {
                 case "Edit":
                     txt.ReadOnly = false;
@@ -225,39 +229,44 @@ namespace rmanager
                     break;
 
                 case "Commit":
-                    Utilities.MySqlCommandImproved($"UPDATE");
+                    //Utilities.MySqlCommandImproved($"UPDATE");
                     txt.ReadOnly = true;
                     btn.Text = "Edit";
+                    break;
+                case "Delete":
+                    //Utilities.MySqlCommandImproved($"DELETE FROM user_occupations WHERE occupation_id = {txt.TabIndex} AND user_id = {user_id};");
+                    MessageBox.Show(txt.TabIndex.ToString());
                     break;
 
                 case "Add New":
                     Utilities.MySqlCommandImproved($"CALL sp_insertUser{column}(\'{txt.Text}\', {user_id})");
-                    displayTable(name);
+                    this.Close();
+                    this.Open();
                     break;
 
                 case "Exit":
                     break;
             }
-            if(btn.Text == "Edit")
-            {
-                txt.ReadOnly = false;
-                btn.Text = "Commit";
-                //MessageBox.Show(txt.TabIndex.ToString());  
-            }
-            else if(btn.Text == "Commit")
-            {
-                Utilities.MySqlCommandImproved($"UPDATE");
-                txt.ReadOnly = true;
-                btn.Text = "Edit";
-            }
-            else if(btn.Text == "Add New")
-            {
-                Utilities.MySqlCommandImproved($"CALL sp_insertUserOcc");
-            }
-            else if(btn.Text == "Exit")
-            {
-
-            }
+            //if(btn.Text == "Edit")
+            //{
+            //    txt.ReadOnly = false;
+            //    btn.Text = "Commit";
+            //    //MessageBox.Show(txt.TabIndex.ToString());  
+            //}
+            //else if(btn.Text == "Commit")
+            //{
+            //    Utilities.MySqlCommandImproved($"UPDATE");
+            //    txt.ReadOnly = true;
+            //    btn.Text = "Edit";
+            //}
+            //else if(btn.Text == "Add New")
+            //{
+            //    Utilities.MySqlCommandImproved($"CALL sp_insertUserOcc");
+            //}
+            //else if(btn.Text == "Exit")
+            //{
+            //
+            //}
 
         }
 
