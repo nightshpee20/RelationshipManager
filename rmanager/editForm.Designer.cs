@@ -53,12 +53,13 @@ namespace rmanager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(409, 661);
+            this.ClientSize = new System.Drawing.Size(409, 650);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "editForm";
             this.Text = "Edit Form";
+            this.Click += new System.EventHandler(this.editForm_Click);
             ((System.ComponentModel.ISupportInitialize)(this.editFormDataGridRecordBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

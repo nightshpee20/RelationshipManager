@@ -16,6 +16,7 @@ namespace rmanager
         private int user_id;
         private string name;
         private int max_width;
+        
         public editForm(string name, int user_id)
         {
             InitializeComponent();
@@ -35,6 +36,9 @@ namespace rmanager
                     break;
             }
             displayTable(name);
+            //this.AutoScroll = true;
+           
+          
         }
         
         private void displayTable(string name)
@@ -81,12 +85,24 @@ namespace rmanager
 
             this.Width = 40 + max_width * 9 + 160;
 
+
+            addRow(0, "", 1);
+
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                addRow(int.Parse(dt.Rows[i]["id"].ToString()), dt.Rows[i][0].ToString(),i + 1);
+                addRow(int.Parse(dt.Rows[i]["id"].ToString()), dt.Rows[i][0].ToString(), i + 2);
             }
 
-            addRow(0, "", dt.Rows.Count + 1);
+
+            if (dt.Rows.Count > 12)
+            {
+                this.Height = 119 + 12 * 40;
+                this.AutoScroll = true;
+            }
+            else
+            {
+                this.Height = 119 + (dt.Rows.Count) * 40; 
+            }
         }
 
         private TextBox addTextBox(int id, string txtValue, int count)
@@ -94,7 +110,7 @@ namespace rmanager
             TextBox txt = new TextBox();
            
             txt.Name = "txt" + count;
-            txt.ReadOnly = true;
+            if(txtValue != "") txt.ReadOnly = true;
             txt.TabIndex = id;
 
             if(txtValue != "") txt.Text = Utilities.CapitalizeFirstLetters(txtValue);
@@ -111,7 +127,8 @@ namespace rmanager
             Button btn = new Button();
             btn.Height = 32;
             btn.Width = 80;
-            
+            btn.Font = new Font(btn.Font.FontFamily, btn.Font.Size, FontStyle.Bold);
+
             switch (type)
             {
                 case "edit":
@@ -130,6 +147,12 @@ namespace rmanager
                     btn.Text = "Add New";
                     btn.Name = "addButton";
                     break;
+
+                case "exit":
+                    btn.Text = "Exit";
+                    btn.Name = "exitButton";
+                    btn.BackColor = Color.DarkGray;
+                    break;
             }
 
             btn.Click += new System.EventHandler(this.btn_Click);
@@ -145,11 +168,9 @@ namespace rmanager
             pnl.Name = "row" + count;
             pnl.Top = 40*count;
             pnl.Left = 8;
-            pnl.Height = 32;
+            pnl.Height = 40;
             pnl.Width = max_width * 9 + 168;
-            pnl.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
-            pnl.BackColor = Color.DarkGray;
-
+            //pnl.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
             TextBox txt = addTextBox(id, txtValue, count);
             pnl.Controls.Add(txt);
 
@@ -169,20 +190,18 @@ namespace rmanager
                 btn = addButton(count, "add");
                 btn.Left += txt.Width + 4;
                 pnl.Controls.Add(btn);
+
+                btn = addButton(count, "exit");
+                btn.Left += txt.Width + 8 + btn.Width;
+                pnl.Controls.Add(btn);
             }
             
             pnl.Click += new System.EventHandler(this.pnl_Click);
 
-           if(txt.Text.Length == 40)
+            if (txt.Text.Length == 40)
             {
                 this.Width = 40 + txt.Width + 2 * btn.Width;
             }
-
-           if(this.ClientSize.Height < (count * 42) + 57)
-            {
-                this.ClientSize = new System.Drawing.Size(int.Parse(this.Width.ToString()), (count * 40) + 57);
-            }
-            
         }
 
         private void pnl_Click(object Sender, EventArgs e)
@@ -216,5 +235,9 @@ namespace rmanager
 
         }
 
+        private void editForm_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(this.Height.ToString());
+        }
     }
 }
