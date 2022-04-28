@@ -15,6 +15,7 @@ namespace rmanager
     {
         private int user_id;
         private string name;
+        private string column;
         private int max_width;
         
         public editForm(string name, int user_id)
@@ -27,18 +28,18 @@ namespace rmanager
             {
                 case "cities":
                     this.label1.Text = "Your CITIES:";
+                    this.column = "City";
                     break;
                 case "occupations":
                     this.label1.Text = "Your OCCUPATIONS:";
+                    this.column = "Occupation";
                     break;
                 case "relationships":
                     this.label1.Text = "Your RELATIONSHIPS:";
+                    this.column = "Relationship";
                     break;
             }
             displayTable(name);
-            //this.AutoScroll = true;
-           
-          
         }
         
         private void displayTable(string name)
@@ -170,7 +171,6 @@ namespace rmanager
             pnl.Left = 8;
             pnl.Height = 40;
             pnl.Width = max_width * 9 + 168;
-            //pnl.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
             TextBox txt = addTextBox(id, txtValue, count);
             pnl.Controls.Add(txt);
 
@@ -195,8 +195,6 @@ namespace rmanager
                 btn.Left += txt.Width + 8 + btn.Width;
                 pnl.Controls.Add(btn);
             }
-            
-            pnl.Click += new System.EventHandler(this.pnl_Click);
 
             if (txt.Text.Length == 40)
             {
@@ -204,12 +202,12 @@ namespace rmanager
             }
         }
 
-        private void pnl_Click(object Sender, EventArgs e)
-        {
-            Panel pnl = Sender as Panel;
-       
-            MessageBox.Show(pnl.Name);
-        }
+        //private void pnl_Click(object Sender, EventArgs e)
+        //{
+        //    Panel pnl = Sender as Panel;
+        //
+        //    MessageBox.Show(pnl.Name);
+        //}
 
         private void btn_Click(object Sender, EventArgs e)
         {
@@ -218,19 +216,47 @@ namespace rmanager
             var arr = this.Controls.Find("txt" + btn.TabIndex, true);
             TextBox txt = (TextBox)arr[0];
 
-            if (btn.Text == "Edit")
+            switch(btn.Text)
             {
-                
-                
-                //MessageBox.Show(txt.Text);
+                case "Edit":
+                    txt.ReadOnly = false;
+                    btn.Text = "Commit";
+                    //MessageBox.Show(txt.TabIndex.ToString());  
+                    break;
+
+                case "Commit":
+                    Utilities.MySqlCommandImproved($"UPDATE");
+                    txt.ReadOnly = true;
+                    btn.Text = "Edit";
+                    break;
+
+                case "Add New":
+                    Utilities.MySqlCommandImproved($"CALL sp_insertUser{column}(\'{txt.Text}\', {user_id})");
+                    displayTable(name);
+                    break;
+
+                case "Exit":
+                    break;
+            }
+            if(btn.Text == "Edit")
+            {
                 txt.ReadOnly = false;
                 btn.Text = "Commit";
-                MessageBox.Show(txt.TabIndex.ToString());
-                
-            }else if(btn.Text == "Commit")
+                //MessageBox.Show(txt.TabIndex.ToString());  
+            }
+            else if(btn.Text == "Commit")
             {
+                Utilities.MySqlCommandImproved($"UPDATE");
                 txt.ReadOnly = true;
                 btn.Text = "Edit";
+            }
+            else if(btn.Text == "Add New")
+            {
+                Utilities.MySqlCommandImproved($"CALL sp_insertUserOcc");
+            }
+            else if(btn.Text == "Exit")
+            {
+
             }
 
         }
