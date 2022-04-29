@@ -86,7 +86,7 @@ namespace rmanager
                 if (max_width <= dt.Rows[i][0].ToString().Length) max_width = dt.Rows[i][0].ToString().Length;
             }
             
-            this.Width = 40 + max_width * 9 + 189;
+            this.Width = 40 + max_width * 9 + 160;
             
             
             addRow(0, "", 1);
@@ -101,6 +101,7 @@ namespace rmanager
             {
                 this.Height = 119 + 12 * 40;
                 //this.Width += 20;
+                this.VerticalScroll.Visible = false;
                 this.AutoScroll = true;
             }
             else
@@ -276,6 +277,7 @@ namespace rmanager
                         if (this.Controls[i] is Panel) this.Controls[i].Dispose();
                     }
                     displayTable(name);
+                    this.Width += 17;
                     break;
 
                 case "Exit":
