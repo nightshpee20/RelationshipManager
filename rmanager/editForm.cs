@@ -16,7 +16,6 @@ namespace rmanager
         private int user_id;
         private string name;
         private string column;
-        //private DataTable dt;
         private int max_width;
         
         public editForm(string name, int user_id)
@@ -29,15 +28,15 @@ namespace rmanager
             {
                 case "cities":
                     this.label1.Text = "Your CITIES:";
-                    this.column = "City";
+                    this.column = "city";
                     break;
                 case "occupations":
                     this.label1.Text = "Your OCCUPATIONS:";
-                    this.column = "Occupation";
+                    this.column = "occupation";
                     break;
                 case "relationships":
                     this.label1.Text = "Your RELATIONSHIPS:";
-                    this.column = "Relationship";
+                    this.column = "relationship";
                     break;
             }
             displayTable(name);
@@ -80,7 +79,6 @@ namespace rmanager
             da.Fill(ds, name);
             dt = ds.Tables[name];
 
-            //generateRows(dt);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 if (max_width <= dt.Rows[i][0].ToString().Length) max_width = dt.Rows[i][0].ToString().Length;
@@ -100,44 +98,14 @@ namespace rmanager
             if (dt.Rows.Count > 12)
             {
                 this.Height = 119 + 12 * 40;
-                //this.Width += 20;
                 this.VerticalScroll.Visible = false;
                 this.AutoScroll = true;
             }
             else
             {
-                this.Height = 119 + (dt.Rows.Count) * 40; 
+                this.Height = 119 + (dt.Rows.Count) * 40;
             }
         }
-        //private void generateRows(DataTable dt)
-        //{
-        //    for (int i = 0; i < dt.Rows.Count; i++)
-        //    {
-        //        if (max_width <= dt.Rows[i][0].ToString().Length) max_width = dt.Rows[i][0].ToString().Length;
-        //    }
-        //
-        //    this.Width = 40 + max_width * 9 + 158;
-        //
-        //
-        //    addRow(0, "", 1);
-        //
-        //    for (int i = 0; i < dt.Rows.Count; i++)
-        //    {
-        //        addRow(int.Parse(dt.Rows[i]["id"].ToString()), dt.Rows[i][0].ToString(), i + 2);
-        //    }
-        //
-        //
-        //    if (dt.Rows.Count > 12)
-        //    {
-        //        this.Height = 119 + 12 * 40;
-        //        //this.Width += 9;
-        //        this.AutoScroll = true;
-        //    }
-        //    else
-        //    {
-        //        this.Height = 119 + (dt.Rows.Count) * 40;
-        //    }
-        //}
         private TextBox addTextBox(int id, string txtValue, int count)
         {
             TextBox txt = new TextBox();
@@ -228,10 +196,6 @@ namespace rmanager
                 pnl.Controls.Add(btn);
             }
             //pnl.Click += new System.EventHandler(this.pnl_Click);
-            //if (txt.Text.Length == 40)
-            //{
-            //    this.Width = 40 + txt.Width + 2 * btn.Width;
-            //}
         }
 
         //private void pnl_Click(object Sender, EventArgs e)
@@ -260,24 +224,34 @@ namespace rmanager
                     break;
 
                 case "Commit":
-                    //Utilities.MySqlCommandImproved($"UPDATE");
+                    Utilities.MySqlCommandImproved($"CALL sp_insertUser{Utilities.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
                     txt.ReadOnly = true;
                     btn.Text = "Edit";
                     break;
+
                 case "Delete":
-                    //Utilities.MySqlCommandImproved($"DELETE FROM user_occupations WHERE occupation_id = {txt.TabIndex} AND user_id = {user_id};");
-                    MessageBox.Show(txt.TabIndex.ToString());
+                    
+                    if(column != "city")
+                    {
+                        Utilities.MySqlCommandImproved($"DELETE FROM user_{column}s WHERE {column}_id = {txt.TabIndex} AND user_id = {user_id};");
+                    }
+                    else
+                    {
+                        Utilities.MySqlCommandImproved($"DELETE FROM user_citiess WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
+                    }
+
+                    removeTable();
+                    displayTable(name);
+                    if (this.Controls.Count > 14) this.Width += 17;
+                    //MessageBox.Show(txt.TabIndex.ToString());
                     break;
 
                 case "Add New":
-                    Utilities.MySqlCommandImproved($"CALL sp_insertUser{column}(\'{txt.Text}\', {user_id})");
+                    Utilities.MySqlCommandImproved($"CALL sp_insertUser{Utilities.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
 
-                    for (int i = this.Controls.Count - 1; i >= 0 ; i--)
-                    {
-                        if (this.Controls[i] is Panel) this.Controls[i].Dispose();
-                    }
+                    removeTable();
                     displayTable(name);
-                    this.Width += 17;
+                    if (this.Controls.Count > 14) this.Width += 17;
                     break;
 
                 case "Exit":
@@ -285,7 +259,13 @@ namespace rmanager
                     break;
             }
         }
-
+        private void removeTable()
+        {
+            for (int i = this.Controls.Count - 1; i >= 0; i--)
+            {
+                if (this.Controls[i] is Panel) this.Controls[i].Dispose();
+            }
+        }
         private void editForm_Click(object sender, EventArgs e)
         {
             MessageBox.Show(this.Width.ToString());
