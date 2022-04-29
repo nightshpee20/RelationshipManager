@@ -16,6 +16,7 @@ namespace rmanager
         private int user_id;
         private string name;
         private string column;
+        //private DataTable dt;
         private int max_width;
         
         public editForm(string name, int user_id)
@@ -79,26 +80,27 @@ namespace rmanager
             da.Fill(ds, name);
             dt = ds.Tables[name];
 
+            //generateRows(dt);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 if (max_width <= dt.Rows[i][0].ToString().Length) max_width = dt.Rows[i][0].ToString().Length;
             }
-
-            this.Width = 40 + max_width * 9 + 158;
-
-
+            
+            this.Width = 40 + max_width * 9 + 189;
+            
+            
             addRow(0, "", 1);
-
+            
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 addRow(int.Parse(dt.Rows[i]["id"].ToString()), dt.Rows[i][0].ToString(), i + 2);
             }
-
-
+            
+            
             if (dt.Rows.Count > 12)
             {
                 this.Height = 119 + 12 * 40;
-                //this.Width += 9;
+                //this.Width += 20;
                 this.AutoScroll = true;
             }
             else
@@ -106,7 +108,35 @@ namespace rmanager
                 this.Height = 119 + (dt.Rows.Count) * 40; 
             }
         }
-
+        //private void generateRows(DataTable dt)
+        //{
+        //    for (int i = 0; i < dt.Rows.Count; i++)
+        //    {
+        //        if (max_width <= dt.Rows[i][0].ToString().Length) max_width = dt.Rows[i][0].ToString().Length;
+        //    }
+        //
+        //    this.Width = 40 + max_width * 9 + 158;
+        //
+        //
+        //    addRow(0, "", 1);
+        //
+        //    for (int i = 0; i < dt.Rows.Count; i++)
+        //    {
+        //        addRow(int.Parse(dt.Rows[i]["id"].ToString()), dt.Rows[i][0].ToString(), i + 2);
+        //    }
+        //
+        //
+        //    if (dt.Rows.Count > 12)
+        //    {
+        //        this.Height = 119 + 12 * 40;
+        //        //this.Width += 9;
+        //        this.AutoScroll = true;
+        //    }
+        //    else
+        //    {
+        //        this.Height = 119 + (dt.Rows.Count) * 40;
+        //    }
+        //}
         private TextBox addTextBox(int id, string txtValue, int count)
         {
             TextBox txt = new TextBox();
@@ -196,18 +226,18 @@ namespace rmanager
                 btn.Left += txt.Width + 8 + btn.Width;
                 pnl.Controls.Add(btn);
             }
-
-            if (txt.Text.Length == 40)
-            {
-                this.Width = 40 + txt.Width + 2 * btn.Width;
-            }
+            //pnl.Click += new System.EventHandler(this.pnl_Click);
+            //if (txt.Text.Length == 40)
+            //{
+            //    this.Width = 40 + txt.Width + 2 * btn.Width;
+            //}
         }
 
         //private void pnl_Click(object Sender, EventArgs e)
         //{
         //    Panel pnl = Sender as Panel;
         //
-        //    MessageBox.Show(pnl.Name);
+        //    MessageBox.Show(this.Width.ToString());
         //}
 
         private void btn_Click(object Sender, EventArgs e)
@@ -240,39 +270,23 @@ namespace rmanager
 
                 case "Add New":
                     Utilities.MySqlCommandImproved($"CALL sp_insertUser{column}(\'{txt.Text}\', {user_id})");
-                    this.Close();
-                    this.Open();
+
+                    for (int i = this.Controls.Count - 1; i >= 0 ; i--)
+                    {
+                        if (this.Controls[i] is Panel) this.Controls[i].Dispose();
+                    }
+                    displayTable(name);
                     break;
 
                 case "Exit":
+                    this.Close();
                     break;
             }
-            //if(btn.Text == "Edit")
-            //{
-            //    txt.ReadOnly = false;
-            //    btn.Text = "Commit";
-            //    //MessageBox.Show(txt.TabIndex.ToString());  
-            //}
-            //else if(btn.Text == "Commit")
-            //{
-            //    Utilities.MySqlCommandImproved($"UPDATE");
-            //    txt.ReadOnly = true;
-            //    btn.Text = "Edit";
-            //}
-            //else if(btn.Text == "Add New")
-            //{
-            //    Utilities.MySqlCommandImproved($"CALL sp_insertUserOcc");
-            //}
-            //else if(btn.Text == "Exit")
-            //{
-            //
-            //}
-
         }
 
         private void editForm_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(this.Height.ToString());
+            MessageBox.Show(this.Width.ToString());
         }
     }
 }
