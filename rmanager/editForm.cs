@@ -160,7 +160,6 @@ namespace rmanager
 
             return btn;
         }
-        //TextBox txt, Button edt, Button del
         private void addRow(int id, string txtValue, int count)
         {
             Panel pnl = new Panel();
@@ -195,16 +194,7 @@ namespace rmanager
                 btn.Left += txt.Width + 8 + btn.Width;
                 pnl.Controls.Add(btn);
             }
-            //pnl.Click += new System.EventHandler(this.pnl_Click);
         }
-
-        //private void pnl_Click(object Sender, EventArgs e)
-        //{
-        //    Panel pnl = Sender as Panel;
-        //
-        //    MessageBox.Show(this.Width.ToString());
-        //}
-
         private void btn_Click(object Sender, EventArgs e)
         {
             Button btn = Sender as Button;
@@ -219,12 +209,24 @@ namespace rmanager
             {
                 case "Edit":
                     txt.ReadOnly = false;
-                    btn.Text = "Commit";
-                    //MessageBox.Show(txt.TabIndex.ToString());  
+                    btn.Text = "Commit"; 
                     break;
 
                 case "Commit":
+                    if (column != "city")
+                    {
+                        Utilities.MySqlCommandImproved($"DELETE FROM user_{column}s WHERE {column}_id = {txt.TabIndex} AND user_id = {user_id};");
+                    }
+                    else
+                    {
+                        Utilities.MySqlCommandImproved($"DELETE FROM user_citiess WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
+                    }
                     Utilities.MySqlCommandImproved($"CALL sp_insertUser{Utilities.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
+                    
+                    removeTable();
+                    displayTable(name);
+                    if (this.Controls.Count > 14) this.Width += 17;
+
                     txt.ReadOnly = true;
                     btn.Text = "Edit";
                     break;
@@ -243,7 +245,6 @@ namespace rmanager
                     removeTable();
                     displayTable(name);
                     if (this.Controls.Count > 14) this.Width += 17;
-                    //MessageBox.Show(txt.TabIndex.ToString());
                     break;
 
                 case "Add New":
@@ -265,10 +266,6 @@ namespace rmanager
             {
                 if (this.Controls[i] is Panel) this.Controls[i].Dispose();
             }
-        }
-        private void editForm_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(this.Width.ToString());
         }
     }
 }
