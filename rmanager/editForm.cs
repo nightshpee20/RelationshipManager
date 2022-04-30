@@ -207,26 +207,33 @@ namespace rmanager
             var arr1 = this.Controls.Find("row" + btn.TabIndex, true);
             Panel row = (Panel)arr1[0];
 
+            string oldText = "";
+
             switch (btn.Text)
             {
                 case "Edit":
+                    oldText = txt.Text;
                     txt.ReadOnly = false;
                     btn.Text = "Commit"; 
                     break;
 
                 case "Commit":
-                    if (column != "city")
+                    if(oldText != txt.Text)
                     {
-                        Utilities.MySqlCommandImproved($"DELETE FROM user_{column}s WHERE {column}_id = {txt.TabIndex} AND user_id = {user_id};");
+                        if (column != "city")
+                        {
+                            Utilities.MySqlCommandImproved($"DELETE FROM user_{column}s WHERE {column}_id = {txt.TabIndex} AND user_id = {user_id};");
+                        }
+                        else
+                        {
+                            Utilities.MySqlCommandImproved($"DELETE FROM user_cities WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
+                        }
+                        Utilities.MySqlCommandImproved($"CALL sp_insertUser{Utilities.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
+
+                        removeTable();
+                        displayTable(name);
                     }
-                    else
-                    {
-                        Utilities.MySqlCommandImproved($"DELETE FROM user_cities WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
-                    }
-                    Utilities.MySqlCommandImproved($"CALL sp_insertUser{Utilities.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
                     
-                    removeTable();
-                    displayTable(name);
                     if (this.Controls.Count > 14) this.Width += 17;
 
                     txt.ReadOnly = true;
@@ -259,7 +266,7 @@ namespace rmanager
 
                 case "Exit":
                     this.Close();
-                    
+                    parent.refreshDropdownIfChangesWereMade();
                     break;
             }
         }
