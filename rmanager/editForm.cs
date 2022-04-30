@@ -219,7 +219,7 @@ namespace rmanager
                     }
                     else
                     {
-                        Utilities.MySqlCommandImproved($"DELETE FROM user_citiess WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
+                        Utilities.MySqlCommandImproved($"DELETE FROM user_cities WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
                     }
                     Utilities.MySqlCommandImproved($"CALL sp_insertUser{Utilities.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
                     
@@ -239,7 +239,7 @@ namespace rmanager
                     }
                     else
                     {
-                        Utilities.MySqlCommandImproved($"DELETE FROM user_citiess WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
+                        Utilities.MySqlCommandImproved($"DELETE FROM user_cities WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
                     }
 
                     removeTable();
