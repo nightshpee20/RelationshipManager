@@ -16,11 +16,13 @@ namespace rmanager
         private int user_id;
         private string name;
         private string column;
+        addAcquaintanceForm parent;
         private int max_width;
         
-        public editForm(string name, int user_id)
+        public editForm(string name, int user_id, addAcquaintanceForm parent)
         {
             InitializeComponent();
+            this.parent = parent;
             this.Text = Utilities.CapitalizeFirstLetters($"{name} Edit Form");
             this.user_id = user_id;
             this.name = name;
@@ -257,6 +259,7 @@ namespace rmanager
 
                 case "Exit":
                     this.Close();
+                    
                     break;
             }
         }

@@ -45,7 +45,7 @@ namespace rmanager
             this.relationshipsDropDown = new System.Windows.Forms.ComboBox();
             this.relationshipLabel = new System.Windows.Forms.Label();
             this.citiesDropDownEditButton = new System.Windows.Forms.Button();
-            this.occupationsDropDrownEditButton = new System.Windows.Forms.Button();
+            this.occupationsDropDownEditButton = new System.Windows.Forms.Button();
             this.relationshipsDropDownEditButton = new System.Windows.Forms.Button();
             this.genderLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -193,18 +193,18 @@ namespace rmanager
             this.citiesDropDownEditButton.TabIndex = 16;
             this.citiesDropDownEditButton.Text = "Edit";
             this.citiesDropDownEditButton.UseVisualStyleBackColor = true;
-            this.citiesDropDownEditButton.Click += new System.EventHandler(this.citiesDropDownEditButton_Click);
+            this.citiesDropDownEditButton.Click += new System.EventHandler(this.dropDownEditButton_Click);
             // 
-            // occupationsDropDrownEditButton
+            // occupationsDropDownEditButton
             // 
-            this.occupationsDropDrownEditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.occupationsDropDrownEditButton.Location = new System.Drawing.Point(296, 322);
-            this.occupationsDropDrownEditButton.Name = "occupationsDropDrownEditButton";
-            this.occupationsDropDrownEditButton.Size = new System.Drawing.Size(66, 39);
-            this.occupationsDropDrownEditButton.TabIndex = 17;
-            this.occupationsDropDrownEditButton.Text = "Edit";
-            this.occupationsDropDrownEditButton.UseVisualStyleBackColor = true;
-            this.occupationsDropDrownEditButton.Click += new System.EventHandler(this.occupationsDropDrownEditButton_Click);
+            this.occupationsDropDownEditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.occupationsDropDownEditButton.Location = new System.Drawing.Point(296, 322);
+            this.occupationsDropDownEditButton.Name = "occupationsDropDownEditButton";
+            this.occupationsDropDownEditButton.Size = new System.Drawing.Size(66, 39);
+            this.occupationsDropDownEditButton.TabIndex = 17;
+            this.occupationsDropDownEditButton.Text = "Edit";
+            this.occupationsDropDownEditButton.UseVisualStyleBackColor = true;
+            this.occupationsDropDownEditButton.Click += new System.EventHandler(this.dropDownEditButton_Click);
             // 
             // relationshipsDropDownEditButton
             // 
@@ -215,7 +215,7 @@ namespace rmanager
             this.relationshipsDropDownEditButton.TabIndex = 18;
             this.relationshipsDropDownEditButton.Text = "Edit";
             this.relationshipsDropDownEditButton.UseVisualStyleBackColor = true;
-            this.relationshipsDropDownEditButton.Click += new System.EventHandler(this.relationshipsDropDownEditButton_Click);
+            this.relationshipsDropDownEditButton.Click += new System.EventHandler(this.dropDownEditButton_Click);
             // 
             // genderLabel
             // 
@@ -240,7 +240,7 @@ namespace rmanager
             this.Controls.Add(this.occupationLabel);
             this.Controls.Add(this.relationshipLabel);
             this.Controls.Add(this.relationshipsDropDownEditButton);
-            this.Controls.Add(this.occupationsDropDrownEditButton);
+            this.Controls.Add(this.occupationsDropDownEditButton);
             this.Controls.Add(this.relationshipsDropDown);
             this.Controls.Add(this.addAcquaintanceButton);
             this.Controls.Add(this.addressTextBox);
@@ -277,7 +277,7 @@ namespace rmanager
         private System.Windows.Forms.ComboBox relationshipsDropDown;
         private System.Windows.Forms.Label relationshipLabel;
         private System.Windows.Forms.Button citiesDropDownEditButton;
-        private System.Windows.Forms.Button occupationsDropDrownEditButton;
+        private System.Windows.Forms.Button occupationsDropDownEditButton;
         private System.Windows.Forms.Button relationshipsDropDownEditButton;
         private System.Windows.Forms.Label genderLabel;
     }

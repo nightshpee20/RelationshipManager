@@ -100,24 +100,32 @@ namespace rmanager
 
             
         }
-
-        private void citiesDropDownEditButton_Click(object sender, EventArgs e)
+        public void refreshDropdownIfChangesWereMade(bool val, string name, ComboBox dropdown)
         {
-            editForm edit = new editForm("cities", user_id);
-            edit.Show();
+            if (val == true) setDropDownValues(user_id, name, dropdown);
         }
+        
 
-        private void occupationsDropDrownEditButton_Click(object sender, EventArgs e)
-        {
-            editForm edit = new editForm("occupations", user_id);
-            edit.Show();
-        }
-
-        private void relationshipsDropDownEditButton_Click(object sender, EventArgs e)
-        {
-            editForm edit = new editForm("relationships", user_id);
-            edit.Show();
-        }
+       private void dropDownEditButton_Click(object sender, EventArgs e)
+       {
+           Button btn = sender as Button;
+           string name = "";
+           switch (btn.Name)
+           {
+               case "citiesDropDownEditButton":
+                   name = "cities";
+                   break;
+               case "occupationsDropDownEditButton":
+                   name = "occupations";
+                   break;
+               case "relationshipsDropDownEditButton":
+                   name = "relationships";
+                   break;
+           }
+       
+           editForm edit = new editForm(name, user_id, this);
+           edit.Show();
+       }
     }
 }
 
