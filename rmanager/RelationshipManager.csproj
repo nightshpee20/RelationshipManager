@@ -77,7 +77,7 @@
     <Compile Include="userProfileForm.Designer.cs">
       <DependentUpon>userProfileForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utilities.cs" />
+    <Compile Include="u.cs" />
     <EmbeddedResource Include="addAcquaintanceForm.resx">
       <DependentUpon>addAcquaintanceForm.cs</DependentUpon>
     </EmbeddedResource>

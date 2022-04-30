@@ -7,9 +7,12 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
 namespace rmanager
-{
-    public static class Utilities
+{  
+    public static class u
     {
+        //u <- Stands for Utilities. This class contains useful methods or just shortcuts I have created.
+        
+
         //Takes in a string and capitalizes the first character of every word. E.G "hello world" -> "Hello World"
         public static string CapitalizeFirstLetters(string str)
         {
@@ -49,6 +52,10 @@ namespace rmanager
             {
                 Connect.con.Close();
             }
+        }
+        public static void M(string message)
+        {
+            MessageBox.Show(message);
         }
     }
 }

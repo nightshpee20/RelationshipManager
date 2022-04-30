@@ -135,10 +135,12 @@ namespace rmanager
             // 
             this.occupationsDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.occupationsDropDown.FormattingEnabled = true;
+            this.occupationsDropDown.ItemHeight = 31;
             this.occupationsDropDown.Location = new System.Drawing.Point(28, 322);
             this.occupationsDropDown.Name = "occupationsDropDown";
             this.occupationsDropDown.Size = new System.Drawing.Size(262, 39);
             this.occupationsDropDown.TabIndex = 9;
+            this.occupationsDropDown.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.occupationsDropDown_DrawItem);
             // 
             // citiesDropDown
             // 
@@ -254,6 +256,7 @@ namespace rmanager
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "addAcquaintanceForm";
             this.Text = "Add Acquaintance";
+            this.Load += new System.EventHandler(this.addAcquaintanceForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

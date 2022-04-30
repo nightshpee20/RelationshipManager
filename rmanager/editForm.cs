@@ -16,6 +16,8 @@ namespace rmanager
         private int user_id;
         private string name;
         private string column;
+        private string oldText;
+        private bool changesMade = false;
         addAcquaintanceForm parent;
         private int max_width;
         
@@ -23,7 +25,7 @@ namespace rmanager
         {
             InitializeComponent();
             this.parent = parent;
-            this.Text = Utilities.CapitalizeFirstLetters($"{name} Edit Form");
+            this.Text = u.CapitalizeFirstLetters($"{name} Edit Form");
             this.user_id = user_id;
             this.name = name;
             switch(name)
@@ -116,7 +118,7 @@ namespace rmanager
             if(txtValue != "") txt.ReadOnly = true;
             txt.TabIndex = id;
 
-            if(txtValue != "") txt.Text = Utilities.CapitalizeFirstLetters(txtValue);
+            if(txtValue != "") txt.Text = u.CapitalizeFirstLetters(txtValue);
             txt.Font = new Font(txt.Font.FontFamily, 12);
             txt.TextAlign = HorizontalAlignment.Center;
 
@@ -207,7 +209,6 @@ namespace rmanager
             var arr1 = this.Controls.Find("row" + btn.TabIndex, true);
             Panel row = (Panel)arr1[0];
 
-            string oldText = "";
 
             switch (btn.Text)
             {
@@ -222,14 +223,15 @@ namespace rmanager
                     {
                         if (column != "city")
                         {
-                            Utilities.MySqlCommandImproved($"DELETE FROM user_{column}s WHERE {column}_id = {txt.TabIndex} AND user_id = {user_id};");
+                            u.MySqlCommandImproved($"DELETE FROM user_{column}s WHERE {column}_id = {txt.TabIndex} AND user_id = {user_id};");
                         }
                         else
                         {
-                            Utilities.MySqlCommandImproved($"DELETE FROM user_cities WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
+                            u.MySqlCommandImproved($"DELETE FROM user_cities WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
                         }
-                        Utilities.MySqlCommandImproved($"CALL sp_insertUser{Utilities.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
+                        u.MySqlCommandImproved($"CALL sp_insertUser{u.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
 
+                        changesMade = true;
                         removeTable();
                         displayTable(name);
                     }
@@ -244,21 +246,23 @@ namespace rmanager
                     
                     if(column != "city")
                     {
-                        Utilities.MySqlCommandImproved($"DELETE FROM user_{column}s WHERE {column}_id = {txt.TabIndex} AND user_id = {user_id};");
+                        u.MySqlCommandImproved($"DELETE FROM user_{column}s WHERE {column}_id = {txt.TabIndex} AND user_id = {user_id};");
                     }
                     else
                     {
-                        Utilities.MySqlCommandImproved($"DELETE FROM user_cities WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
+                        u.MySqlCommandImproved($"DELETE FROM user_cities WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
                     }
 
+                    changesMade = true;
                     removeTable();
                     displayTable(name);
                     if (this.Controls.Count > 14) this.Width += 17;
                     break;
 
                 case "Add New":
-                    Utilities.MySqlCommandImproved($"CALL sp_insertUser{Utilities.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
-
+                    u.MySqlCommandImproved($"CALL sp_insertUser{u.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
+                    
+                    changesMade = true;
                     removeTable();
                     displayTable(name);
                     if (this.Controls.Count > 14) this.Width += 17;
@@ -266,7 +270,10 @@ namespace rmanager
 
                 case "Exit":
                     this.Close();
-                    parent.refreshDropdownIfChangesWereMade();
+                    if(changesMade)
+                    {
+                        parent.refreshDropdownIfChangesWereMade(name); 
+                    }
                     break;
             }
         }
