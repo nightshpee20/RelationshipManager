@@ -125,6 +125,12 @@ BEGIN
 		 										  last_name =ln AND
                                                   city_id = ct_id) = 0)
 	THEN 
+		IF 
+			(adrs = '') 
+        THEN
+			SET adrs := null;
+		END IF;
+        
 		CALL sp_insertAcquaintance(fn, ln, gen, ocp_id, ct_id, adrs);
 	END IF;
     

@@ -85,49 +85,38 @@ namespace rmanager
                 {
                     if (dt.Rows[i][attribute].ToString().Length > maxLength) maxLength = dt.Rows[i][attribute].ToString().Length;
                 }
-            
-                //u.M(maxLength.ToString());
+ 
                 occupationsDropDown.Width = maxLength * 12 + 24;
                 occupationsDropDownEditButton.Left = maxLength * 12 + 48;
             }
         }
         private void addAcquaintanceButton_Click(object sender, EventArgs e)
         {
-            //char gender;
-            //if (maleRadioButton.Checked) gender = 'm';
-            //else gender = 'f';
-            //MySqlCommand cmd = new MySqlCommand($"CALL sp_insertAcquaintance({user_id}, " +
-            //                                                               $"{firstNameTextBox.Text}, " +
-            //                                                               $"{lastNameTextBox.Text}, " +
-            //                                                               $"{gender}, " +
-            //                                                               $"{occupationsDropDown.SelectedIndex + 1}, " +
-            //                                                               $"{addressTextBox.Text}, " +
-            //                                                               $"{citiesDropDown.SelectedIndex + 1}, " +
-            //                                                               $"{relationshipsDropDown.SelectedIndex + 1}", Connect.con);
-            //
-            //MessageBox.Show($"CALL sp_insertAcquaintance({user_id}, " +
-            //                                           $"{firstNameTextBox.Text}, " +
-            //                                           $"{lastNameTextBox.Text}, " +
-            //                                           $"{gender}, " +
-            //                                           $"{occupationsDropDown.SelectedIndex + 1}, " +
-            //                                           $"{addressTextBox.Text}, " +
-            //                                           $"{citiesDropDown.SelectedIndex + 1}, " +
-            //                                           $"{relationshipsDropDown.SelectedIndex + 1}");
-            //
-            //this.Close();
+            char gender;
+            if (maleRadioButton.Checked) gender = 'm'; else gender = 'f';
+            
+            u.MySqlCommandImproved($"CALL sp_insertUserAcquaintance({user_id}, " +
+                                                                  $"\'{firstNameTextBox.Text}\', " +
+                                                                  $"\'{lastNameTextBox.Text}\', " +
+                                                                  $"\'{gender}\', " +
+                                                                  $"{getDropDownItemIndex(occupationsDropDown, dto)}, " +
+                                                                  $"{getDropDownItemIndex(citiesDropDown, dtc)}, " +
+                                                                  $"\'{addressTextBox.Text}\', " +
+                                                                  $"{getDropDownItemIndex(relationshipsDropDown, dtr)})");
+            
+            this.Close();
             //user.Show();
-
-
-            //u.M(dt.Columns.Count.ToString());
-            for (int i = 0; i < dto.Rows.Count; i++)
+        }
+        private int getDropDownItemIndex(ComboBox cb, DataTable dt)
+        {
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
-                u.M(dto.Rows[i][1].ToString());
-                //if (occupationsDropDown.Text == dt.Rows[i][0].ToString())
-                //{
-                //    u.M(dt.Rows[i][1].ToString());
-                //}
+                if (cb.Text == dt.Rows[i][0].ToString())
+                {
+                    return (int)dt.Rows[i][1];
+                }
             }
-
+            return -1;
         }
         public void refreshDropdownIfChangesWereMade(string name)
         {

@@ -6,10 +6,10 @@ USE rmdb;
 DELIMITER $ 
 CREATE TRIGGER tg_ins_lowerAcquaintances BEFORE INSERT ON acquaintances FOR EACH ROW
 BEGIN
-	SET NEW.first_name = LOWER(NEW.first_name);
-    SET NEW.last_name = LOWER(NEW.last_name);
-    SET NEW.gender = LOWER(NEW.gender);
-    SET NEW.address = LOWER(NEW.address);
+	SET NEW.first_name := LOWER(NEW.first_name);
+    SET NEW.last_name := LOWER(NEW.last_name);
+    SET NEW.gender := LOWER(NEW.gender);
+    SET NEW.address := LOWER(NEW.address);
 END$
 DELIMITER ;
 
@@ -18,10 +18,10 @@ DELIMITER ;
 DELIMITER $ 
 CREATE TRIGGER tg_upd_lowerAcquaintances BEFORE UPDATE ON acquaintances FOR EACH ROW
 BEGIN
-	SET NEW.first_name = LOWER(NEW.first_name);
-    SET NEW.last_name = LOWER(NEW.last_name);
-    SET NEW.gender = LOWER(NEW.gender);
-    SET NEW.address = LOWER(NEW.address);
+	SET NEW.first_name := LOWER(NEW.first_name);
+    SET NEW.last_name := LOWER(NEW.last_name);
+    SET NEW.gender := LOWER(NEW.gender);
+    SET NEW.address := LOWER(NEW.address);
 END$
 DELIMITER ;
 
@@ -32,7 +32,7 @@ BEGIN
 	IF
 		((SELECT COUNT(*) FROM user_acquaintance_relationships WHERE acquaintance_id = OLD.acquaintance_id) = 0)
 	THEN
-		DELETE FROM acquaintances WHERE id = OLD.acquaintace_id;
+		DELETE FROM acquaintances WHERE id = OLD.acquaintance_id;
 	END IF;
 END$
 DELIMITER ;
@@ -56,7 +56,7 @@ DELIMITER ;
 DELIMITER $
 CREATE TRIGGER tg_ins_lowerCities BEFORE INSERT ON cities FOR EACH ROW
 BEGIN
-	SET NEW.city = LOWER(NEW.city);
+	SET NEW.city := LOWER(NEW.city);
 END$
 DELIMITER ;
 
@@ -65,7 +65,7 @@ DELIMITER ;
 DELIMITER $
 CREATE TRIGGER tg_upd_lowerCities BEFORE UPDATE ON cities FOR EACH ROW
 BEGIN
-	SET NEW.city = LOWER(NEW.city);
+	SET NEW.city := LOWER(NEW.city);
 END$
 DELIMITER ;
 
@@ -100,7 +100,7 @@ DELIMITER ;
 DELIMITER $
 CREATE TRIGGER tg_ins_lowerLocations BEFORE INSERT ON locations FOR EACH ROW
 BEGIN
-	SET NEW.location = LOWER(NEW.location);
+	SET NEW.location := LOWER(NEW.location);
 END$
 DELIMITER ;
 
@@ -109,7 +109,7 @@ DELIMITER ;
 DELIMITER $
 CREATE TRIGGER tg_upd_lowerLocation BEFORE UPDATE ON locations FOR EACH ROW
 BEGIN
-	SET NEW.location = LOWER(NEW.location);
+	SET NEW.location := LOWER(NEW.location);
 END$
 DELIMITER ;
 
@@ -144,7 +144,7 @@ DELIMITER ;
 DELIMITER $
 CREATE TRIGGER tg_ins_lowerOccupations BEFORE INSERT ON occupations FOR EACH ROW
 BEGIN
-	SET NEW.occupation = LOWER(NEW.occupation);
+	SET NEW.occupation := LOWER(NEW.occupation);
 END$
 DELIMITER ;
 
@@ -153,7 +153,7 @@ DELIMITER ;
 DELIMITER $
 CREATE TRIGGER tg_upd_lowerOccupations BEFORE UPDATE ON occupations FOR EACH ROW
 BEGIN
-	SET NEW.occupation = LOWER(NEW.occupation);
+	SET NEW.occupation := LOWER(NEW.occupation);
 END$
 DELIMITER ;
 
@@ -188,7 +188,7 @@ DELIMITER ;
 DELIMITER $
 CREATE TRIGGER tg_ins_lowerReasons BEFORE INSERT ON reasons FOR EACH ROW
 BEGIN
-	SET NEW.reason = LOWER(NEW.reason);
+	SET NEW.reason := LOWER(NEW.reason);
 END$
 DELIMITER ;
 
@@ -197,7 +197,7 @@ DELIMITER ;
 DELIMITER $
 CREATE TRIGGER tg_upd_lowerReasons BEFORE UPDATE ON reasons FOR EACH ROW
 BEGIN
-	SET NEW.reason = LOWER(NEW.reason);
+	SET NEW.reason := LOWER(NEW.reason);
 END$
 DELIMITER ;
 
@@ -232,7 +232,7 @@ DELIMITER ;
 DELIMITER $
 CREATE TRIGGER tg_ins_lowerRelationships BEFORE INSERT ON relationships FOR EACH ROW
 BEGIN
-	SET NEW.relationship = LOWER(NEW.relationship);
+	SET NEW.relationship := LOWER(NEW.relationship);
 END$
 DELIMITER ;
 
@@ -241,7 +241,7 @@ DELIMITER ;
 DELIMITER $
 CREATE TRIGGER tg_upd_lowerRelationships BEFORE UPDATE ON relationships FOR EACH ROW
 BEGIN
-	SET NEW.relationship = LOWER(NEW.relationship);
+	SET NEW.relationship := LOWER(NEW.relationship);
 END$
 DELIMITER ;
 
