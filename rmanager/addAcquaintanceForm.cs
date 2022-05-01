@@ -15,7 +15,6 @@ namespace rmanager
     {
         private userProfileForm user;
         private int user_id;
-        private DataTable dat;
         public addAcquaintanceForm(userProfileForm user, int user_id)
         {
             InitializeComponent();
@@ -51,29 +50,46 @@ namespace rmanager
                     break;
             }
 
-            MySqlDataAdapter da = new MySqlDataAdapter($"SELECT * FROM {name} ORDER BY id ASC;", Connect.con);
+            MySqlDataAdapter da = new MySqlDataAdapter($"SELECT n.{attribute}, n.id, un.user_id " +
+                                                       $"FROM user_{name} un " +
+                                                       $"JOIN {name} n ON un.{attribute}_id = n.id " +
+                                                       $"WHERE user_id = {user_id} " +
+                                                       $"ORDER BY n.{attribute} ASC;", Connect.con);
+            
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
 
             da.Fill(ds, name);
             dt = ds.Tables[name];
-            
-            //Experimental
-            dat = dt;
+           
 
             for (int i = 0; i < ds.Tables[name].Rows.Count; i++)
             {
                 dt.Rows[i][attribute] = u.CapitalizeFirstLetters(dt.Rows[i][attribute].ToString());
             }
 
-            
-            
-            for (int i = 0; i < dt.Rows.Count; i++)
+            cb.DisplayMember = attribute;
+            cb.ValueMember = "id";
+            cb.DataSource = dt;
+            cb.SelectedIndex = 0;
+
+            if (name == "occupations")
             {
-                cb.DisplayMember = attribute;
-                cb.ValueMember = "id";
-                cb.DataSource = dt;
-                cb.SelectedIndex = i;
+                int maxLength = 0;
+            
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    if (dt.Rows[i][attribute].ToString().Length > maxLength) maxLength = dt.Rows[i][attribute].ToString().Length;
+                }
+            
+                //u.M(maxLength.ToString());
+                occupationsDropDown.Width = maxLength * 12 + 24;
+                occupationsDropDownEditButton.Left = maxLength * 12 + 48;
+            }
+
+            for (int i = 0; i < cb.Items.Count; i++)
+            {
+                u.M(cb.ValueMember[i].ToString());
             }
         }
         private void addAcquaintanceButton_Click(object sender, EventArgs e)
@@ -109,12 +125,15 @@ namespace rmanager
             switch(name)
             {
                 case "cities":
+                    citiesDropDown.Items.Clear();
                     setDropDownValues(user_id, name, citiesDropDown);
                     break;
                 case "occupations":
+                    occupationsDropDown.Items.Clear();
                     setDropDownValues(user_id, name, occupationsDropDown);
                     break;
                 case "relationships":
+                    relationshipsDropDown.Items.Clear();
                     setDropDownValues(user_id, name, relationshipsDropDown);
                     MessageBox.Show("bruh");
                     break;
@@ -142,52 +161,6 @@ namespace rmanager
            editForm edit = new editForm(name, user_id, this);
            edit.Show();
        }
-
-        private void addAcquaintanceForm_Load(object sender, EventArgs e)
-        {
-            this.occupationsDropDown.DrawMode = DrawMode.OwnerDrawFixed;
-            this.occupationsDropDown.ItemHeight = 40;
-            
-
-        }
-
-        private void occupationsDropDown_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            //USE INDEX TO CYCLE THROUGH THE DATATABLE, MAYBE THE setDropDownValue method can be made obscolete
-            //if (e.Index > -1)
-            //{
-            //    var name = ((Product)this.comboBox1.Items[e.Index]).Name;
-            //    var id = ((Product)this.comboBox1.Items[e.Index]).Id; ;
-            //    var price = ((Product)this.comboBox1.Items[e.Index]).Price; ;
-            //
-
-                if ((e.State & DrawItemState.ComboBoxEdit) == DrawItemState.ComboBoxEdit)
-                e.Graphics.FillRectangle(SystemBrushes.Highlight, e.Bounds);
-            else if ((e.State & DrawItemState.Focus) == DrawItemState.Focus)
-                e.Graphics.FillRectangle(SystemBrushes.InactiveCaption, e.Bounds);
-            else
-                e.Graphics.FillRectangle(SystemBrushes.Window, e.Bounds);
-
-            e.Graphics.DrawString("what",
-            new Font(this.occupationsDropDown.Font, FontStyle.Regular),
-            Brushes.Blue,
-            new Rectangle(e.Bounds.Left, e.Bounds.Top,
-                e.Bounds.Width, this.occupationsDropDown.ItemHeight));
-
-            e.Graphics.DrawString("bruh",
-            this.occupationsDropDown.Font,
-            Brushes.Red,
-            new Rectangle(e.Bounds.Left, e.Bounds.Top + this.occupationsDropDown.ItemHeight / 2,
-                e.Bounds.Width / 2, this.occupationsDropDown.ItemHeight));
-
-           
-            e.Graphics.DrawString("hi",
-                this.occupationsDropDown.Font,
-                Brushes.Red,
-                new Rectangle(e.Bounds.Left + e.Bounds.Width / 2,
-                    e.Bounds.Top + this.occupationsDropDown.ItemHeight / 2,
-                    e.Bounds.Width, this.occupationsDropDown.ItemHeight));
-        }
     }
 }
 

@@ -53,7 +53,7 @@ namespace rmanager
             // firstNameLabel
             // 
             this.firstNameLabel.AutoSize = true;
-            this.firstNameLabel.Location = new System.Drawing.Point(22, 22);
+            this.firstNameLabel.Location = new System.Drawing.Point(12, 21);
             this.firstNameLabel.Name = "firstNameLabel";
             this.firstNameLabel.Size = new System.Drawing.Size(160, 32);
             this.firstNameLabel.TabIndex = 0;
@@ -62,7 +62,7 @@ namespace rmanager
             // lastNameLabel
             // 
             this.lastNameLabel.AutoSize = true;
-            this.lastNameLabel.Location = new System.Drawing.Point(22, 107);
+            this.lastNameLabel.Location = new System.Drawing.Point(12, 106);
             this.lastNameLabel.Name = "lastNameLabel";
             this.lastNameLabel.Size = new System.Drawing.Size(159, 32);
             this.lastNameLabel.TabIndex = 1;
@@ -71,7 +71,7 @@ namespace rmanager
             // occupationLabel
             // 
             this.occupationLabel.AutoSize = true;
-            this.occupationLabel.Location = new System.Drawing.Point(22, 287);
+            this.occupationLabel.Location = new System.Drawing.Point(12, 297);
             this.occupationLabel.Name = "occupationLabel";
             this.occupationLabel.Size = new System.Drawing.Size(168, 32);
             this.occupationLabel.TabIndex = 2;
@@ -80,7 +80,7 @@ namespace rmanager
             // addressLabel
             // 
             this.addressLabel.AutoSize = true;
-            this.addressLabel.Location = new System.Drawing.Point(22, 466);
+            this.addressLabel.Location = new System.Drawing.Point(352, 106);
             this.addressLabel.Name = "addressLabel";
             this.addressLabel.Size = new System.Drawing.Size(127, 32);
             this.addressLabel.TabIndex = 3;
@@ -89,7 +89,7 @@ namespace rmanager
             // cityLabel
             // 
             this.cityLabel.AutoSize = true;
-            this.cityLabel.Location = new System.Drawing.Point(22, 376);
+            this.cityLabel.Location = new System.Drawing.Point(352, 21);
             this.cityLabel.Name = "cityLabel";
             this.cityLabel.Size = new System.Drawing.Size(72, 32);
             this.cityLabel.TabIndex = 4;
@@ -97,14 +97,14 @@ namespace rmanager
             // 
             // firstNameTextBox
             // 
-            this.firstNameTextBox.Location = new System.Drawing.Point(28, 57);
+            this.firstNameTextBox.Location = new System.Drawing.Point(18, 56);
             this.firstNameTextBox.Name = "firstNameTextBox";
             this.firstNameTextBox.Size = new System.Drawing.Size(297, 38);
             this.firstNameTextBox.TabIndex = 5;
             // 
             // lastNameTextBox
             // 
-            this.lastNameTextBox.Location = new System.Drawing.Point(28, 142);
+            this.lastNameTextBox.Location = new System.Drawing.Point(18, 141);
             this.lastNameTextBox.Name = "lastNameTextBox";
             this.lastNameTextBox.Size = new System.Drawing.Size(297, 38);
             this.lastNameTextBox.TabIndex = 6;
@@ -112,7 +112,7 @@ namespace rmanager
             // maleRadioButton
             // 
             this.maleRadioButton.AutoSize = true;
-            this.maleRadioButton.Location = new System.Drawing.Point(28, 237);
+            this.maleRadioButton.Location = new System.Drawing.Point(18, 236);
             this.maleRadioButton.Name = "maleRadioButton";
             this.maleRadioButton.Size = new System.Drawing.Size(98, 36);
             this.maleRadioButton.TabIndex = 7;
@@ -123,7 +123,7 @@ namespace rmanager
             // femaleRadioButton
             // 
             this.femaleRadioButton.AutoSize = true;
-            this.femaleRadioButton.Location = new System.Drawing.Point(194, 237);
+            this.femaleRadioButton.Location = new System.Drawing.Point(184, 236);
             this.femaleRadioButton.Name = "femaleRadioButton";
             this.femaleRadioButton.Size = new System.Drawing.Size(131, 36);
             this.femaleRadioButton.TabIndex = 8;
@@ -136,31 +136,30 @@ namespace rmanager
             this.occupationsDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.occupationsDropDown.FormattingEnabled = true;
             this.occupationsDropDown.ItemHeight = 31;
-            this.occupationsDropDown.Location = new System.Drawing.Point(28, 322);
+            this.occupationsDropDown.Location = new System.Drawing.Point(18, 332);
             this.occupationsDropDown.Name = "occupationsDropDown";
-            this.occupationsDropDown.Size = new System.Drawing.Size(262, 39);
+            this.occupationsDropDown.Size = new System.Drawing.Size(335, 39);
             this.occupationsDropDown.TabIndex = 9;
-            this.occupationsDropDown.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.occupationsDropDown_DrawItem);
             // 
             // citiesDropDown
             // 
             this.citiesDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.citiesDropDown.FormattingEnabled = true;
-            this.citiesDropDown.Location = new System.Drawing.Point(28, 411);
+            this.citiesDropDown.Location = new System.Drawing.Point(358, 56);
             this.citiesDropDown.Name = "citiesDropDown";
             this.citiesDropDown.Size = new System.Drawing.Size(262, 39);
             this.citiesDropDown.TabIndex = 10;
             // 
             // addressTextBox
             // 
-            this.addressTextBox.Location = new System.Drawing.Point(28, 501);
+            this.addressTextBox.Location = new System.Drawing.Point(358, 141);
             this.addressTextBox.Name = "addressTextBox";
-            this.addressTextBox.Size = new System.Drawing.Size(297, 38);
+            this.addressTextBox.Size = new System.Drawing.Size(334, 38);
             this.addressTextBox.TabIndex = 11;
             // 
             // addAcquaintanceButton
             // 
-            this.addAcquaintanceButton.Location = new System.Drawing.Point(99, 653);
+            this.addAcquaintanceButton.Location = new System.Drawing.Point(503, 316);
             this.addAcquaintanceButton.Name = "addAcquaintanceButton";
             this.addAcquaintanceButton.Size = new System.Drawing.Size(189, 55);
             this.addAcquaintanceButton.TabIndex = 12;
@@ -172,7 +171,7 @@ namespace rmanager
             // 
             this.relationshipsDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.relationshipsDropDown.FormattingEnabled = true;
-            this.relationshipsDropDown.Location = new System.Drawing.Point(28, 591);
+            this.relationshipsDropDown.Location = new System.Drawing.Point(358, 235);
             this.relationshipsDropDown.Name = "relationshipsDropDown";
             this.relationshipsDropDown.Size = new System.Drawing.Size(262, 39);
             this.relationshipsDropDown.TabIndex = 14;
@@ -180,7 +179,7 @@ namespace rmanager
             // relationshipLabel
             // 
             this.relationshipLabel.AutoSize = true;
-            this.relationshipLabel.Location = new System.Drawing.Point(22, 556);
+            this.relationshipLabel.Location = new System.Drawing.Point(352, 200);
             this.relationshipLabel.Name = "relationshipLabel";
             this.relationshipLabel.Size = new System.Drawing.Size(182, 32);
             this.relationshipLabel.TabIndex = 13;
@@ -189,9 +188,9 @@ namespace rmanager
             // citiesDropDownEditButton
             // 
             this.citiesDropDownEditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.citiesDropDownEditButton.Location = new System.Drawing.Point(296, 411);
+            this.citiesDropDownEditButton.Location = new System.Drawing.Point(626, 55);
             this.citiesDropDownEditButton.Name = "citiesDropDownEditButton";
-            this.citiesDropDownEditButton.Size = new System.Drawing.Size(66, 39);
+            this.citiesDropDownEditButton.Size = new System.Drawing.Size(66, 36);
             this.citiesDropDownEditButton.TabIndex = 16;
             this.citiesDropDownEditButton.Text = "Edit";
             this.citiesDropDownEditButton.UseVisualStyleBackColor = true;
@@ -200,9 +199,9 @@ namespace rmanager
             // occupationsDropDownEditButton
             // 
             this.occupationsDropDownEditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.occupationsDropDownEditButton.Location = new System.Drawing.Point(296, 322);
+            this.occupationsDropDownEditButton.Location = new System.Drawing.Point(359, 331);
             this.occupationsDropDownEditButton.Name = "occupationsDropDownEditButton";
-            this.occupationsDropDownEditButton.Size = new System.Drawing.Size(66, 39);
+            this.occupationsDropDownEditButton.Size = new System.Drawing.Size(66, 36);
             this.occupationsDropDownEditButton.TabIndex = 17;
             this.occupationsDropDownEditButton.Text = "Edit";
             this.occupationsDropDownEditButton.UseVisualStyleBackColor = true;
@@ -211,9 +210,9 @@ namespace rmanager
             // relationshipsDropDownEditButton
             // 
             this.relationshipsDropDownEditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.relationshipsDropDownEditButton.Location = new System.Drawing.Point(296, 591);
+            this.relationshipsDropDownEditButton.Location = new System.Drawing.Point(626, 234);
             this.relationshipsDropDownEditButton.Name = "relationshipsDropDownEditButton";
-            this.relationshipsDropDownEditButton.Size = new System.Drawing.Size(66, 39);
+            this.relationshipsDropDownEditButton.Size = new System.Drawing.Size(66, 36);
             this.relationshipsDropDownEditButton.TabIndex = 18;
             this.relationshipsDropDownEditButton.Text = "Edit";
             this.relationshipsDropDownEditButton.UseVisualStyleBackColor = true;
@@ -222,7 +221,7 @@ namespace rmanager
             // genderLabel
             // 
             this.genderLabel.AutoSize = true;
-            this.genderLabel.Location = new System.Drawing.Point(22, 192);
+            this.genderLabel.Location = new System.Drawing.Point(12, 191);
             this.genderLabel.Name = "genderLabel";
             this.genderLabel.Size = new System.Drawing.Size(118, 32);
             this.genderLabel.TabIndex = 19;
@@ -232,7 +231,7 @@ namespace rmanager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(391, 730);
+            this.ClientSize = new System.Drawing.Size(709, 398);
             this.Controls.Add(this.genderLabel);
             this.Controls.Add(this.femaleRadioButton);
             this.Controls.Add(this.maleRadioButton);
@@ -256,7 +255,6 @@ namespace rmanager
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "addAcquaintanceForm";
             this.Text = "Add Acquaintance";
-            this.Load += new System.EventHandler(this.addAcquaintanceForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
