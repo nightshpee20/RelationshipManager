@@ -270,10 +270,6 @@ namespace rmanager
 
                 case "Exit":
                     this.Close();
-                    if(changesMade)
-                    {
-                        parent.refreshDropdownIfChangesWereMade(name); 
-                    }
                     break;
             }
         }
@@ -282,6 +278,14 @@ namespace rmanager
             for (int i = this.Controls.Count - 1; i >= 0; i--)
             {
                 if (this.Controls[i] is Panel) this.Controls[i].Dispose();
+            }
+        }
+
+        private void editForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (changesMade)
+            {
+                parent.refreshDropdownIfChangesWereMade(name);
             }
         }
     }

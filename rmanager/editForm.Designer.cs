@@ -59,6 +59,7 @@ namespace rmanager
             this.MaximizeBox = false;
             this.Name = "editForm";
             this.Text = "Edit Form";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.editForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.editFormDataGridRecordBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
