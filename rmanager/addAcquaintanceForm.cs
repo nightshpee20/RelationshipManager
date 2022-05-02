@@ -13,14 +13,14 @@ namespace rmanager
 {
     public partial class addAcquaintanceForm : Form
     {
-        private userProfileForm user;
+        private acquaintancesForm parent;
         private int user_id;
         private DataTable dtc, dto, dtr;
         private string attribute = "";
-        public addAcquaintanceForm(userProfileForm user, int user_id)
+        public addAcquaintanceForm(acquaintancesForm parent, int user_id)
         {
             InitializeComponent();
-            this.user = user;
+            this.parent = parent;
             this.user_id = user_id;
             setDropDownValues(user_id, "occupations", occupationsDropDown, ref dto);
             setDropDownValues(user_id, "cities", citiesDropDown, ref dtc);
@@ -119,7 +119,6 @@ namespace rmanager
         private void exitAcquaintnaceButton_Click(object sender, EventArgs e)
         {
             this.Close();
-            user.Show();
         }
 
         public void refreshDropdownIfChangesWereMade(string name)

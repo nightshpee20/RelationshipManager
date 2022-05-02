@@ -79,8 +79,9 @@ namespace rmanager
         private void browseAcquaintancesButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            addAcquaintanceForm form = new addAcquaintanceForm(this, user_id);
-            form.Show();
+            acquaintancesForm acquaintances = new acquaintancesForm(this, user_id);
+            //addAcquaintanceForm form = new addAcquaintanceForm(this, user_id);
+            acquaintances.Show();
         }
     }
     }
