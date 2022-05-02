@@ -27,14 +27,14 @@ namespace rmanager
             setDropDownValues(user_id, "relationships", relationshipsDropDown, ref dtr);
         }
         // REMOVE AFTER DONE WITH TESTING!!
-        public addAcquaintanceForm(int user_id)
-        {
-            InitializeComponent();
-            this.user_id = user_id;
-            setDropDownValues(user_id, "occupations", occupationsDropDown, ref dto);
-            setDropDownValues(user_id, "cities", citiesDropDown, ref dtc);
-            setDropDownValues(user_id, "relationships", relationshipsDropDown, ref dtr);
-        }
+        //public addAcquaintanceForm(int user_id)
+        //{
+        //    InitializeComponent();
+        //    this.user_id = user_id;
+        //    setDropDownValues(user_id, "occupations", occupationsDropDown, ref dto);
+        //    setDropDownValues(user_id, "cities", citiesDropDown, ref dtc);
+        //    setDropDownValues(user_id, "relationships", relationshipsDropDown, ref dtr);
+        //}
        
         private void setDropDownValues(int user_id, string name, ComboBox cb, ref DataTable dt)
         {
@@ -86,8 +86,8 @@ namespace rmanager
                     if (dt.Rows[i][attribute].ToString().Length > maxLength) maxLength = dt.Rows[i][attribute].ToString().Length;
                 }
  
-                occupationsDropDown.Width = maxLength * 12 + 24;
-                occupationsDropDownEditButton.Left = maxLength * 12 + 48;
+                occupationsDropDown.Width = maxLength * 12;
+                occupationsDropDownEditButton.Left = maxLength * 12 + 24;
             }
         }
         private void addAcquaintanceButton_Click(object sender, EventArgs e)
@@ -103,9 +103,6 @@ namespace rmanager
                                                                   $"{getDropDownItemIndex(citiesDropDown, dtc)}, " +
                                                                   $"\'{addressTextBox.Text}\', " +
                                                                   $"{getDropDownItemIndex(relationshipsDropDown, dtr)})");
-            
-            this.Close();
-            //user.Show();
         }
         private int getDropDownItemIndex(ComboBox cb, DataTable dt)
         {
@@ -118,6 +115,13 @@ namespace rmanager
             }
             return -1;
         }
+
+        private void exitAcquaintnaceButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            user.Show();
+        }
+
         public void refreshDropdownIfChangesWereMade(string name)
         {
             switch(name)

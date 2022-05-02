@@ -48,6 +48,7 @@ namespace rmanager
             this.occupationsDropDownEditButton = new System.Windows.Forms.Button();
             this.relationshipsDropDownEditButton = new System.Windows.Forms.Button();
             this.genderLabel = new System.Windows.Forms.Label();
+            this.exitAcquaintnaceButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // firstNameLabel
@@ -159,9 +160,9 @@ namespace rmanager
             // 
             // addAcquaintanceButton
             // 
-            this.addAcquaintanceButton.Location = new System.Drawing.Point(503, 316);
+            this.addAcquaintanceButton.Location = new System.Drawing.Point(482, 316);
             this.addAcquaintanceButton.Name = "addAcquaintanceButton";
-            this.addAcquaintanceButton.Size = new System.Drawing.Size(189, 55);
+            this.addAcquaintanceButton.Size = new System.Drawing.Size(102, 55);
             this.addAcquaintanceButton.TabIndex = 12;
             this.addAcquaintanceButton.Text = "Add";
             this.addAcquaintanceButton.UseVisualStyleBackColor = true;
@@ -227,11 +228,22 @@ namespace rmanager
             this.genderLabel.TabIndex = 19;
             this.genderLabel.Text = "Gender:";
             // 
+            // exitAcquaintnaceButton
+            // 
+            this.exitAcquaintnaceButton.Location = new System.Drawing.Point(590, 316);
+            this.exitAcquaintnaceButton.Name = "exitAcquaintnaceButton";
+            this.exitAcquaintnaceButton.Size = new System.Drawing.Size(102, 55);
+            this.exitAcquaintnaceButton.TabIndex = 20;
+            this.exitAcquaintnaceButton.Text = "Exit";
+            this.exitAcquaintnaceButton.UseVisualStyleBackColor = true;
+            this.exitAcquaintnaceButton.Click += new System.EventHandler(this.exitAcquaintnaceButton_Click);
+            // 
             // addAcquaintanceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(709, 398);
+            this.Controls.Add(this.exitAcquaintnaceButton);
             this.Controls.Add(this.genderLabel);
             this.Controls.Add(this.femaleRadioButton);
             this.Controls.Add(this.maleRadioButton);
@@ -281,5 +293,6 @@ namespace rmanager
         private System.Windows.Forms.Button occupationsDropDownEditButton;
         private System.Windows.Forms.Button relationshipsDropDownEditButton;
         private System.Windows.Forms.Label genderLabel;
+        private System.Windows.Forms.Button exitAcquaintnaceButton;
     }
 }
