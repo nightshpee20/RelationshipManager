@@ -15,6 +15,7 @@ namespace rmanager
     {
         private userProfileForm parent;
         private int user_id;
+        private ToolTip toolTip1 = new ToolTip();
         public acquaintancesForm(userProfileForm parent, int user_id)
         {
             InitializeComponent();
@@ -28,6 +29,8 @@ namespace rmanager
             InitializeComponent();
             this.user_id = user_id;
             displayAcquaintances(acquaintancesDataGridView);
+
+            
         }
         private void displayAcquaintances(DataGridView dgv)
         {
@@ -50,7 +53,23 @@ namespace rmanager
             MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adp.Fill(dt);
+            
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                dt.Rows[i]["first_name"] = u.CapitalizeFirstLetters(dt.Rows[i]["first_name"].ToString());
+                dt.Rows[i]["last_name"] = u.CapitalizeFirstLetters(dt.Rows[i]["last_name"].ToString());
+
+                if (dt.Rows[i]["gender"].ToString() == "m") dt.Rows[i]["gender"] = "Male";
+                else dt.Rows[i]["gender"] = "Female";
+
+                dt.Rows[i]["occupation"] = u.CapitalizeFirstLetters(dt.Rows[i]["occupation"].ToString());
+                dt.Rows[i]["city"] = u.CapitalizeFirstLetters(dt.Rows[i]["city"].ToString());
+                if(dt.Rows[i]["address"].ToString() != "") dt.Rows[i]["address"] = u.CapitalizeFirstLetters(dt.Rows[i]["address"].ToString());
+                dt.Rows[i]["relationship"] = u.CapitalizeFirstLetters(dt.Rows[i]["relationship"].ToString());
+            }
+
             dgv.DataSource = dt;
+
         }
         private void addAcquaintanceButton_Click(object sender, EventArgs e)
         {
@@ -66,6 +85,19 @@ namespace rmanager
         private void acquaintancesForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             parent.Show();
+        }
+
+        private void acquaintancesDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex == 0)
+            {
+                u.M("BRUH");
+            }else if(e.ColumnIndex == 1)
+            {
+                if (MessageBox.Show("Are you sure you wish to delete this record?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes);
+            }
+
+            
         }
     }
 }

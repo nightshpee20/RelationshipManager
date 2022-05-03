@@ -46,7 +46,7 @@ namespace rmanager
             // 
             // addAcquaintanceButton
             // 
-            this.addAcquaintanceButton.Location = new System.Drawing.Point(1125, 433);
+            this.addAcquaintanceButton.Location = new System.Drawing.Point(1128, 645);
             this.addAcquaintanceButton.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.addAcquaintanceButton.Name = "addAcquaintanceButton";
             this.addAcquaintanceButton.Size = new System.Drawing.Size(185, 68);
@@ -57,7 +57,7 @@ namespace rmanager
             // 
             // returnButton
             // 
-            this.returnButton.Location = new System.Drawing.Point(15, 433);
+            this.returnButton.Location = new System.Drawing.Point(12, 645);
             this.returnButton.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.returnButton.Name = "returnButton";
             this.returnButton.Size = new System.Drawing.Size(185, 68);
@@ -68,7 +68,13 @@ namespace rmanager
             // 
             // acquaintancesDataGridView
             // 
+            this.acquaintancesDataGridView.AllowUserToAddRows = false;
+            this.acquaintancesDataGridView.AllowUserToDeleteRows = false;
+            this.acquaintancesDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.acquaintancesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.acquaintancesDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.acquaintancesDataGridView.BackgroundColor = System.Drawing.Color.White;
             this.acquaintancesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.acquaintancesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.firstName,
@@ -80,35 +86,48 @@ namespace rmanager
             this.id,
             this.editButton,
             this.deleteButton});
-            this.acquaintancesDataGridView.Location = new System.Drawing.Point(12, 12);
+            this.acquaintancesDataGridView.Location = new System.Drawing.Point(12, 76);
             this.acquaintancesDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.acquaintancesDataGridView.Name = "acquaintancesDataGridView";
+            this.acquaintancesDataGridView.ReadOnly = true;
             this.acquaintancesDataGridView.RowHeadersVisible = false;
             this.acquaintancesDataGridView.RowHeadersWidth = 51;
-            this.acquaintancesDataGridView.RowTemplate.Height = 24;
-            this.acquaintancesDataGridView.Size = new System.Drawing.Size(1301, 412);
+            this.acquaintancesDataGridView.RowTemplate.Height = 30;
+            this.acquaintancesDataGridView.Size = new System.Drawing.Size(1301, 561);
             this.acquaintancesDataGridView.TabIndex = 2;
+            this.acquaintancesDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.acquaintancesDataGridView_CellClick);
             // 
             // firstName
             // 
+            this.firstName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.firstName.DataPropertyName = "first_name";
+            this.firstName.Frozen = true;
             this.firstName.HeaderText = "First Name";
             this.firstName.MinimumWidth = 6;
             this.firstName.Name = "firstName";
+            this.firstName.ReadOnly = true;
+            this.firstName.Width = 144;
             // 
             // lastName
             // 
+            this.lastName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.lastName.DataPropertyName = "last_name";
+            this.lastName.Frozen = true;
             this.lastName.HeaderText = "Last Name";
             this.lastName.MinimumWidth = 6;
             this.lastName.Name = "lastName";
+            this.lastName.ReadOnly = true;
+            this.lastName.Width = 144;
             // 
             // gender
             // 
+            this.gender.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.gender.DataPropertyName = "gender";
+            this.gender.Frozen = true;
             this.gender.HeaderText = "Gender";
             this.gender.MinimumWidth = 6;
             this.gender.Name = "gender";
+            this.gender.ReadOnly = true;
             // 
             // occupation
             // 
@@ -116,6 +135,7 @@ namespace rmanager
             this.occupation.HeaderText = "Occupation";
             this.occupation.MinimumWidth = 6;
             this.occupation.Name = "occupation";
+            this.occupation.ReadOnly = true;
             // 
             // city
             // 
@@ -123,6 +143,7 @@ namespace rmanager
             this.city.HeaderText = "City";
             this.city.MinimumWidth = 6;
             this.city.Name = "city";
+            this.city.ReadOnly = true;
             // 
             // address
             // 
@@ -130,6 +151,7 @@ namespace rmanager
             this.address.HeaderText = "Address";
             this.address.MinimumWidth = 6;
             this.address.Name = "address";
+            this.address.ReadOnly = true;
             // 
             // id
             // 
@@ -137,12 +159,14 @@ namespace rmanager
             this.id.HeaderText = "Relationship";
             this.id.MinimumWidth = 6;
             this.id.Name = "id";
+            this.id.ReadOnly = true;
             // 
             // editButton
             // 
             this.editButton.HeaderText = "Edit";
             this.editButton.MinimumWidth = 6;
             this.editButton.Name = "editButton";
+            this.editButton.ReadOnly = true;
             this.editButton.Text = "Edit";
             this.editButton.UseColumnTextForButtonValue = true;
             // 
@@ -151,6 +175,7 @@ namespace rmanager
             this.deleteButton.HeaderText = "Delete";
             this.deleteButton.MinimumWidth = 6;
             this.deleteButton.Name = "deleteButton";
+            this.deleteButton.ReadOnly = true;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseColumnTextForButtonValue = true;
             // 
@@ -158,12 +183,14 @@ namespace rmanager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1325, 510);
+            this.ClientSize = new System.Drawing.Size(1325, 728);
             this.Controls.Add(this.acquaintancesDataGridView);
             this.Controls.Add(this.returnButton);
             this.Controls.Add(this.addAcquaintanceButton);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.MaximizeBox = false;
             this.Name = "acquaintancesForm";
             this.Text = "Acquaintances";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.acquaintancesForm_FormClosing);

@@ -25,6 +25,7 @@ namespace rmanager
             setDropDownValues(user_id, "occupations", occupationsDropDown, ref dto);
             setDropDownValues(user_id, "cities", citiesDropDown, ref dtc);
             setDropDownValues(user_id, "relationships", relationshipsDropDown, ref dtr);
+            maleRadioButton.Checked = true;
         }
         // REMOVE AFTER DONE WITH TESTING!!
         //public addAcquaintanceForm(int user_id)
@@ -92,8 +93,8 @@ namespace rmanager
         }
         private void addAcquaintanceButton_Click(object sender, EventArgs e)
         {
-            char gender;
-            if (maleRadioButton.Checked) gender = 'm'; else gender = 'f';
+            char gender = 'm';
+            if (femaleRadioButton.Checked) gender = 'f';
             
             u.MySqlCommandImproved($"CALL sp_insertUserAcquaintance({user_id}, " +
                                                                   $"\'{firstNameTextBox.Text}\', " +
@@ -103,6 +104,13 @@ namespace rmanager
                                                                   $"{getDropDownItemIndex(citiesDropDown, dtc)}, " +
                                                                   $"\'{addressTextBox.Text}\', " +
                                                                   $"{getDropDownItemIndex(relationshipsDropDown, dtr)})");
+            firstNameTextBox.Text = "";
+            lastNameTextBox.Text = "";
+            maleRadioButton.Checked = true;
+            occupationsDropDown.SelectedIndex = 0;
+            citiesDropDown.SelectedIndex = 0;
+            addressTextBox.Text = "";
+            relationshipsDropDown.SelectedIndex = 0;
         }
         private int getDropDownItemIndex(ComboBox cb, DataTable dt)
         {
