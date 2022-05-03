@@ -28,14 +28,39 @@ namespace rmanager
             maleRadioButton.Checked = true;
         }
         // REMOVE AFTER DONE WITH TESTING!!
-        //public addAcquaintanceForm(int user_id)
-        //{
-        //    InitializeComponent();
-        //    this.user_id = user_id;
-        //    setDropDownValues(user_id, "occupations", occupationsDropDown, ref dto);
-        //    setDropDownValues(user_id, "cities", citiesDropDown, ref dtc);
-        //    setDropDownValues(user_id, "relationships", relationshipsDropDown, ref dtr);
-        //}
+        public addAcquaintanceForm(acquaintancesForm parent, int user_id, string first, string last, string gender, string occ, string city, string address, string rel)
+        {
+            InitializeComponent();
+            this.user_id = user_id;
+            this.Text = "Edit Acquaintance Form";
+            
+            firstNameTextBox.Text = first;
+            
+            lastNameTextBox.Text = last;
+            
+            if (gender == "Female") femaleRadioButton.Checked = true;
+            if (gender == "Male") maleRadioButton.Checked = true;
+            
+            setDropDownValues(user_id, "occupations", occupationsDropDown, ref dto);
+            for (int i = 0; i < dto.Rows.Count; i++)
+            {
+                if(occ == dto.Rows[i][0].ToString()) occupationsDropDown.SelectedIndex = i;
+            }
+            
+            setDropDownValues(user_id, "cities", citiesDropDown, ref dtc);
+            for (int i = 0; i < dtc.Rows.Count; i++)
+            {
+                if (city == u.CapitalizeFirstLetters(dtc.Rows[i][0].ToString())) citiesDropDown.SelectedIndex = i;
+            }
+
+            addressTextBox.Text = address;
+
+            setDropDownValues(user_id, "relationships", relationshipsDropDown, ref dtr);
+            for (int i = 0; i < dtr.Rows.Count; i++)
+            {
+                if (rel == dtr.Rows[i][0].ToString()) relationshipsDropDown.SelectedIndex = i;
+            }
+        }
        
         private void setDropDownValues(int user_id, string name, ComboBox cb, ref DataTable dt)
         {
@@ -95,7 +120,17 @@ namespace rmanager
         {
             char gender = 'm';
             if (femaleRadioButton.Checked) gender = 'f';
-            
+            if (firstNameTextBox.Text == "")
+            {
+                u.M("First Name is a mandatory field!"); 
+                return;
+            }
+            if (lastNameTextBox.Text == "")
+            {
+                u.M("Last Name is a mandatory field!"); 
+                return;
+            }
+
             u.MySqlCommandImproved($"CALL sp_insertUserAcquaintance({user_id}, " +
                                                                   $"\'{firstNameTextBox.Text}\', " +
                                                                   $"\'{lastNameTextBox.Text}\', " +
@@ -111,6 +146,8 @@ namespace rmanager
             citiesDropDown.SelectedIndex = 0;
             addressTextBox.Text = "";
             relationshipsDropDown.SelectedIndex = 0;
+
+            parent.refreshAcquaintancesDataGridView();
         }
         private int getDropDownItemIndex(ComboBox cb, DataTable dt)
         {
@@ -129,7 +166,7 @@ namespace rmanager
             this.Close();
         }
 
-        public void refreshDropdownIfChangesWereMade(string name)
+        public void refreshDropdown(string name)
         {
             switch(name)
             {

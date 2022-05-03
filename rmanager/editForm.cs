@@ -285,7 +285,7 @@ namespace rmanager
         {
             if (changesMade)
             {
-                parent.refreshDropdownIfChangesWereMade(name);
+                parent.refreshDropdown(name);
             }
         }
     }

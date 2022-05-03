@@ -70,13 +70,18 @@ namespace rmanager
 
             dgv.DataSource = dt;
 
+            
+
         }
         private void addAcquaintanceButton_Click(object sender, EventArgs e)
         {
             addAcquaintanceForm add = new addAcquaintanceForm(this, user_id);
             add.Show();
         }
-
+        public void refreshAcquaintancesDataGridView()
+        {
+            displayAcquaintances(acquaintancesDataGridView);
+        }
         private void returnButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -91,13 +96,42 @@ namespace rmanager
         {
             if(e.ColumnIndex == 0)
             {
-                u.M("BRUH");
+                DataGridViewRow row = acquaintancesDataGridView.Rows[e.RowIndex];
+                addAcquaintanceForm edit = new addAcquaintanceForm(this, user_id, 
+                                                                   row.Cells[2].Value.ToString(),
+                                                                   row.Cells[3].Value.ToString(),
+                                                                   row.Cells[4].Value.ToString(),
+                                                                   row.Cells[5].Value.ToString(),
+                                                                   row.Cells[6].Value.ToString(),
+                                                                   row.Cells[7].Value.ToString(),
+                                                                   row.Cells[8].Value.ToString());
+                edit.Show();
+
+                //u.M((this, user_id, )
+                //u.M     (row.Cells[2].Value.ToString());
+                //   u.M  (row.Cells[3].Value.ToString());
+                //    u.M (row.Cells[4].Value.ToString());
+                //    u.M (row.Cells[5].Value.ToString());
+                //    u.M (row.Cells[6].Value.ToString());
+                //    u.M (row.Cells[7].Value.ToString());
+                //u.M(row.Cells[8].Value.ToString());
+
+
             }else if(e.ColumnIndex == 1)
             {
-                if (MessageBox.Show("Are you sure you wish to delete this record?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes);
+                if (MessageBox.Show("Are you sure you wish to delete this record?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    acquaintancesDataGridView.Rows.RemoveAt(e.RowIndex);
+                }
             }
+        }
 
-            
+        private void acquaintancesDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            for (int i = 0; i < acquaintancesDataGridView.Rows.Count; i += 2)
+            {
+                acquaintancesDataGridView.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
+            }
         }
     }
 }

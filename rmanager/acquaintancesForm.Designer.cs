@@ -96,6 +96,7 @@ namespace rmanager
             this.acquaintancesDataGridView.Size = new System.Drawing.Size(1301, 561);
             this.acquaintancesDataGridView.TabIndex = 2;
             this.acquaintancesDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.acquaintancesDataGridView_CellClick);
+            this.acquaintancesDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.acquaintancesDataGridView_DataBindingComplete);
             // 
             // firstName
             // 
@@ -128,6 +129,7 @@ namespace rmanager
             this.gender.MinimumWidth = 6;
             this.gender.Name = "gender";
             this.gender.ReadOnly = true;
+            this.gender.Width = 125;
             // 
             // occupation
             // 
