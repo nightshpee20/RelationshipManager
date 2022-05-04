@@ -172,7 +172,7 @@ namespace rmanager
             this.Controls.Add(pnl);
 
             pnl.Name = "row" + count;
-            pnl.Top = 40*count;
+            pnl.Top = 40 * count;
             pnl.Left = 8;
             pnl.Height = 40;
             pnl.Width = max_width * 9 + 168;
