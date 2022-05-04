@@ -31,6 +31,7 @@ namespace rmanager
         public addAcquaintanceForm(acquaintancesForm parent, int user_id, string first, string last, string gender, string occ, string city, string address, string rel)
         {
             InitializeComponent();
+            this.parent = parent;
             this.user_id = user_id;
             this.Text = "Edit Acquaintance Form";
             
@@ -202,7 +203,7 @@ namespace rmanager
                    break;
            }
        
-           editForm edit = new editForm(name, user_id, this);
+           editForm edit = new editForm(name, user_id, this, parent);
            edit.Show();
        }
     }

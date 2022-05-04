@@ -26,8 +26,9 @@ END$
 DELIMITER ;
 
 
+/* CHECKED */
 DELIMITER $
-CREATE TRIGGER tg_del_deleteAcquaintanceFromParentTable AFTER DELETE ON user_acquaintance_relationships FOR EACH ROW
+CREATE TRIGGER tg_del_deleteAcquaintanceFromParentTable BEFORE DELETE ON user_acquaintance_relationships FOR EACH ROW
 BEGIN
 	IF
 		((SELECT COUNT(*) FROM user_acquaintance_relationships WHERE acquaintance_id = OLD.acquaintance_id) = 0)
@@ -38,6 +39,7 @@ END$
 DELIMITER ;
 
 
+/* CHECKED */
 DELIMITER $
 CREATE TRIGGER tg_del_abortDeleteAcquaintaces BEFORE DELETE ON acquaintances FOR EACH ROW
 BEGIN
@@ -70,6 +72,7 @@ END$
 DELIMITER ;
 
 
+/* CHECKED */
 DELIMITER $
 CREATE TRIGGER tg_del_deleteCitiesFromParentTable AFTER DELETE ON user_cities FOR EACH ROW
 BEGIN
@@ -78,10 +81,13 @@ BEGIN
 	THEN
 		DELETE FROM cities WHERE id = OLD.city_id;
 	END IF;
+    
+    CALL sp_deleteUserAcquaintance_UserCities(OLD.user_id, OLD.city_id);
 END$
 DELIMITER ;
 
 
+/* CHECKED */
 DELIMITER $
 CREATE TRIGGER tg_del_abortDeleteCities BEFORE DELETE ON cities FOR EACH ROW
 BEGIN
@@ -114,6 +120,7 @@ END$
 DELIMITER ;
 
 
+/* CHECKED */
 DELIMITER $
 CREATE TRIGGER tg_del_deleteLocationFromParentTable AFTER DELETE ON user_locations FOR EACH ROW
 BEGIN
@@ -126,6 +133,7 @@ END$
 DELIMITER ;
 
 
+/* CHECKED */
 DELIMITER $
 CREATE TRIGGER tg_del_abortDeleteLocations BEFORE DELETE ON locations FOR EACH ROW
 BEGIN
@@ -158,6 +166,7 @@ END$
 DELIMITER ;
 
 
+/* CHECKED */
 DELIMITER $
 CREATE TRIGGER tg_del_deleteOccupationFromParentTable AFTER DELETE ON user_occupations FOR EACH ROW
 BEGIN
@@ -166,10 +175,13 @@ BEGIN
 	THEN
 		DELETE FROM occupations WHERE id = OLD.occupation_id;
 	END IF;
+    
+    CALL sp_deleteUserAcquaintance_UserOccupations(OLD.user_id, OLD.occupation_id);
 END$
 DELIMITER ;
 
 
+/* CHECKED */
 DELIMITER $
 CREATE TRIGGER tg_del_abortDeleteOccupations BEFORE DELETE ON occupations FOR EACH ROW
 BEGIN
@@ -202,6 +214,7 @@ END$
 DELIMITER ;
 
 
+/* CHECKED */
 DELIMITER $
 CREATE TRIGGER tg_del_deleteReasonFromParentTable AFTER DELETE ON user_reasons FOR EACH ROW
 BEGIN
@@ -214,6 +227,7 @@ END$
 DELIMITER ;
 
 
+/* CHECKED */
 DELIMITER $
 CREATE TRIGGER tg_del_abortDeleteReasons BEFORE DELETE ON reasons FOR EACH ROW
 BEGIN
@@ -246,6 +260,7 @@ END$
 DELIMITER ;
 
 
+/* CHECKED */
 DELIMITER $
 CREATE TRIGGER tg_del_deleteRelationshipFromParentTable AFTER DELETE ON user_relationships FOR EACH ROW
 BEGIN
@@ -258,6 +273,7 @@ END$
 DELIMITER ;
 
 
+/* CHECKED */
 DELIMITER $
 CREATE TRIGGER tg_del_abortDeleteRelationship BEFORE DELETE ON relationships FOR EACH ROW
 BEGIN
@@ -269,5 +285,3 @@ BEGIN
 	END IF;
 END$
 DELIMITER ;
-
-

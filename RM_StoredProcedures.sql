@@ -41,6 +41,24 @@ DELIMITER ;
 
 
 /* CHECKED */
+DELIMITER $
+CREATE PROCEDURE sp_deleteUserAcquaintance_UserCities(usr_id INT, ct_id INT)
+BEGIN
+	DELETE FROM user_acquaintance_relationships WHERE user_id = usr_id AND acquaintance_id IN (SELECT id FROM acquaintances WHERE city_id = ct_id);
+END$
+DELIMITER ;
+
+
+/* CHECKED */
+DELIMITER $
+CREATE PROCEDURE sp_deleteUserAcquaintance_UserOccupations(usr_id INT, occ_id INT)
+BEGIN
+	DELETE FROM user_acquaintance_relationships WHERE user_id = usr_id AND acquaintance_id IN (SELECT id FROM acquaintances WHERE occupation_id = occ_id);
+END$
+DELIMITER ;
+
+
+/* CHECKED */
 DELIMITER $ 
 CREATE PROCEDURE sp_insertAcquaintance (fn VARCHAR(30) CHARACTER SET utf16,
 										ln VARCHAR(30) CHARACTER SET utf16,
@@ -255,3 +273,5 @@ BEGIN
     INSERT INTO user_relationships(relationship_id, user_id) VALUES (@id, usr_id);
 END$
 DELIMITER ;
+
+######################################################### EXPERIMENTAL

@@ -18,13 +18,15 @@ namespace rmanager
         private string column;
         private string oldText;
         private bool changesMade = false;
-        addAcquaintanceForm parent;
+        private acquaintancesForm grandparent;
+        private addAcquaintanceForm parent;
         private int max_width;
         
-        public editForm(string name, int user_id, addAcquaintanceForm parent)
+        public editForm(string name, int user_id, addAcquaintanceForm parent, acquaintancesForm grandparent)
         {
             InitializeComponent();
             this.parent = parent;
+            this.grandparent = grandparent;
             this.Text = u.CapitalizeFirstLetters($"{name} Edit Form");
             this.user_id = user_id;
             this.name = name;
@@ -286,6 +288,7 @@ namespace rmanager
             if (changesMade)
             {
                 parent.refreshDropdown(name);
+                grandparent.refreshAcquaintancesDataGridView();
             }
         }
     }
