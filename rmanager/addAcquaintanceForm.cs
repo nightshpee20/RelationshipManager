@@ -175,11 +175,7 @@ namespace rmanager
                 for (int i = 0; i < oldValues.Count; i++)
                 {
                     if (oldValues[i] != newValues[i]);
-                    {
-                        u.MySqlCommandImproved($"DELETE FROM user_acquaintance_relationships WHERE user_id = {user_id} AND acquaintance_id = " +
-                                               $"(SELECT id FROM acquaintances WHERE first_name = \'{oldValues[0]}\' AND last_name = \'{oldValues[1]}\' AND city_id = {oldCityIndex})");
-
-
+                    {           
                         char gender;
                         if (newValues[2] == "Male") gender = 'm'; else gender = 'f';
                         u.MySqlCommandImproved($"CALL sp_insertUserAcquaintance({user_id}, " +
@@ -190,6 +186,27 @@ namespace rmanager
                                                                               $"{getDropDownItemIndex(citiesDropDown, dtc)}, " +
                                                                             $"\'{addressTextBox.Text}\', " +
                                                                               $"{getDropDownItemIndex(relationshipsDropDown, dtr)})");
+
+                        int acq_id = -1;
+
+                        MySqlCommand cmd = new MySqlCommand($"SELECT id FROM acquaintances WHERE first_name = \'{oldValues[0]}\' AND last_name = \'{oldValues[1]}\' AND city_id = (SELECT id FROM cities WHERE city = \'{citiesDropDown.GetItemText(citiesDropDown.SelectedItem)}\')", Connect.con);
+
+
+
+                        Connect.con.Open();
+
+                        var dr = cmd.ExecuteReader();
+                        if (dr.HasRows)
+                        {
+                            dr.Read();
+                            acq_id = dr.GetInt32(0);
+                        }
+
+                        Connect.con.Close();
+
+                        u.MySqlCommandImproved($"DELETE FROM user_acquaintance_relationships WHERE user_id = {user_id} AND acquaintance_id = {acq_id}");
+
+                        parent.refreshAcquaintancesDataGridView();
                         break;
                     }
                 }

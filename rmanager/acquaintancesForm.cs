@@ -49,7 +49,8 @@ namespace rmanager
                                                     $"ON a.occupation_id = o.id " +
                                                 $"JOIN relationships r " +
                                                     $"ON uar.relationship_id = r.id " +
-                                                $"WHERE user_id = {user_id};", Connect.con);
+                                                $"WHERE user_id = {user_id} " +
+                                                $"ORDER BY a.first_name ASC", Connect.con);
             MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adp.Fill(dt);
@@ -107,13 +108,13 @@ namespace rmanager
                 edit.Show();
 
                 //u.M((this, user_id, )
-                u.M     (row.Cells[2].Value.ToString());
-                   u.M  (row.Cells[3].Value.ToString());
-                    u.M (row.Cells[4].Value.ToString());
-                    u.M (row.Cells[5].Value.ToString());
-                    u.M (row.Cells[6].Value.ToString());
-                    u.M (row.Cells[7].Value.ToString());
-                u.M(row.Cells[8].Value.ToString());
+                //u.M     (row.Cells[2].Value.ToString());
+                //   u.M  (row.Cells[3].Value.ToString());
+                //    u.M (row.Cells[4].Value.ToString());
+                //    u.M (row.Cells[5].Value.ToString());
+                //    u.M (row.Cells[6].Value.ToString());
+                //    u.M (row.Cells[7].Value.ToString());
+                //u.M(row.Cells[8].Value.ToString());
 
 
             }else if(e.ColumnIndex == 1)
