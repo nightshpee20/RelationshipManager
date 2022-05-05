@@ -165,7 +165,7 @@ namespace rmanager
             // 
             // editButton
             // 
-            this.editButton.HeaderText = "Edit";
+            this.editButton.HeaderText = "";
             this.editButton.MinimumWidth = 6;
             this.editButton.Name = "editButton";
             this.editButton.ReadOnly = true;
@@ -174,7 +174,7 @@ namespace rmanager
             // 
             // deleteButton
             // 
-            this.deleteButton.HeaderText = "Delete";
+            this.deleteButton.HeaderText = "";
             this.deleteButton.MinimumWidth = 6;
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.ReadOnly = true;

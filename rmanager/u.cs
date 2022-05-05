@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,6 +57,14 @@ namespace rmanager
         public static void M(string message)
         {
             MessageBox.Show(message);
+        }
+
+        public static void ColorRows(DataGridView dgv)
+        {
+            for (int i = 0; i < dgv.Rows.Count; i += 2)
+            {
+                dgv.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
+            }
         }
     }
 }

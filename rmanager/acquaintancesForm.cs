@@ -38,7 +38,8 @@ namespace rmanager
                                                        $"a.last_name, " +
                                                        $"a.gender, " +
                                                        $"o.occupation, " +
-                                                       $"c.city, a.address, " +
+                                                       $"c.city, " +
+                                                       $"a.address, " +
                                                        $"r.relationship " +
                                                 $"FROM user_acquaintance_relationships uar " +
                                                 $"JOIN acquaintances a " +
@@ -50,7 +51,7 @@ namespace rmanager
                                                 $"JOIN relationships r " +
                                                     $"ON uar.relationship_id = r.id " +
                                                 $"WHERE user_id = {user_id} " +
-                                                $"ORDER BY a.first_name ASC", Connect.con);
+                                                $"ORDER BY first_name ASC, last_name ASC, city ASC;", Connect.con);
             MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adp.Fill(dt);
@@ -79,7 +80,7 @@ namespace rmanager
         public void refreshAcquaintancesDataGridView()
         {
             displayAcquaintances(acquaintancesDataGridView);
-            colorRows();
+            u.ColorRows(acquaintancesDataGridView);
         }
         private void returnButton_Click(object sender, EventArgs e)
         {
@@ -146,15 +147,9 @@ namespace rmanager
 
         private void acquaintancesDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            colorRows();   
+            u.ColorRows(acquaintancesDataGridView);   
         }
 
-        private void colorRows()
-        {
-            for (int i = 0; i < acquaintancesDataGridView.Rows.Count; i += 2)
-            {
-                acquaintancesDataGridView.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
-            }
-        }
+        
     }
 }
