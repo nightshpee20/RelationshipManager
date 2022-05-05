@@ -28,7 +28,7 @@ DELIMITER ;
 
 /* CHECKED */
 DELIMITER $
-CREATE TRIGGER tg_del_deleteAcquaintanceFromParentTable BEFORE DELETE ON user_acquaintance_relationships FOR EACH ROW
+CREATE TRIGGER tg_del_deleteAcquaintanceFromParentTable AFTER DELETE ON user_acquaintance_relationships FOR EACH ROW
 BEGIN
 	IF
 		((SELECT COUNT(*) FROM user_acquaintance_relationships WHERE acquaintance_id = OLD.acquaintance_id) = 0)
@@ -81,8 +81,6 @@ BEGIN
 	THEN
 		DELETE FROM cities WHERE id = OLD.city_id;
 	END IF;
-    
-    CALL sp_deleteUserAcquaintance_UserCities(OLD.user_id, OLD.city_id);
 END$
 DELIMITER ;
 

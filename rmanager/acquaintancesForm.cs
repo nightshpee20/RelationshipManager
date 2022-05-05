@@ -69,9 +69,6 @@ namespace rmanager
             }
 
             dgv.DataSource = dt;
-
-            
-
         }
         private void addAcquaintanceButton_Click(object sender, EventArgs e)
         {
@@ -81,6 +78,7 @@ namespace rmanager
         public void refreshAcquaintancesDataGridView()
         {
             displayAcquaintances(acquaintancesDataGridView);
+            colorRows();
         }
         private void returnButton_Click(object sender, EventArgs e)
         {
@@ -94,9 +92,10 @@ namespace rmanager
 
         private void acquaintancesDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.ColumnIndex == 0)
+            DataGridViewRow row = acquaintancesDataGridView.Rows[e.RowIndex];
+            if (e.ColumnIndex == 0)
             {
-                DataGridViewRow row = acquaintancesDataGridView.Rows[e.RowIndex];
+                
                 addAcquaintanceForm edit = new addAcquaintanceForm(this, user_id, 
                                                                    row.Cells[2].Value.ToString(),
                                                                    row.Cells[3].Value.ToString(),
@@ -108,25 +107,48 @@ namespace rmanager
                 edit.Show();
 
                 //u.M((this, user_id, )
-                //u.M     (row.Cells[2].Value.ToString());
-                //   u.M  (row.Cells[3].Value.ToString());
-                //    u.M (row.Cells[4].Value.ToString());
-                //    u.M (row.Cells[5].Value.ToString());
-                //    u.M (row.Cells[6].Value.ToString());
-                //    u.M (row.Cells[7].Value.ToString());
-                //u.M(row.Cells[8].Value.ToString());
+                u.M     (row.Cells[2].Value.ToString());
+                   u.M  (row.Cells[3].Value.ToString());
+                    u.M (row.Cells[4].Value.ToString());
+                    u.M (row.Cells[5].Value.ToString());
+                    u.M (row.Cells[6].Value.ToString());
+                    u.M (row.Cells[7].Value.ToString());
+                u.M(row.Cells[8].Value.ToString());
 
 
             }else if(e.ColumnIndex == 1)
             {
                 if (MessageBox.Show("Are you sure you wish to delete this record?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    acquaintancesDataGridView.Rows.RemoveAt(e.RowIndex);
+                    int acq_id = -1;
+
+                    MySqlCommand cmd = new MySqlCommand($"SELECT id FROM acquaintances WHERE first_name = \'{row.Cells[2].Value.ToString()}\' AND last_name = \'{row.Cells[3].Value.ToString()}\' AND city_id = (SELECT id FROM cities WHERE city = \'{row.Cells[6].Value.ToString()}\')", Connect.con);
+
+                    Connect.con.Open();
+
+                    var dr = cmd.ExecuteReader();
+                    if(dr.HasRows)
+                    {
+                        dr.Read();
+                        acq_id = dr.GetInt32(0);
+                    }
+
+                    Connect.con.Close();
+
+                    //u.M(acq_id.ToString());
+
+                    u.MySqlCommandImproved($"DELETE FROM user_acquaintance_relationships WHERE user_id = {user_id} AND acquaintance_id = {acq_id}");
+                    refreshAcquaintancesDataGridView();
                 }
             }
         }
 
         private void acquaintancesDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            colorRows();   
+        }
+
+        private void colorRows()
         {
             for (int i = 0; i < acquaintancesDataGridView.Rows.Count; i += 2)
             {
