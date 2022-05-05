@@ -176,7 +176,18 @@ CALL sp_insertUserMeeting(1, 2, '2022-02-14 12:00', 10, 9, null);
 CALL sp_insertUserMeeting(1, 10, '2020-07-30 23:30', 4, 10, null);
 CALL sp_insertUserMeeting(1, 4, '2021-05-28 10:30', 3, 2, null);
 CALL sp_insertUserMeeting(1, 6, '2022-02-14 16:30', 8, 4, null);
-CALL sp_insertUserMeeting(1, 6, '2022-02-14 12:50', 4, 1, null);
+CALL sp_insertUserMeeting(1, 4, '2022-02-14 12:50', 7, 1, null);
+
+CALL sp_insertUserMeeting(1, 3, '2022-02-14 12:30', 5, 4, null);
+CALL sp_insertUserMeeting(1, 2, '2022-01-23 20:45', 9, 2, null);
+CALL sp_insertUserMeeting(1, 6, '2021-12-04 15:00', 3, 7, null);
+CALL sp_insertUserMeeting(1, 8, '2021-09-27 09:30', 4, 8, null);
+CALL sp_insertUserMeeting(1, 2, '2022-03-11 17:30', 2, 1, null);
+CALL sp_insertUserMeeting(1, 4, '2022-02-14 12:00', 3, 9, null);
+CALL sp_insertUserMeeting(1, 1, '2020-07-30 23:30', 1, 10, null);
+CALL sp_insertUserMeeting(1, 8, '2021-05-28 10:30', 2, 2, null);
+CALL sp_insertUserMeeting(1, 2, '2022-02-14 16:30', 4, 4, null);
+CALL sp_insertUserMeeting(1, 10, '2022-02-14 12:50', 5, 1, null);
 
 CALL sp_insertUserMeeting(2, 1, '2022-02-14 12:30', 2, 4, null);
 CALL sp_insertUserMeeting(2, 4, '2022-01-23 20:45', 5, 2, null);

@@ -30,7 +30,6 @@ namespace rmanager
         private void InitializeComponent()
         {
             this.switchUserButton = new System.Windows.Forms.Button();
-            this.getUserInfoBUtton = new System.Windows.Forms.Button();
             this.meetingsDataGridView = new System.Windows.Forms.DataGridView();
             this.meetingsLabel = new System.Windows.Forms.Label();
             this.browseMeetingsButton = new System.Windows.Forms.Button();
@@ -56,17 +55,6 @@ namespace rmanager
             this.switchUserButton.Text = "Switch User";
             this.switchUserButton.UseVisualStyleBackColor = true;
             this.switchUserButton.Click += new System.EventHandler(this.returnButton_Click);
-            // 
-            // getUserInfoBUtton
-            // 
-            this.getUserInfoBUtton.Location = new System.Drawing.Point(53, 563);
-            this.getUserInfoBUtton.Name = "getUserInfoBUtton";
-            this.getUserInfoBUtton.Size = new System.Drawing.Size(197, 67);
-            this.getUserInfoBUtton.TabIndex = 2;
-            this.getUserInfoBUtton.Text = "Get User Info";
-            this.getUserInfoBUtton.UseVisualStyleBackColor = true;
-            this.getUserInfoBUtton.Visible = false;
-            this.getUserInfoBUtton.Click += new System.EventHandler(this.getUserInfoBUtton_Click);
             // 
             // meetingsDataGridView
             // 
@@ -225,7 +213,6 @@ namespace rmanager
             this.Controls.Add(this.browseMeetingsButton);
             this.Controls.Add(this.meetingsLabel);
             this.Controls.Add(this.meetingsDataGridView);
-            this.Controls.Add(this.getUserInfoBUtton);
             this.Controls.Add(this.switchUserButton);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(6);
@@ -239,7 +226,6 @@ namespace rmanager
 
         #endregion
         private System.Windows.Forms.Button switchUserButton;
-        private System.Windows.Forms.Button getUserInfoBUtton;
         private System.Windows.Forms.DataGridView meetingsDataGridView;
         private System.Windows.Forms.Label meetingsLabel;
         private System.Windows.Forms.Button browseMeetingsButton;
