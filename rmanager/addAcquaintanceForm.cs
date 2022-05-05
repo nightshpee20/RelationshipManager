@@ -37,39 +37,8 @@ namespace rmanager
             this.parent = parent;
             this.user_id = user_id;
             this.Text = "Edit Acquaintance";
-            this.oldValues = new List<string>();
-            addAcquaintanceButton.Text = "Commit";
-            
-            firstNameTextBox.Text = first;
-            oldValues.Add(first);
-            
-            lastNameTextBox.Text = last;
-            oldValues.Add(last);
 
-            if (gender == "Female") { femaleRadioButton.Checked = true; oldValues.Add(gender); }
-            if (gender == "Male") { maleRadioButton.Checked = true; oldValues.Add(gender); }
-            
-            setDropDownValues(user_id, "occupations", occupationsDropDown, ref dto);
-            for (int i = 0; i < dto.Rows.Count; i++)
-            {
-                if (occ == dto.Rows[i][0].ToString()) { occupationsDropDown.SelectedIndex = i; oldValues.Add(dto.Rows[i][0].ToString()); }
-            }
-
-            setDropDownValues(user_id, "cities", citiesDropDown, ref dtc);
-            for (int i = 0; i < dtc.Rows.Count; i++)
-            {
-                if (city == u.CapitalizeFirstLetters(dtc.Rows[i][0].ToString())) { citiesDropDown.SelectedIndex = i; oldValues.Add(dtc.Rows[i][0].ToString()); }
-            }
-            this.oldCityIndex = citiesDropDown.SelectedIndex;
-
-            addressTextBox.Text = address;
-            oldValues.Add(address);
-
-            setDropDownValues(user_id, "relationships", relationshipsDropDown, ref dtr);
-            for (int i = 0; i < dtr.Rows.Count; i++)
-            {
-                if (rel == dtr.Rows[i][0].ToString()) { relationshipsDropDown.SelectedIndex = i; oldValues.Add(dtr.Rows[i][0].ToString()); }
-            }
+            getOldValues(first, last, gender, occ, city, address, rel);
         }
        
         private void setDropDownValues(int user_id, string name, ComboBox cb, ref DataTable dt)
@@ -128,18 +97,18 @@ namespace rmanager
         }
         private void addAcquaintanceButton_Click(object sender, EventArgs e)
         {
-            if(addAcquaintanceButton.Text == "Add")
+            if (addAcquaintanceButton.Text == "Add")
             {
                 char gender = 'm';
                 if (femaleRadioButton.Checked) gender = 'f';
                 if (firstNameTextBox.Text == "")
                 {
-                    u.M("First Name is a mandatory field!"); 
+                    u.M("First Name is a mandatory field!");
                     return;
                 }
                 if (lastNameTextBox.Text == "")
                 {
-                    u.M("Last Name is a mandatory field!"); 
+                    u.M("Last Name is a mandatory field!");
                     return;
                 }
 
@@ -159,7 +128,8 @@ namespace rmanager
                 addressTextBox.Text = "";
                 relationshipsDropDown.SelectedIndex = 0;
 
-            }else if(addAcquaintanceButton.Text == "Commit")
+            }
+            else if (addAcquaintanceButton.Text == "Commit")
             {
                 this.newValues = new List<string>();
 
@@ -174,8 +144,8 @@ namespace rmanager
 
                 for (int i = 0; i < oldValues.Count; i++)
                 {
-                    if (oldValues[i] != newValues[i]);
-                    {           
+                    if (oldValues[i] != newValues[i])
+                    {
                         char gender;
                         if (newValues[2] == "Male") gender = 'm'; else gender = 'f';
                         u.MySqlCommandImproved($"CALL sp_insertUserAcquaintance({user_id}, " +
@@ -187,11 +157,11 @@ namespace rmanager
                                                                             $"\'{addressTextBox.Text}\', " +
                                                                               $"{getDropDownItemIndex(relationshipsDropDown, dtr)})");
 
+
+
                         int acq_id = -1;
 
                         MySqlCommand cmd = new MySqlCommand($"SELECT id FROM acquaintances WHERE first_name = \'{oldValues[0]}\' AND last_name = \'{oldValues[1]}\' AND city_id = (SELECT id FROM cities WHERE city = \'{citiesDropDown.GetItemText(citiesDropDown.SelectedItem)}\')", Connect.con);
-
-
 
                         Connect.con.Open();
 
@@ -206,14 +176,54 @@ namespace rmanager
 
                         u.MySqlCommandImproved($"DELETE FROM user_acquaintance_relationships WHERE user_id = {user_id} AND acquaintance_id = {acq_id}");
 
-                        parent.refreshAcquaintancesDataGridView();
                         break;
                     }
                 }
-                
+
+                string gen = "";
+                if (maleRadioButton.Checked == true) gen = "Male";
+                if (femaleRadioButton.Checked == true) gen = "Female";
+                getOldValues(firstNameTextBox.Text, lastNameTextBox.Text, gen, occupationsDropDown.GetItemText(occupationsDropDown.SelectedItem), citiesDropDown.GetItemText(citiesDropDown.SelectedItem), addressTextBox.Text, relationshipsDropDown.GetItemText(relationshipsDropDown.SelectedItem));
             }
 
             parent.refreshAcquaintancesDataGridView();
+        }
+
+        private void getOldValues(string first, string last, string gender, string occ, string city, string address, string rel)
+        {
+            this.oldValues = new List<string>();
+            addAcquaintanceButton.Text = "Commit";
+
+            firstNameTextBox.Text = first;
+            oldValues.Add(first);
+
+            lastNameTextBox.Text = last;
+            oldValues.Add(last);
+
+            if (gender == "Female") { femaleRadioButton.Checked = true; oldValues.Add(gender); }
+            if (gender == "Male") { maleRadioButton.Checked = true; oldValues.Add(gender); }
+
+            setDropDownValues(user_id, "occupations", occupationsDropDown, ref dto);
+            for (int i = 0; i < dto.Rows.Count; i++)
+            {
+                if (occ == dto.Rows[i][0].ToString()) { occupationsDropDown.SelectedIndex = i; oldValues.Add(dto.Rows[i][0].ToString()); }
+            }
+
+            setDropDownValues(user_id, "cities", citiesDropDown, ref dtc);
+            for (int i = 0; i < dtc.Rows.Count; i++)
+            {
+                if (city == u.CapitalizeFirstLetters(dtc.Rows[i][0].ToString())) { citiesDropDown.SelectedIndex = i; oldValues.Add(dtc.Rows[i][0].ToString()); }
+            }
+            this.oldCityIndex = citiesDropDown.SelectedIndex;
+
+            addressTextBox.Text = address;
+            oldValues.Add(address);
+
+            setDropDownValues(user_id, "relationships", relationshipsDropDown, ref dtr);
+            for (int i = 0; i < dtr.Rows.Count; i++)
+            {
+                if (rel == dtr.Rows[i][0].ToString()) { relationshipsDropDown.SelectedIndex = i; oldValues.Add(dtr.Rows[i][0].ToString()); }
+            }
         }
         private int getDropDownItemIndex(ComboBox cb, DataTable dt)
         {
