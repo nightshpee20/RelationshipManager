@@ -107,17 +107,6 @@ namespace rmanager
                                                                    row.Cells[7].Value.ToString(),
                                                                    row.Cells[8].Value.ToString());
                 edit.Show();
-
-                //u.M((this, user_id, )
-                //u.M     (row.Cells[2].Value.ToString());
-                //   u.M  (row.Cells[3].Value.ToString());
-                //    u.M (row.Cells[4].Value.ToString());
-                //    u.M (row.Cells[5].Value.ToString());
-                //    u.M (row.Cells[6].Value.ToString());
-                //    u.M (row.Cells[7].Value.ToString());
-                //u.M(row.Cells[8].Value.ToString());
-
-
             }else if(e.ColumnIndex == 1)
             {
                 if (MessageBox.Show("Are you sure you wish to delete this record?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)

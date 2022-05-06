@@ -32,7 +32,7 @@ namespace rmanager
             this.switchUserButton = new System.Windows.Forms.Button();
             this.meetingsDataGridView = new System.Windows.Forms.DataGridView();
             this.meetingsLabel = new System.Windows.Forms.Label();
-            this.browseMeetingsButton = new System.Windows.Forms.Button();
+            this.addMeetingButton = new System.Windows.Forms.Button();
             this.browseAcquaintancesButton = new System.Windows.Forms.Button();
             this.userStatsButton = new System.Windows.Forms.Button();
             this.helpButton = new System.Windows.Forms.Button();
@@ -78,6 +78,7 @@ namespace rmanager
             this.meetingsDataGridView.RowTemplate.Height = 30;
             this.meetingsDataGridView.Size = new System.Drawing.Size(1193, 457);
             this.meetingsDataGridView.TabIndex = 3;
+            this.meetingsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.meetingsDataGridView_CellClick);
             this.meetingsDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.meetingsDataGridView_DataBindingComplete);
             // 
             // meetingsLabel
@@ -90,14 +91,15 @@ namespace rmanager
             this.meetingsLabel.TabIndex = 4;
             this.meetingsLabel.Text = "Recent Meetings";
             // 
-            // browseMeetingsButton
+            // addMeetingButton
             // 
-            this.browseMeetingsButton.Location = new System.Drawing.Point(1265, 91);
-            this.browseMeetingsButton.Name = "browseMeetingsButton";
-            this.browseMeetingsButton.Size = new System.Drawing.Size(219, 61);
-            this.browseMeetingsButton.TabIndex = 5;
-            this.browseMeetingsButton.Text = "All Meetings";
-            this.browseMeetingsButton.UseVisualStyleBackColor = true;
+            this.addMeetingButton.Location = new System.Drawing.Point(1265, 91);
+            this.addMeetingButton.Name = "addMeetingButton";
+            this.addMeetingButton.Size = new System.Drawing.Size(219, 61);
+            this.addMeetingButton.TabIndex = 5;
+            this.addMeetingButton.Text = "Add Meeting";
+            this.addMeetingButton.UseVisualStyleBackColor = true;
+            this.addMeetingButton.Click += new System.EventHandler(this.addMeetingButton_Click);
             // 
             // browseAcquaintancesButton
             // 
@@ -210,7 +212,7 @@ namespace rmanager
             this.Controls.Add(this.helpButton);
             this.Controls.Add(this.userStatsButton);
             this.Controls.Add(this.browseAcquaintancesButton);
-            this.Controls.Add(this.browseMeetingsButton);
+            this.Controls.Add(this.addMeetingButton);
             this.Controls.Add(this.meetingsLabel);
             this.Controls.Add(this.meetingsDataGridView);
             this.Controls.Add(this.switchUserButton);
@@ -228,7 +230,7 @@ namespace rmanager
         private System.Windows.Forms.Button switchUserButton;
         private System.Windows.Forms.DataGridView meetingsDataGridView;
         private System.Windows.Forms.Label meetingsLabel;
-        private System.Windows.Forms.Button browseMeetingsButton;
+        private System.Windows.Forms.Button addMeetingButton;
         private System.Windows.Forms.Button browseAcquaintancesButton;
         private System.Windows.Forms.Button userStatsButton;
         private System.Windows.Forms.Button helpButton;

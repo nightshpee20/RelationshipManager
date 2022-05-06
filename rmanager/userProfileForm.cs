@@ -84,6 +84,55 @@ namespace rmanager
         {
             u.ColorRows(meetingsDataGridView);
         }
+
+        private void meetingsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //DataGridViewRow row = acquaintancesDataGridView.Rows[e.RowIndex];
+            //if (e.ColumnIndex == 0)
+            //{
+            //
+            //    addAcquaintanceForm edit = new addAcquaintanceForm(this, user_id,
+            //                                                       row.Cells[2].Value.ToString(),
+            //                                                       row.Cells[3].Value.ToString(),
+            //                                                       row.Cells[4].Value.ToString(),
+            //                                                       row.Cells[5].Value.ToString(),
+            //                                                       row.Cells[6].Value.ToString(),
+            //                                                       row.Cells[7].Value.ToString(),
+            //                                                       row.Cells[8].Value.ToString());
+            //    edit.Show();
+            //}
+            //else if (e.ColumnIndex == 1)
+            //{
+            //    if (MessageBox.Show("Are you sure you wish to delete this record?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            //    {
+            //        int acq_id = -1;
+            //
+            //        MySqlCommand cmd = new MySqlCommand($"SELECT id FROM acquaintances WHERE first_name = \'{row.Cells[2].Value.ToString()}\' AND last_name = \'{row.Cells[3].Value.ToString()}\' AND city_id = (SELECT id FROM cities WHERE city = \'{row.Cells[6].Value.ToString()}\')", Connect.con);
+            //
+            //        Connect.con.Open();
+            //
+            //        var dr = cmd.ExecuteReader();
+            //        if (dr.HasRows)
+            //        {
+            //            dr.Read();
+            //            acq_id = dr.GetInt32(0);
+            //        }
+            //
+            //        Connect.con.Close();
+            //
+            //        //u.M(acq_id.ToString());
+            //
+            //        u.MySqlCommandImproved($"DELETE FROM user_acquaintance_relationships WHERE user_id = {user_id} AND acquaintance_id = {acq_id}");
+            //        refreshAcquaintancesDataGridView();
+            //    }
+            //}
+        }
+
+        private void addMeetingButton_Click(object sender, EventArgs e)
+        {
+            addMeetingForm add = new addMeetingForm(this, user_id);
+            add.Show();
+        }
     }
     }
 

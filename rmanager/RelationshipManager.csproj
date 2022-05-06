@@ -60,6 +60,12 @@
     <Compile Include="addAcquaintanceForm.Designer.cs">
       <DependentUpon>addAcquaintanceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="addMeetingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="addMeetingForm.Designer.cs">
+      <DependentUpon>addMeetingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataValidation.cs" />
     <Compile Include="editForm.cs">
       <SubType>Form</SubType>
