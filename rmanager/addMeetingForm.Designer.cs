@@ -214,7 +214,6 @@ namespace rmanager
             this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "addMeetingForm";
             this.Text = "Add Meeting";
-            this.Load += new System.EventHandler(this.addMeetingForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
