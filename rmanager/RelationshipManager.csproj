@@ -96,6 +96,9 @@
     <EmbeddedResource Include="addAcquaintanceForm.resx">
       <DependentUpon>addAcquaintanceForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="addMeetingForm.resx">
+      <DependentUpon>addMeetingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="editForm.resx">
       <DependentUpon>editForm.cs</DependentUpon>
     </EmbeddedResource>

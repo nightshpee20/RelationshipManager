@@ -51,3 +51,4 @@ C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\obj\Debug\rmanag
 C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\obj\Debug\RelationshipManager.csproj.AssemblyReference.cache
 C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\obj\Debug\rmanager.userProfileForm.resources
 C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\obj\Debug\rmanager.acquaintancesForm.resources
+C:\Users\night\Desktop\C# Projects\RelationshipManager\rmanager\obj\Debug\rmanager.addMeetingForm.resources

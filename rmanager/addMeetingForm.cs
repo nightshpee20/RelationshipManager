@@ -21,5 +21,10 @@ namespace rmanager
             this.user_id = user_id;
 
         }
+
+        private void addMeetingForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
