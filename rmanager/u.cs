@@ -58,7 +58,6 @@ namespace rmanager
         {
             MessageBox.Show(message);
         }
-
         public static void ColorRows(DataGridView dgv)
         {
             for (int i = 0; i < dgv.Rows.Count; i += 2)

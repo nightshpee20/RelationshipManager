@@ -37,6 +37,7 @@ namespace rmanager
             this.userStatsButton = new System.Windows.Forms.Button();
             this.helpButton = new System.Windows.Forms.Button();
             this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.acquaintance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.reason = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,9 +49,9 @@ namespace rmanager
             // 
             // switchUserButton
             // 
-            this.switchUserButton.Location = new System.Drawing.Point(1234, 467);
+            this.switchUserButton.Location = new System.Drawing.Point(1294, 417);
             this.switchUserButton.Name = "switchUserButton";
-            this.switchUserButton.Size = new System.Drawing.Size(219, 61);
+            this.switchUserButton.Size = new System.Drawing.Size(218, 61);
             this.switchUserButton.TabIndex = 1;
             this.switchUserButton.Text = "Switch User";
             this.switchUserButton.UseVisualStyleBackColor = true;
@@ -64,6 +65,7 @@ namespace rmanager
             this.meetingsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.meetingsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.date,
+            this.time,
             this.acquaintance,
             this.location,
             this.reason,
@@ -76,7 +78,7 @@ namespace rmanager
             this.meetingsDataGridView.RowHeadersVisible = false;
             this.meetingsDataGridView.RowHeadersWidth = 51;
             this.meetingsDataGridView.RowTemplate.Height = 30;
-            this.meetingsDataGridView.Size = new System.Drawing.Size(1193, 636);
+            this.meetingsDataGridView.Size = new System.Drawing.Size(1246, 636);
             this.meetingsDataGridView.TabIndex = 3;
             this.meetingsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.meetingsDataGridView_CellClick);
             this.meetingsDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.meetingsDataGridView_DataBindingComplete);
@@ -93,9 +95,9 @@ namespace rmanager
             // 
             // addMeetingButton
             // 
-            this.addMeetingButton.Location = new System.Drawing.Point(1234, 69);
+            this.addMeetingButton.Location = new System.Drawing.Point(1294, 69);
             this.addMeetingButton.Name = "addMeetingButton";
-            this.addMeetingButton.Size = new System.Drawing.Size(219, 61);
+            this.addMeetingButton.Size = new System.Drawing.Size(218, 61);
             this.addMeetingButton.TabIndex = 5;
             this.addMeetingButton.Text = "Add Meeting";
             this.addMeetingButton.UseVisualStyleBackColor = true;
@@ -103,9 +105,9 @@ namespace rmanager
             // 
             // browseAcquaintancesButton
             // 
-            this.browseAcquaintancesButton.Location = new System.Drawing.Point(1234, 169);
+            this.browseAcquaintancesButton.Location = new System.Drawing.Point(1294, 156);
             this.browseAcquaintancesButton.Name = "browseAcquaintancesButton";
-            this.browseAcquaintancesButton.Size = new System.Drawing.Size(219, 61);
+            this.browseAcquaintancesButton.Size = new System.Drawing.Size(218, 61);
             this.browseAcquaintancesButton.TabIndex = 6;
             this.browseAcquaintancesButton.Text = "Acquaintances";
             this.browseAcquaintancesButton.UseVisualStyleBackColor = true;
@@ -113,18 +115,18 @@ namespace rmanager
             // 
             // userStatsButton
             // 
-            this.userStatsButton.Location = new System.Drawing.Point(1234, 268);
+            this.userStatsButton.Location = new System.Drawing.Point(1294, 243);
             this.userStatsButton.Name = "userStatsButton";
-            this.userStatsButton.Size = new System.Drawing.Size(219, 61);
+            this.userStatsButton.Size = new System.Drawing.Size(218, 61);
             this.userStatsButton.TabIndex = 7;
             this.userStatsButton.Text = "User Stats";
             this.userStatsButton.UseVisualStyleBackColor = true;
             // 
             // helpButton
             // 
-            this.helpButton.Location = new System.Drawing.Point(1234, 367);
+            this.helpButton.Location = new System.Drawing.Point(1294, 330);
             this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(219, 61);
+            this.helpButton.Size = new System.Drawing.Size(218, 61);
             this.helpButton.TabIndex = 8;
             this.helpButton.Text = "Help";
             this.helpButton.UseVisualStyleBackColor = true;
@@ -140,6 +142,16 @@ namespace rmanager
             this.date.Name = "date";
             this.date.ReadOnly = true;
             this.date.Width = 155;
+            // 
+            // time
+            // 
+            this.time.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.time.DataPropertyName = "time";
+            this.time.Frozen = true;
+            this.time.HeaderText = "Time";
+            this.time.MinimumWidth = 6;
+            this.time.Name = "time";
+            this.time.ReadOnly = true;
             // 
             // acquaintance
             // 
@@ -178,16 +190,21 @@ namespace rmanager
             // 
             // comments
             // 
+            this.comments.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.comments.DataPropertyName = "comments";
             this.comments.FillWeight = 96.45818F;
+            this.comments.Frozen = true;
             this.comments.HeaderText = "Comments";
             this.comments.MinimumWidth = 6;
             this.comments.Name = "comments";
             this.comments.ReadOnly = true;
             this.comments.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.comments.Width = 198;
             // 
             // edit
             // 
+            this.edit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.edit.Frozen = true;
             this.edit.HeaderText = "";
             this.edit.MinimumWidth = 6;
             this.edit.Name = "edit";
@@ -197,6 +214,8 @@ namespace rmanager
             // 
             // delete
             // 
+            this.delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.delete.Frozen = true;
             this.delete.HeaderText = "";
             this.delete.MinimumWidth = 6;
             this.delete.Name = "delete";
@@ -208,7 +227,7 @@ namespace rmanager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1490, 721);
+            this.ClientSize = new System.Drawing.Size(1560, 815);
             this.Controls.Add(this.helpButton);
             this.Controls.Add(this.userStatsButton);
             this.Controls.Add(this.browseAcquaintancesButton);
@@ -236,6 +255,7 @@ namespace rmanager
         private System.Windows.Forms.Button userStatsButton;
         private System.Windows.Forms.Button helpButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn time;
         private System.Windows.Forms.DataGridViewTextBoxColumn acquaintance;
         private System.Windows.Forms.DataGridViewTextBoxColumn location;
         private System.Windows.Forms.DataGridViewTextBoxColumn reason;

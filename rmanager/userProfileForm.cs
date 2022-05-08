@@ -37,6 +37,7 @@ namespace rmanager
         private void displayMeetings(DataGridView dgv)
         {
             MySqlCommand cmd = new MySqlCommand($"SELECT DATE_FORMAT(um.date_time, '%d / %m / %Y') AS date, " +
+                                                       $"DATE_FORMAT(um.date_time, '%H: %i') as time, " +
                                                        $"CONCAT(a.first_name, \" \", a.last_name) AS acquaintance, " +
                                                        $"l.location, " +
                                                        $"r.reason, " +
@@ -65,6 +66,16 @@ namespace rmanager
             }
 
             dgv.DataSource = dt;
+
+            if(dt.Rows.Count > 20)
+            {
+                meetingsDataGridView.Width += 17;
+                addMeetingButton.Left += 9;
+                browseAcquaintancesButton.Left += 9;
+                userStatsButton.Left += 9;
+                helpButton.Left += 9;
+                switchUserButton.Left += 9;
+            }
         }
         
         private void returnButton_Click(object sender, EventArgs e)

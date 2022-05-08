@@ -21,18 +21,18 @@ namespace rmanager
             InitializeComponent();
             this.parent = parent;
             this.user_id = user_id;
-            displayAcquaintances(acquaintancesDataGridView);
+            displayData(acquaintancesDataGridView);
         }
         //REMOVE AFTER TESTING
         public acquaintancesForm(int user_id)
         {
             InitializeComponent();
             this.user_id = user_id;
-            displayAcquaintances(acquaintancesDataGridView);
+            displayData(acquaintancesDataGridView);
 
             
         }
-        private void displayAcquaintances(DataGridView dgv)
+        private void displayData(DataGridView dgv)
         {
             MySqlCommand cmd = new MySqlCommand($"SELECT a.first_name, " +
                                                        $"a.last_name, " +
@@ -72,15 +72,16 @@ namespace rmanager
 
             dgv.DataSource = dt;
         }
+
+        public void refreshAcquaintancesDataGridView()
+        {
+            displayData(acquaintancesDataGridView);
+            u.ColorRows(acquaintancesDataGridView);
+        }
         private void addAcquaintanceButton_Click(object sender, EventArgs e)
         {
             addAcquaintanceForm add = new addAcquaintanceForm(this, user_id);
             add.Show();
-        }
-        public void refreshAcquaintancesDataGridView()
-        {
-            displayAcquaintances(acquaintancesDataGridView);
-            u.ColorRows(acquaintancesDataGridView);
         }
         private void returnButton_Click(object sender, EventArgs e)
         {
