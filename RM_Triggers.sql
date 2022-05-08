@@ -145,6 +145,20 @@ END$
 DELIMITER ;
 
 
+-- Meetings -----------------------------------------------------------------------------
+DELIMITER $
+CREATE TRIGGER tg_ins_checkAcquaintances BEFORE INSERT ON user_meetings FOR EACH ROW
+BEGIN
+	IF
+		((SELECT COUNT(*) FROM user_acquaintance_relationships WHERE acquaintance_id = NEW.acquaintance_id AND user_id = NEW.user_id) = 0)
+	THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Insertion aborted! There is no such acquaintance.', MYSQL_ERRNO = 1001;
+	END IF;
+END$
+DELIMITER ;
+
+
 -- Occupations --------------------------------------------------------------------------
 /* CHECKED */
 DELIMITER $

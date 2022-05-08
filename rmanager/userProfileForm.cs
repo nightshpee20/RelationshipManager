@@ -118,7 +118,7 @@ namespace rmanager
                 {
                     //u.MySqlCommandImproved($"DELETE FROM user_meetings WHERE user_id = {user_id} AND");
                     DateTime date = DateTime.Parse($"{meetingsDataGridView[2, e.RowIndex].Value.ToString()} {meetingsDataGridView[3, e.RowIndex].Value.ToString()}");
-                    u.M(date.ToString("yyyy-MM-dd HH:mm:ss")); 
+                    u.M($"DELETE FROM user_meetings WHERE user_id = {user_id} AND date_time = \'{date.ToString("yyyy-MM-dd HH:mm:ss")}\' AND acquaintance_id = (SELECT id FROM acquaintance WHERE CONCAT(first_name, \" \", last_name) = \'{meetingsDataGridView[4, e.RowIndex].Value.ToString()}\')"); 
                     
                     //refreshMeetingsDataGridView();
                 }
