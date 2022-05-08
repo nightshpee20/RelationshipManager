@@ -49,6 +49,7 @@ namespace rmanager
             this.loginOrRegisterLabel = new System.Windows.Forms.Label();
             this.usernameRegisterErrorLabel = new System.Windows.Forms.Label();
             this.loginErrorLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // usernameLoginLabel
@@ -210,13 +211,13 @@ namespace rmanager
             // loginOrRegisterLabel
             // 
             this.loginOrRegisterLabel.AutoSize = true;
-            this.loginOrRegisterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginOrRegisterLabel.Location = new System.Drawing.Point(17, 81);
+            this.loginOrRegisterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loginOrRegisterLabel.Location = new System.Drawing.Point(15, 68);
             this.loginOrRegisterLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.loginOrRegisterLabel.Name = "loginOrRegisterLabel";
-            this.loginOrRegisterLabel.Size = new System.Drawing.Size(318, 44);
+            this.loginOrRegisterLabel.Size = new System.Drawing.Size(310, 39);
             this.loginOrRegisterLabel.TabIndex = 0;
-            this.loginOrRegisterLabel.Text = "Login Or Register";
+            this.loginOrRegisterLabel.Text = "Login Or Register:";
             // 
             // usernameRegisterErrorLabel
             // 
@@ -238,11 +239,21 @@ namespace rmanager
             this.loginErrorLabel.Size = new System.Drawing.Size(0, 24);
             this.loginErrorLabel.TabIndex = 15;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(33, 442);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(232, 64);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "Forgot password \r\n(optional feature)";
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 563);
+            this.ClientSize = new System.Drawing.Size(587, 543);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.usernameRegisterErrorLabel);
             this.Controls.Add(this.loginOrRegisterLabel);
             this.Controls.Add(this.numberErrorLabel);
@@ -293,6 +304,7 @@ namespace rmanager
         private System.Windows.Forms.Label loginOrRegisterLabel;
         private System.Windows.Forms.Label usernameRegisterErrorLabel;
         private System.Windows.Forms.Label loginErrorLabel;
+        private System.Windows.Forms.Label label1;
     }
 }
 

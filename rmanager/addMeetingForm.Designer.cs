@@ -152,17 +152,17 @@ namespace rmanager
             // mainLabel
             // 
             this.mainLabel.AutoSize = true;
-            this.mainLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mainLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mainLabel.Location = new System.Drawing.Point(16, 16);
             this.mainLabel.Name = "mainLabel";
-            this.mainLabel.Size = new System.Drawing.Size(217, 39);
+            this.mainLabel.Size = new System.Drawing.Size(220, 38);
             this.mainLabel.TabIndex = 13;
             this.mainLabel.Text = "Add Meeting:";
             // 
             // acquaintancesDropDownEditButton
             // 
             this.acquaintancesDropDownEditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.acquaintancesDropDownEditButton.Location = new System.Drawing.Point(653, 107);
+            this.acquaintancesDropDownEditButton.Location = new System.Drawing.Point(653, 106);
             this.acquaintancesDropDownEditButton.Name = "acquaintancesDropDownEditButton";
             this.acquaintancesDropDownEditButton.Size = new System.Drawing.Size(66, 36);
             this.acquaintancesDropDownEditButton.TabIndex = 17;
@@ -172,7 +172,7 @@ namespace rmanager
             // locationsDropDownEditButton
             // 
             this.locationsDropDownEditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.locationsDropDownEditButton.Location = new System.Drawing.Point(653, 190);
+            this.locationsDropDownEditButton.Location = new System.Drawing.Point(653, 189);
             this.locationsDropDownEditButton.Name = "locationsDropDownEditButton";
             this.locationsDropDownEditButton.Size = new System.Drawing.Size(66, 36);
             this.locationsDropDownEditButton.TabIndex = 18;
@@ -182,7 +182,7 @@ namespace rmanager
             // reasonsDropDownEditButton
             // 
             this.reasonsDropDownEditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reasonsDropDownEditButton.Location = new System.Drawing.Point(653, 275);
+            this.reasonsDropDownEditButton.Location = new System.Drawing.Point(653, 274);
             this.reasonsDropDownEditButton.Name = "reasonsDropDownEditButton";
             this.reasonsDropDownEditButton.Size = new System.Drawing.Size(66, 36);
             this.reasonsDropDownEditButton.TabIndex = 19;
@@ -211,7 +211,7 @@ namespace rmanager
             this.Controls.Add(this.monthCalendar1);
             this.Controls.Add(this.dateLabel);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "addMeetingForm";
             this.Text = "Add Meeting";
             this.ResumeLayout(false);

@@ -48,7 +48,7 @@ namespace rmanager
             // 
             // switchUserButton
             // 
-            this.switchUserButton.Location = new System.Drawing.Point(1265, 487);
+            this.switchUserButton.Location = new System.Drawing.Point(1234, 467);
             this.switchUserButton.Name = "switchUserButton";
             this.switchUserButton.Size = new System.Drawing.Size(219, 61);
             this.switchUserButton.TabIndex = 1;
@@ -70,13 +70,13 @@ namespace rmanager
             this.comments,
             this.edit,
             this.delete});
-            this.meetingsDataGridView.Location = new System.Drawing.Point(53, 91);
+            this.meetingsDataGridView.Location = new System.Drawing.Point(22, 70);
             this.meetingsDataGridView.Name = "meetingsDataGridView";
             this.meetingsDataGridView.ReadOnly = true;
             this.meetingsDataGridView.RowHeadersVisible = false;
             this.meetingsDataGridView.RowHeadersWidth = 51;
             this.meetingsDataGridView.RowTemplate.Height = 30;
-            this.meetingsDataGridView.Size = new System.Drawing.Size(1193, 457);
+            this.meetingsDataGridView.Size = new System.Drawing.Size(1193, 636);
             this.meetingsDataGridView.TabIndex = 3;
             this.meetingsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.meetingsDataGridView_CellClick);
             this.meetingsDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.meetingsDataGridView_DataBindingComplete);
@@ -85,7 +85,7 @@ namespace rmanager
             // 
             this.meetingsLabel.AutoSize = true;
             this.meetingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.meetingsLabel.Location = new System.Drawing.Point(45, 22);
+            this.meetingsLabel.Location = new System.Drawing.Point(14, 16);
             this.meetingsLabel.Name = "meetingsLabel";
             this.meetingsLabel.Size = new System.Drawing.Size(334, 46);
             this.meetingsLabel.TabIndex = 4;
@@ -93,7 +93,7 @@ namespace rmanager
             // 
             // addMeetingButton
             // 
-            this.addMeetingButton.Location = new System.Drawing.Point(1265, 91);
+            this.addMeetingButton.Location = new System.Drawing.Point(1234, 69);
             this.addMeetingButton.Name = "addMeetingButton";
             this.addMeetingButton.Size = new System.Drawing.Size(219, 61);
             this.addMeetingButton.TabIndex = 5;
@@ -103,7 +103,7 @@ namespace rmanager
             // 
             // browseAcquaintancesButton
             // 
-            this.browseAcquaintancesButton.Location = new System.Drawing.Point(1265, 190);
+            this.browseAcquaintancesButton.Location = new System.Drawing.Point(1234, 169);
             this.browseAcquaintancesButton.Name = "browseAcquaintancesButton";
             this.browseAcquaintancesButton.Size = new System.Drawing.Size(219, 61);
             this.browseAcquaintancesButton.TabIndex = 6;
@@ -113,7 +113,7 @@ namespace rmanager
             // 
             // userStatsButton
             // 
-            this.userStatsButton.Location = new System.Drawing.Point(1265, 289);
+            this.userStatsButton.Location = new System.Drawing.Point(1234, 268);
             this.userStatsButton.Name = "userStatsButton";
             this.userStatsButton.Size = new System.Drawing.Size(219, 61);
             this.userStatsButton.TabIndex = 7;
@@ -122,7 +122,7 @@ namespace rmanager
             // 
             // helpButton
             // 
-            this.helpButton.Location = new System.Drawing.Point(1265, 388);
+            this.helpButton.Location = new System.Drawing.Point(1234, 367);
             this.helpButton.Name = "helpButton";
             this.helpButton.Size = new System.Drawing.Size(219, 61);
             this.helpButton.TabIndex = 8;
@@ -208,7 +208,7 @@ namespace rmanager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1496, 651);
+            this.ClientSize = new System.Drawing.Size(1490, 721);
             this.Controls.Add(this.helpButton);
             this.Controls.Add(this.userStatsButton);
             this.Controls.Add(this.browseAcquaintancesButton);
@@ -220,6 +220,7 @@ namespace rmanager
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "userProfileForm";
             this.Text = "Relationship Manager";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.meetingsDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
