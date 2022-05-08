@@ -36,7 +36,7 @@ namespace rmanager
 
         private void displayMeetings(DataGridView dgv)
         {
-            MySqlCommand cmd = new MySqlCommand($"SELECT DATE_FORMAT(um.date_time, '%d / %m / %Y') AS date, " +
+            MySqlCommand cmd = new MySqlCommand($"SELECT DATE_FORMAT(um.date_time, '%m / %d / %Y') AS date, " +
                                                        $"DATE_FORMAT(um.date_time, '%H: %i') as time, " +
                                                        $"CONCAT(a.first_name, \" \", a.last_name) AS acquaintance, " +
                                                        $"l.location, " +
@@ -117,8 +117,8 @@ namespace rmanager
                 if (MessageBox.Show("Are you sure you wish to delete this record?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     //u.MySqlCommandImproved($"DELETE FROM user_meetings WHERE user_id = {user_id} AND");
-
-                    u.M(meetingsDataGridView[2,0].Value.ToString());
+                    DateTime date = DateTime.Parse($"{meetingsDataGridView[2, e.RowIndex].Value.ToString()} {meetingsDataGridView[3, e.RowIndex].Value.ToString()}");
+                    u.M(date.ToString("yyyy-MM-dd HH:mm:ss")); 
                     
                     //refreshMeetingsDataGridView();
                 }
