@@ -49,6 +49,7 @@ namespace rmanager
             this.columnLabel = new System.Windows.Forms.Label();
             this.addMeetingMinute = new System.Windows.Forms.ComboBox();
             this.addMeetingHour = new System.Windows.Forms.ComboBox();
+            this.resetValues = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // dateLabel
@@ -64,6 +65,7 @@ namespace rmanager
             // 
             this.addMeetingDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addMeetingDate.Location = new System.Drawing.Point(22, 83);
+            this.addMeetingDate.MaxSelectionCount = 1;
             this.addMeetingDate.Name = "addMeetingDate";
             this.addMeetingDate.TabIndex = 2;
             // 
@@ -315,11 +317,25 @@ namespace rmanager
             this.addMeetingHour.Size = new System.Drawing.Size(50, 39);
             this.addMeetingHour.TabIndex = 24;
             // 
+            // resetValues
+            // 
+            this.resetValues.AutoSize = true;
+            this.resetValues.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resetValues.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.resetValues.Location = new System.Drawing.Point(595, 21);
+            this.resetValues.Name = "resetValues";
+            this.resetValues.Size = new System.Drawing.Size(128, 25);
+            this.resetValues.TabIndex = 28;
+            this.resetValues.TabStop = true;
+            this.resetValues.Text = "Reset Values";
+            this.resetValues.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.resetValues_LinkClicked);
+            // 
             // addMeetingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(735, 590);
+            this.Controls.Add(this.resetValues);
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.columnLabel);
             this.Controls.Add(this.addMeetingMinute);
@@ -372,5 +388,6 @@ namespace rmanager
         private System.Windows.Forms.Label columnLabel;
         private System.Windows.Forms.ComboBox addMeetingMinute;
         private System.Windows.Forms.ComboBox addMeetingHour;
+        private System.Windows.Forms.LinkLabel resetValues;
     }
 }

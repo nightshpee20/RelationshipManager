@@ -33,16 +33,17 @@ namespace rmanager
 
         }
 
-        public addMeetingForm(userProfileForm parent, int user_id, string date, string acquaintance, string location, string reason, string comments)
+        public addMeetingForm(userProfileForm parent, int user_id, string date, string time, string acquaintance, string location, string reason, string comments)
         {
             InitializeComponent();
             this.parent = parent;
             this.user_id = user_id;
             this.Text = "Edit Meeting";
             mainLabel.Text = "Edit Meeting:";
+            resetValues.Text = "Reset Old Values";
             addButton.Text = "Commit";
 
-            setOldValues(date, acquaintance, location, reason, comments);
+            setOldValues(date, time, acquaintance, location, reason, comments);
         }
 
         private void setDropDownValues(int user_id, string name, ComboBox cb, ref DataTable dt)
@@ -128,14 +129,22 @@ namespace rmanager
             parent.refreshMeetingsDataGridView();
         }
 
-        public void setOldValues(string date, string acquaintance, string location, string reason, string comments)
+       
+
+        public void setOldValues(string date, string time, string acquaintance, string location, string reason, string comments)
         {
             this.oldValues = new List<string>();
             addButton.Text = "Commit";
 
-            commentsTextBox.Text = comments;
-            oldValues.Add(comments);
- 
+            DateTime datetime = DateTime.Parse(date);
+            oldValues.Add(date);
+
+            addMeetingDate.SetDate(datetime);
+
+            addMeetingHour.SelectedIndex = int.Parse(time.Substring(0, 2));
+            addMeetingMinute.SelectedIndex = int.Parse(time.Substring(4, 2)) - 1;
+            oldValues.Add(time);
+
             setDropDownValues(user_id, "acquaintances", acquaintancesDropDown, ref dta);
             for (int i = 0; i < dta.Rows.Count; i++)
             {
@@ -154,12 +163,27 @@ namespace rmanager
                 if (reason == dtr.Rows[i][0].ToString()) { reasonsDropDown.SelectedIndex = i; oldValues.Add(dtr.Rows[i][0].ToString()); }
             }
 
-            DateTime datetime = DateTime.Parse(date);
-            oldValues.Add(date);
-
-            addMeetingDate.SetDate(datetime);
+            commentsTextBox.Text = comments;
+            oldValues.Add(comments);
         }
-
+        private void resetValues_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if(resetValues.Text == "Reset Values")
+            {
+                addMeetingDate.SelectionStart = DateTime.Now;
+                addMeetingHour.SelectedIndex = 12;
+                addMeetingMinute.SelectedIndex = 29;
+                acquaintancesDropDown.SelectedIndex = 0;
+                locationsDropDown.SelectedIndex = 0;
+                reasonsDropDown.SelectedIndex = 0;
+                commentsTextBox.Text = "";
+            }
+            else if(resetValues.Text == "Reset Old Values")
+            {
+                //u.M($"{oldValues[0]}, {oldValues[1]}, {oldValues[2]}, {oldValues[3]}, {oldValues[4]}, {oldValues[5]}");
+                setOldValues(oldValues[0], oldValues[1], oldValues[2], oldValues[3], oldValues[4], oldValues[5]);
+            }
+        }
         private void exitButton_Click(object sender, EventArgs e)
         {
             this.Close();

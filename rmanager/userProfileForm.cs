@@ -105,6 +105,7 @@ namespace rmanager
             {
                 addMeetingForm edit = new addMeetingForm(this, user_id,
                                                          row.Cells[2].Value.ToString(),
+                                                         row.Cells[3].Value.ToString(),
                                                          row.Cells[4].Value.ToString(),
                                                          row.Cells[5].Value.ToString(),
                                                          row.Cells[6].Value.ToString(),
