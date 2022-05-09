@@ -37,6 +37,7 @@ namespace rmanager
             this.parent = parent;
             this.user_id = user_id;
             this.Text = "Edit Acquaintance";
+            addAcquaintanceButton.Text = "Commit";
 
             setOldValues(first, last, gender, occ, city, address, rel);
         }
@@ -192,7 +193,6 @@ namespace rmanager
         private void setOldValues(string first, string last, string gender, string occ, string city, string address, string rel)
         {
             this.oldValues = new List<string>();
-            addAcquaintanceButton.Text = "Commit";
 
             firstNameTextBox.Text = first;
             oldValues.Add(first);

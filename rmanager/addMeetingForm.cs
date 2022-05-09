@@ -37,6 +37,7 @@ namespace rmanager
             this.user_id = user_id;
             this.Text = "Edit Meeting";
             mainLabel.Text = "Edit Meeting:";
+            addButton.Text = "Commit";
 
             setOldValues(date, acquaintance, location, reason, comments);
         }
@@ -95,6 +96,34 @@ namespace rmanager
             cb.SelectedIndex = 0;
         }
 
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            if(addButton.Text == "Add")
+            {
+                
+
+
+                //u.MySqlCommandImproved($"CALL sp_insertUserMeeting({user_id}, {})");
+            }else if (addButton.Text == "Commit")
+            {
+                MySqlCommand cmd = new MySqlCommand($"SELECT a.id FROM acquaintances a JOIN cities c ON a.city_id = c.id WHERE CONCAT(a.first_name, \' \', a.last_name, \', \', c.city) = \'{oldValues[1]}\'", Connect.con);
+
+                Connect.con.Open();
+
+                var dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    dr.Read();
+
+                    u.M(dr.GetInt32(0).ToString());
+                }
+
+                Connect.con.Close();
+            }
+
+            parent.refreshMeetingsDataGridView();
+        }
+
         public void setOldValues(string date, string acquaintance, string location, string reason, string comments)
         {
             this.oldValues = new List<string>();
@@ -125,6 +154,11 @@ namespace rmanager
             oldValues.Add(date);
 
             addMeetingDate.SetDate(datetime);
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

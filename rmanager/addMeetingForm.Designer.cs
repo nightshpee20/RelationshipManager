@@ -139,6 +139,7 @@ namespace rmanager
             this.exitButton.TabIndex = 11;
             this.exitButton.Text = "Cancel";
             this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // addButton
             // 
@@ -148,6 +149,7 @@ namespace rmanager
             this.addButton.TabIndex = 12;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // mainLabel
             // 
@@ -211,7 +213,9 @@ namespace rmanager
             this.Controls.Add(this.addMeetingDate);
             this.Controls.Add(this.dateLabel);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(6);
+            this.MaximizeBox = false;
             this.Name = "addMeetingForm";
             this.Text = "Add Meeting";
             this.ResumeLayout(false);

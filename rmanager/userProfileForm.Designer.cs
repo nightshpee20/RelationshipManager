@@ -61,6 +61,7 @@ namespace rmanager
             // 
             this.meetingsDataGridView.AllowUserToAddRows = false;
             this.meetingsDataGridView.AllowUserToDeleteRows = false;
+            this.meetingsDataGridView.AllowUserToResizeRows = false;
             this.meetingsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.meetingsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.meetingsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
