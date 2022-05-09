@@ -24,6 +24,9 @@ namespace rmanager
             this.parent = parent;
             this.user_id = user_id;
 
+            addMeetingHour.SelectedIndex = 12;
+            addMeetingMinute.SelectedIndex = 29;
+
             setDropDownValues(user_id, "acquaintances", acquaintancesDropDown, ref dta);
             setDropDownValues(user_id, "locations", locationsDropDown, ref dtl);
             setDropDownValues(user_id, "reasons", reasonsDropDown, ref dtr);
@@ -100,7 +103,8 @@ namespace rmanager
         {
             if(addButton.Text == "Add")
             {
-                
+          
+                u.M($"{addMeetingDate.SelectionStart.ToString("yyyy-MM-dd")}");
 
 
                 //u.MySqlCommandImproved($"CALL sp_insertUserMeeting({user_id}, {})");
