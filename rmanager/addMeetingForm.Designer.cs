@@ -30,7 +30,7 @@ namespace rmanager
         private void InitializeComponent()
         {
             this.dateLabel = new System.Windows.Forms.Label();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.addMeetingDate = new System.Windows.Forms.MonthCalendar();
             this.acquaintanceLabel = new System.Windows.Forms.Label();
             this.acquaintancesDropDown = new System.Windows.Forms.ComboBox();
             this.locationsDropDown = new System.Windows.Forms.ComboBox();
@@ -56,12 +56,12 @@ namespace rmanager
             this.dateLabel.TabIndex = 1;
             this.dateLabel.Text = "Date:";
             // 
-            // monthCalendar1
+            // addMeetingDate
             // 
-            this.monthCalendar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.monthCalendar1.Location = new System.Drawing.Point(22, 107);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 2;
+            this.addMeetingDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addMeetingDate.Location = new System.Drawing.Point(22, 107);
+            this.addMeetingDate.Name = "addMeetingDate";
+            this.addMeetingDate.TabIndex = 2;
             // 
             // acquaintanceLabel
             // 
@@ -208,7 +208,7 @@ namespace rmanager
             this.Controls.Add(this.locationLabel);
             this.Controls.Add(this.acquaintancesDropDown);
             this.Controls.Add(this.acquaintanceLabel);
-            this.Controls.Add(this.monthCalendar1);
+            this.Controls.Add(this.addMeetingDate);
             this.Controls.Add(this.dateLabel);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(6);
@@ -221,7 +221,7 @@ namespace rmanager
 
         #endregion
         private System.Windows.Forms.Label dateLabel;
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.MonthCalendar addMeetingDate;
         private System.Windows.Forms.Label acquaintanceLabel;
         private System.Windows.Forms.ComboBox acquaintancesDropDown;
         private System.Windows.Forms.ComboBox locationsDropDown;

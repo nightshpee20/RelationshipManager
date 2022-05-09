@@ -100,19 +100,19 @@ namespace rmanager
 
         private void meetingsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //DataGridViewRow row = acquaintancesDataGridView.Rows[e.RowIndex];
+            DataGridViewRow row = meetingsDataGridView.Rows[e.RowIndex];
             if (e.ColumnIndex == 0)
             {
-            
-                //addAcquaintanceForm edit = new addAcquaintanceForm(this, user_id,
-                //                                                   row.Cells[2].Value.ToString(),
-                //                                                   row.Cells[3].Value.ToString(),
-                //                                                   row.Cells[4].Value.ToString(),
-                //                                                   row.Cells[5].Value.ToString(),
-                //                                                   row.Cells[6].Value.ToString(),
-                //                                                   row.Cells[7].Value.ToString(),
-                //                                                   row.Cells[8].Value.ToString());
-                //edit.Show();
+                u.M($"{row.Cells[2].Value.ToString()} ,{row.Cells[3].Value.ToString()}, {row.Cells[4].Value.ToString()}, {row.Cells[5].Value.ToString()}, {row.Cells[6].Value.ToString()}, {row.Cells[7].Value.ToString()}");
+
+
+                addMeetingForm edit = new addMeetingForm(this, user_id,
+                                                         row.Cells[2].Value.ToString(),
+                                                         row.Cells[4].Value.ToString(),
+                                                         row.Cells[5].Value.ToString(),
+                                                         row.Cells[6].Value.ToString(),
+                                                         row.Cells[7].Value.ToString());
+                edit.Show();
             }
             else if (e.ColumnIndex == 1)
             {

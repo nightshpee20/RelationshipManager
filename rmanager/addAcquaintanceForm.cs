@@ -38,7 +38,7 @@ namespace rmanager
             this.user_id = user_id;
             this.Text = "Edit Acquaintance";
 
-            getOldValues(first, last, gender, occ, city, address, rel);
+            setOldValues(first, last, gender, occ, city, address, rel);
         }
        
         private void setDropDownValues(int user_id, string name, ComboBox cb, ref DataTable dt)
@@ -183,13 +183,13 @@ namespace rmanager
                 string gen = "";
                 if (maleRadioButton.Checked == true) gen = "Male";
                 if (femaleRadioButton.Checked == true) gen = "Female";
-                getOldValues(firstNameTextBox.Text, lastNameTextBox.Text, gen, occupationsDropDown.GetItemText(occupationsDropDown.SelectedItem), citiesDropDown.GetItemText(citiesDropDown.SelectedItem), addressTextBox.Text, relationshipsDropDown.GetItemText(relationshipsDropDown.SelectedItem));
+                setOldValues(firstNameTextBox.Text, lastNameTextBox.Text, gen, occupationsDropDown.GetItemText(occupationsDropDown.SelectedItem), citiesDropDown.GetItemText(citiesDropDown.SelectedItem), addressTextBox.Text, relationshipsDropDown.GetItemText(relationshipsDropDown.SelectedItem));
             }
 
             parent.refreshAcquaintancesDataGridView();
         }
 
-        private void getOldValues(string first, string last, string gender, string occ, string city, string address, string rel)
+        private void setOldValues(string first, string last, string gender, string occ, string city, string address, string rel)
         {
             this.oldValues = new List<string>();
             addAcquaintanceButton.Text = "Commit";

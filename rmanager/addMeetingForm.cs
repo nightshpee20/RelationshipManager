@@ -17,6 +17,7 @@ namespace rmanager
         private int user_id;
         private DataTable dta, dtl, dtr;
         private string attribute;
+        private List<string> oldValues;
         public addMeetingForm(userProfileForm parent, int user_id)
         {
             InitializeComponent();
@@ -27,6 +28,17 @@ namespace rmanager
             setDropDownValues(user_id, "locations", locationsDropDown, ref dtl);
             setDropDownValues(user_id, "reasons", reasonsDropDown, ref dtr);
 
+        }
+
+        public addMeetingForm(userProfileForm parent, int user_id, string date, string acquaintance, string location, string reason, string comments)
+        {
+            InitializeComponent();
+            this.parent = parent;
+            this.user_id = user_id;
+            this.Text = "Edit Meeting";
+            mainLabel.Text = "Edit Meeting:";
+
+            setOldValues(date, acquaintance, location, reason, comments);
         }
 
         private void setDropDownValues(int user_id, string name, ComboBox cb, ref DataTable dt)
@@ -81,6 +93,38 @@ namespace rmanager
             cb.ValueMember = "id";
             cb.DataSource = dt;
             cb.SelectedIndex = 0;
+        }
+
+        public void setOldValues(string date, string acquaintance, string location, string reason, string comments)
+        {
+            this.oldValues = new List<string>();
+            addButton.Text = "Commit";
+
+            commentsTextBox.Text = comments;
+            oldValues.Add(comments);
+ 
+            setDropDownValues(user_id, "acquaintances", acquaintancesDropDown, ref dta);
+            for (int i = 0; i < dta.Rows.Count; i++)
+            {
+                if (acquaintance == dta.Rows[i][0].ToString()) { acquaintancesDropDown.SelectedIndex = i; oldValues.Add(dta.Rows[i][0].ToString()); }
+            }
+
+            setDropDownValues(user_id, "locations", locationsDropDown, ref dtl);
+            for (int i = 0; i < dtl.Rows.Count; i++)
+            {
+                if (location == u.CapitalizeFirstLetters(dtl.Rows[i][0].ToString())) { locationsDropDown.SelectedIndex = i; oldValues.Add(dtl.Rows[i][0].ToString()); }
+            }
+
+            setDropDownValues(user_id, "reasons", reasonsDropDown, ref dtr);
+            for (int i = 0; i < dtr.Rows.Count; i++)
+            {
+                if (reason == dtr.Rows[i][0].ToString()) { reasonsDropDown.SelectedIndex = i; oldValues.Add(dtr.Rows[i][0].ToString()); }
+            }
+
+            DateTime datetime = DateTime.Parse(date);
+            oldValues.Add(date);
+
+            addMeetingDate.SetDate(datetime);
         }
     }
 }
