@@ -38,13 +38,15 @@ namespace rmanager
         {
             MySqlCommand cmd = new MySqlCommand($"SELECT DATE_FORMAT(um.date_time, '%m / %d / %Y') AS date, " +
                                                        $"DATE_FORMAT(um.date_time, '%H: %i') as time, " +
-                                                       $"CONCAT(a.first_name, \" \", a.last_name) AS acquaintance, " +
+                                                       $"(SELECT CONCAT(a.first_name, \" \", a.last_name, \", \", c.city)) AS acquaintance, " +
                                                        $"l.location, " +
                                                        $"r.reason, " +
                                                        $"um.comments " +
                                                 $"FROM user_meetings um " +
                                                 $"JOIN acquaintances a " +
                                                     $"ON um.acquaintance_id = a.id " +
+                                                        $"JOIN cities c " +
+                                                        $"ON a.city_id = c.id " +
                                                 $"JOIN locations l " +
                                                     $"ON um.location_id = l.id " +
                                                 $"JOIN reasons r " +
@@ -118,9 +120,24 @@ namespace rmanager
                 {
                     //u.MySqlCommandImproved($"DELETE FROM user_meetings WHERE user_id = {user_id} AND");
                     DateTime date = DateTime.Parse($"{meetingsDataGridView[2, e.RowIndex].Value.ToString()} {meetingsDataGridView[3, e.RowIndex].Value.ToString()}");
-                    u.M($"DELETE FROM user_meetings WHERE user_id = {user_id} AND date_time = \'{date.ToString("yyyy-MM-dd HH:mm:ss")}\' AND acquaintance_id = (SELECT id FROM acquaintance WHERE CONCAT(first_name, \" \", last_name) = \'{meetingsDataGridView[4, e.RowIndex].Value.ToString()}\')"); 
+
+                    u.MySqlCommandImproved($"DELETE FROM user_meetings WHERE user_id = {user_id} AND date_time = \'{date.ToString("yyyy-MM-dd HH:mm:ss")}\' AND acquaintance_id = (SELECT a.id FROM acquaintances a JOIN cities c ON a.city_id = c.id WHERE CONCAT(a.first_name, \" \", a.last_name, \", \", c.city) = \'{meetingsDataGridView[4, e.RowIndex].Value.ToString()}\')");
                     
-                    //refreshMeetingsDataGridView();
+                    //MySqlCommand cmd = new MySqlCommand($"SELECT acquaintance_id FROM user_meetings WHERE user_id = {user_id} AND date_time = \'{date.ToString("yyyy-MM-dd HH:mm:ss")}\' AND acquaintance_id = (SELECT a.id FROM acquaintances a JOIN cities c ON a.city_id = c.id WHERE CONCAT(a.first_name, \" \", a.last_name, \", \", c.city) = \'{meetingsDataGridView[4, e.RowIndex].Value.ToString()}\')", Connect.con);
+                    //
+                    //Connect.con.Open();
+                    //
+                    //var dr = cmd.ExecuteReader();
+                    //if (dr.HasRows)
+                    //{
+                    //    dr.Read();
+                    //
+                    //    u.M($"{dr.GetString(0)}, {user_id}, {date.ToString("yyyy-MM-dd HH:mm:ss")}");
+                    //}
+                    //
+                    //Connect.con.Close();
+
+                    refreshMeetingsDataGridView();
                 }
             }
         }

@@ -142,16 +142,16 @@ CALL sp_insertUserRelationship('Friend', 2);
 
 -- GENERATE USER_ACQUAINTANCE_RELATIONSHIPS 
 -- (user_id, first_name, last_name, gender, occupation_id, city_id, address, relationship_id)
-CALL sp_insertUserAcquaintance(1, 'Georgi', 'Georgiev', 'M', 1, 4, null, 1);
-CALL sp_insertUserAcquaintance(1, 'Nikola', 'Nikolov', 'M', 2, 1, null, 2);
-CALL sp_insertUserAcquaintance(1,'Vanesa', 'Vanesova', 'F', 1, 6, null, 2);
-CALL sp_insertUserAcquaintance(1, 'Elena', 'Elenova', 'F', 7, 3, null, 5);
-CALL sp_insertUserAcquaintance(1, 'Stoyan', 'Stoyanov', 'M', 1, 8, null, 6);
-CALL sp_insertUserAcquaintance(1, 'Kiril', 'Kirilov', 'M', 3, 7, null, 7);
-CALL sp_insertUserAcquaintance(1, 'Gergana', 'Gerganova', 'F', 3, 10, null, 3);
-CALL sp_insertUserAcquaintance(1, 'Yoana', 'Yoanova', 'F', 2, 1, null, 10);
-CALL sp_insertUserAcquaintance(1, 'Angel', 'Angelov', 'M', 6, 1, null, 9);
-CALL sp_insertUserAcquaintance(1, 'Martin', 'Martinov', 'M', 1,  8, null, 4);
+CALL sp_insertUserAcquaintance(1, 'Georgi', 'Georgiev', 'M', 1, 4, null, 1); #pld
+CALL sp_insertUserAcquaintance(1, 'Nikola', 'Nikolov', 'M', 2, 1, null, 2); #vrn
+CALL sp_insertUserAcquaintance(1,'Vanesa', 'Vanesova', 'F', 1, 6, null, 2); #stz
+CALL sp_insertUserAcquaintance(1, 'Elena', 'Elenova', 'F', 7, 3, null, 5); #sfa
+CALL sp_insertUserAcquaintance(1, 'Stoyan', 'Stoyanov', 'M', 1, 8, null, 6); #lom
+CALL sp_insertUserAcquaintance(1, 'Kiril', 'Kirilov', 'M', 3, 7, null, 7); #shm
+CALL sp_insertUserAcquaintance(1, 'Gergana', 'Gerganova', 'F', 3, 10, null, 3); #mnt
+CALL sp_insertUserAcquaintance(1, 'Yoana', 'Yoanova', 'F', 2, 1, null, 10); #vrn
+CALL sp_insertUserAcquaintance(1, 'Angel', 'Angelov', 'M', 6, 1, null, 9); #vrn
+CALL sp_insertUserAcquaintance(1, 'Martin', 'Martinov', 'M', 1,  8, null, 4); #lom
 
 CALL sp_insertUserAcquaintance(2, 'Georgi', 'Georgiev', 'M', 1, 4, null, 1);
 CALL sp_insertUserAcquaintance(2, 'Nikola', 'Nikolov', 'M', 4, 2, null, 2);
@@ -167,27 +167,27 @@ CALL sp_insertUserAcquaintance(2, 'Martin', 'Martinov', 'M', 2,  8, null, 4);
 
 -- GENERATE MEETINGS 
 -- (user_id, acquaintance_id, datetime, reason_id, location_id, comments)
-CALL sp_insertUserMeeting(1, 1, '2022-02-14 12:30', 2, 4, null);
-CALL sp_insertUserMeeting(1, 4, '2022-01-23 20:45', 5, 2, null);
-CALL sp_insertUserMeeting(1, 2, '2021-12-04 15:00', 1, 7, null);
-CALL sp_insertUserMeeting(1, 5, '2021-09-27 09:30', 8, 8, null);
-CALL sp_insertUserMeeting(1, 9, '2022-03-11 17:30', 7, 1, null);
-CALL sp_insertUserMeeting(1, 2, '2022-02-14 12:00', 10, 9, null);
-CALL sp_insertUserMeeting(1, 10, '2020-07-30 23:30', 4, 10, null);
-CALL sp_insertUserMeeting(1, 4, '2021-05-28 10:30', 3, 2, null);
-CALL sp_insertUserMeeting(1, 6, '2022-02-14 16:30', 8, 4, null);
-CALL sp_insertUserMeeting(1, 4, '2022-02-14 12:50', 7, 1, null);
+CALL sp_insertUserMeeting(1, 1, '2022-02-14 12:30', 2, 4, '1111');
+CALL sp_insertUserMeeting(1, 4, '2022-01-23 20:45', 5, 2, '1112');
+CALL sp_insertUserMeeting(1, 2, '2021-12-04 15:00', 1, 7, '1113');
+CALL sp_insertUserMeeting(1, 5, '2021-09-27 09:30', 8, 8, '1114');
+CALL sp_insertUserMeeting(1, 9, '2022-03-11 20:30', 7, 1, '1115');
+CALL sp_insertUserMeeting(1, 2, '2022-02-14 12:00', 10, 9, '1116');
+CALL sp_insertUserMeeting(1, 10, '2020-07-30 23:30', 4, 10, '1117');
+CALL sp_insertUserMeeting(1, 4, '2021-05-28 10:30', 3, 2, '1118');
+CALL sp_insertUserMeeting(1, 6, '2022-02-14 16:30', 8, 4, '1119');
+CALL sp_insertUserMeeting(1, 4, '2022-02-14 12:50', 7, 1, '1120');
 
-CALL sp_insertUserMeeting(1, 3, '2022-02-14 12:30', 5, 4, null);
-CALL sp_insertUserMeeting(1, 2, '2022-01-23 20:45', 9, 2, null);
-CALL sp_insertUserMeeting(1, 6, '2021-12-04 15:00', 3, 7, null);
-CALL sp_insertUserMeeting(1, 8, '2021-09-27 09:30', 4, 8, null);
-CALL sp_insertUserMeeting(1, 2, '2022-03-11 17:30', 2, 1, null);
-CALL sp_insertUserMeeting(1, 4, '2022-02-14 12:00', 3, 9, null);
-CALL sp_insertUserMeeting(1, 1, '2020-07-30 23:30', 1, 10, null);
-CALL sp_insertUserMeeting(1, 8, '2021-05-28 10:30', 2, 2, null);
-CALL sp_insertUserMeeting(1, 2, '2022-02-14 16:30', 4, 4, null);
-CALL sp_insertUserMeeting(1, 10, '2022-02-14 12:50', 5, 1, null);
+CALL sp_insertUserMeeting(1, 3, '2022-02-14 12:30', 5, 4, '1121');
+CALL sp_insertUserMeeting(1, 2, '2022-01-23 20:45', 9, 2, '1122');
+CALL sp_insertUserMeeting(1, 6, '2021-12-04 15:00', 3, 7, '1123');
+CALL sp_insertUserMeeting(1, 8, '2021-09-27 09:30', 4, 8, '1124');
+CALL sp_insertUserMeeting(1, 2, '2022-03-11 17:30', 2, 1, '1125');
+CALL sp_insertUserMeeting(1, 4, '2022-02-14 12:00', 3, 9, '1126');
+CALL sp_insertUserMeeting(1, 1, '2020-07-30 23:30', 1, 10, '1127');
+CALL sp_insertUserMeeting(1, 8, '2021-05-28 10:30', 2, 2, '1128');
+CALL sp_insertUserMeeting(1, 2, '2022-02-14 16:30', 4, 4, '1129');
+CALL sp_insertUserMeeting(1, 10, '2022-02-14 12:50', 5, 1, '1130');
 
 CALL sp_insertUserMeeting(2, 1, '2022-02-14 12:30', 2, 4, null);
 CALL sp_insertUserMeeting(2, 4, '2022-01-23 20:45', 5, 2, null);
