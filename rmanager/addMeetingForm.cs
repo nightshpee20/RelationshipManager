@@ -68,9 +68,10 @@ namespace rmanager
             {
                 da = new MySqlDataAdapter($"SELECT" +
                                                $"(SELECT CONCAT(first_name, \" \", last_name, \", \", (SELECT city FROM cities c WHERE c.id = a.city_id)) " +
-                                               $"FROM acquaintances a WHERE a.id = ua.acquaintance_id) AS acquaintance " +
+                                               $"FROM acquaintances a WHERE a.id = ua.acquaintance_id) AS acquaintance, ua.acquaintance_id " +
                                           $"FROM user_acquaintance_relationships ua " +
-                                          $"WHERE user_id = 1", Connect.con);
+                                          $"WHERE user_id = 1 " +
+                                          $"ORDER BY acquaintance ASC", Connect.con);
             }
             else
             {
@@ -106,13 +107,14 @@ namespace rmanager
             if(addButton.Text == "Add")
             {
           
-                u.M($"{addMeetingDate.SelectionStart.ToString("yyyy-MM-dd")} {addMeetingHour.SelectedIndex}:{addMeetingMinute.SelectedIndex + 1} \n {acquaintancesDropDown.Text} \n {locationsDropDown.Text} \n {reasonsDropDown.Text} \n {commentsTextBox.Text}");
+                u.M($"CALL sp_insertUserMeeting({user_id}, {u.GetDropDownItemIndex(acquaintancesDropDown, dta)}, \'{addMeetingDate.SelectionStart.ToString("yyyy-MM-dd")} {addMeetingHour.SelectedIndex}:{addMeetingMinute.SelectedIndex + 1}\', {u.GetDropDownItemIndex(locationsDropDown, dtl)}, {u.GetDropDownItemIndex(reasonsDropDown, dtr)}, \'{commentsTextBox.Text}\')");
 
-                u.M($"{u.GetDropDownItemIndex(reasonsDropDown, dtr)} {/*u.GetDropDownItemIndex(acquaintancesDropDown, dta)*/0} {u.GetDropDownItemIndex(locationsDropDown, dtl)}");
+                u.MySqlCommandImproved($"CALL sp_insertUserMeeting({user_id}, {u.GetDropDownItemIndex(acquaintancesDropDown, dta)}, \'{addMeetingDate.SelectionStart.ToString("yyyy-MM-dd")} {addMeetingHour.SelectedIndex}:{addMeetingMinute.SelectedIndex + 1}\', {u.GetDropDownItemIndex(reasonsDropDown, dtr)}, {u.GetDropDownItemIndex(locationsDropDown, dtl)}, \'{commentsTextBox.Text}\')");
 
 
-                //u.MySqlCommandImproved($"CALL sp_insertUserMeeting({user_id}, {})");
-            }else if (addButton.Text == "Commit")
+
+            }
+            else if (addButton.Text == "Commit")
             {
                 MySqlCommand cmd = new MySqlCommand($"SELECT a.id FROM acquaintances a JOIN cities c ON a.city_id = c.id WHERE CONCAT(a.first_name, \' \', a.last_name, \', \', c.city) = \'{oldValues[1]}\'", Connect.con);
 
