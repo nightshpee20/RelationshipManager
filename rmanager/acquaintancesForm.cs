@@ -15,7 +15,6 @@ namespace rmanager
     {
         private userProfileForm parent;
         private int user_id;
-        private ToolTip toolTip1 = new ToolTip();
         public acquaintancesForm(userProfileForm parent, int user_id)
         {
             InitializeComponent();
@@ -126,8 +125,6 @@ namespace rmanager
                     }
 
                     Connect.con.Close();
-
-                    //u.M(acq_id.ToString());
 
                     u.MySqlCommandImproved($"DELETE FROM user_acquaintance_relationships WHERE user_id = {user_id} AND acquaintance_id = {acq_id}");
                     refreshAcquaintancesDataGridView();

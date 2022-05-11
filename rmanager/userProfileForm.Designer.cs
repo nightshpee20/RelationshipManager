@@ -62,6 +62,8 @@ namespace rmanager
             this.meetingsDataGridView.AllowUserToAddRows = false;
             this.meetingsDataGridView.AllowUserToDeleteRows = false;
             this.meetingsDataGridView.AllowUserToResizeRows = false;
+            this.meetingsDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.meetingsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.meetingsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.meetingsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -241,6 +243,7 @@ namespace rmanager
             this.Name = "userProfileForm";
             this.Text = "Relationship Manager";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Click += new System.EventHandler(this.userProfileForm_Click);
             ((System.ComponentModel.ISupportInitialize)(this.meetingsDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

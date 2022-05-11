@@ -70,15 +70,15 @@ namespace rmanager
 
             dgv.DataSource = dt;
 
-            if(dt.Rows.Count > 20)
-            {
-                meetingsDataGridView.Width += 17;
-                addMeetingButton.Left += 9;
-                browseAcquaintancesButton.Left += 9;
-                userStatsButton.Left += 9;
-                helpButton.Left += 9;
-                switchUserButton.Left += 9;
-            }
+            //if(dt.Rows.Count > 20 && meetingsDataGridView.Controls.OfType<VScrollBar>().First().Visible != true)
+            //{
+            //    meetingsDataGridView.Width += 17;
+            //    addMeetingButton.Left += 9;
+            //    browseAcquaintancesButton.Left += 9;
+            //    userStatsButton.Left += 9;
+            //    helpButton.Left += 9;
+            //    switchUserButton.Left += 9;
+            //}
         }
         
         private void returnButton_Click(object sender, EventArgs e)
@@ -149,6 +149,11 @@ namespace rmanager
         {
             addMeetingForm add = new addMeetingForm(this, user_id);
             add.Show();
+        }
+
+        private void userProfileForm_Click(object sender, EventArgs e)
+        {
+            u.M($"{meetingsDataGridView.Width.ToString()}");
         }
     }
 }
