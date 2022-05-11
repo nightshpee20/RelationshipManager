@@ -80,6 +80,7 @@ namespace rmanager
             // 
             // acquaintancesDropDown
             // 
+            this.acquaintancesDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.acquaintancesDropDown.FormattingEnabled = true;
             this.acquaintancesDropDown.Location = new System.Drawing.Point(275, 84);
             this.acquaintancesDropDown.Name = "acquaintancesDropDown";
@@ -88,6 +89,7 @@ namespace rmanager
             // 
             // locationsDropDown
             // 
+            this.locationsDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.locationsDropDown.FormattingEnabled = true;
             this.locationsDropDown.Location = new System.Drawing.Point(275, 170);
             this.locationsDropDown.Name = "locationsDropDown";
@@ -105,6 +107,7 @@ namespace rmanager
             // 
             // reasonsDropDown
             // 
+            this.reasonsDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.reasonsDropDown.FormattingEnabled = true;
             this.reasonsDropDown.Location = new System.Drawing.Point(275, 258);
             this.reasonsDropDown.Name = "reasonsDropDown";
@@ -218,6 +221,7 @@ namespace rmanager
             // 
             // addMeetingMinute
             // 
+            this.addMeetingMinute.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.addMeetingMinute.FormattingEnabled = true;
             this.addMeetingMinute.Items.AddRange(new object[] {
             "01",
@@ -286,6 +290,7 @@ namespace rmanager
             // 
             // addMeetingHour
             // 
+            this.addMeetingHour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.addMeetingHour.FormattingEnabled = true;
             this.addMeetingHour.Items.AddRange(new object[] {
             "00",

@@ -24,6 +24,7 @@ namespace rmanager
             InitializeComponent();
             this.parent = parent;
             this.user_id = user_id;
+            displayMeetings(meetingsDataGridView);
         }
 
         public userProfileForm(int user_id)

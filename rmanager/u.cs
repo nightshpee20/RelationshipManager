@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -64,6 +65,18 @@ namespace rmanager
             {
                 dgv.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
             }
+        }
+
+        public static int GetDropDownItemIndex(ComboBox cb, DataTable dt)
+        {
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                if (cb.Text == dt.Rows[i][0].ToString())
+                {
+                    return (int)dt.Rows[i][1];
+                }
+            }
+            return -1;
         }
     }
 }

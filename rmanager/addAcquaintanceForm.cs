@@ -117,10 +117,10 @@ namespace rmanager
                                                                     $"\'{firstNameTextBox.Text}\', " +
                                                                     $"\'{lastNameTextBox.Text}\', " +
                                                                     $"\'{gender}\', " +
-                                                                      $"{getDropDownItemIndex(occupationsDropDown, dto)}, " +
-                                                                      $"{getDropDownItemIndex(citiesDropDown, dtc)}, " +
+                                                                      $"{u.GetDropDownItemIndex(occupationsDropDown, dto)}, " +
+                                                                      $"{u.GetDropDownItemIndex(citiesDropDown, dtc)}, " +
                                                                     $"\'{addressTextBox.Text}\', " +
-                                                                      $"{getDropDownItemIndex(relationshipsDropDown, dtr)})");
+                                                                      $"{u.GetDropDownItemIndex(relationshipsDropDown, dtr)})");
                 firstNameTextBox.Text = "";
                 lastNameTextBox.Text = "";
                 maleRadioButton.Checked = true;
@@ -153,10 +153,10 @@ namespace rmanager
                                                                             $"\'{firstNameTextBox.Text}\', " +
                                                                             $"\'{lastNameTextBox.Text}\', " +
                                                                             $"\'{gender}\', " +
-                                                                              $"{getDropDownItemIndex(occupationsDropDown, dto)}, " +
-                                                                              $"{getDropDownItemIndex(citiesDropDown, dtc)}, " +
+                                                                              $"{u.GetDropDownItemIndex(occupationsDropDown, dto)}, " +
+                                                                              $"{u.GetDropDownItemIndex(citiesDropDown, dtc)}, " +
                                                                             $"\'{addressTextBox.Text}\', " +
-                                                                              $"{getDropDownItemIndex(relationshipsDropDown, dtr)})");
+                                                                              $"{u.GetDropDownItemIndex(relationshipsDropDown, dtr)})");
 
 
 
@@ -225,18 +225,6 @@ namespace rmanager
                 if (rel == dtr.Rows[i][0].ToString()) { relationshipsDropDown.SelectedIndex = i; oldValues.Add(dtr.Rows[i][0].ToString()); }
             }
         }
-        private int getDropDownItemIndex(ComboBox cb, DataTable dt)
-        {
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                if (cb.Text == dt.Rows[i][0].ToString())
-                {
-                    return (int)dt.Rows[i][1];
-                }
-            }
-            return -1;
-        }
-
         private void exitAcquaintnaceButton_Click(object sender, EventArgs e)
         {
             this.Close();

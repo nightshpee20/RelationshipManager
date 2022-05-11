@@ -102,10 +102,13 @@ namespace rmanager
 
         private void addButton_Click(object sender, EventArgs e)
         {
+            //TODO: Finish add and commit functionalities.
             if(addButton.Text == "Add")
             {
           
-                u.M($"{addMeetingDate.SelectionStart.ToString("yyyy-MM-dd")}");
+                u.M($"{addMeetingDate.SelectionStart.ToString("yyyy-MM-dd")} {addMeetingHour.SelectedIndex}:{addMeetingMinute.SelectedIndex + 1} \n {acquaintancesDropDown.Text} \n {locationsDropDown.Text} \n {reasonsDropDown.Text} \n {commentsTextBox.Text}");
+
+                u.M($"{u.GetDropDownItemIndex(reasonsDropDown, dtr)} {/*u.GetDropDownItemIndex(acquaintancesDropDown, dta)*/0} {u.GetDropDownItemIndex(locationsDropDown, dtl)}");
 
 
                 //u.MySqlCommandImproved($"CALL sp_insertUserMeeting({user_id}, {})");
