@@ -79,6 +79,10 @@ namespace rmanager
         }
         private void addAcquaintanceButton_Click(object sender, EventArgs e)
         {
+
+            if (Application.OpenForms.OfType<addAcquaintanceForm>().Count() == 1) 
+                Application.OpenForms.OfType<addAcquaintanceForm>().First().Close();
+
             addAcquaintanceForm add = new addAcquaintanceForm(this, user_id);
             add.Show();
         }

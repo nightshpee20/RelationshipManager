@@ -70,17 +70,23 @@ namespace rmanager
 
             dgv.DataSource = dt;
 
-            //if (meetingsDataGridView.Controls.OfType<VScrollBar>().First().Visible == true && visibleScroll == false)
-            //{
-            //    meetingsDataGridView.Width += 17;
-            //    addMeetingButton.Left += 9;
-            //    browseAcquaintancesButton.Left += 9;
-            //    userStatsButton.Left += 9;
-            //    helpButton.Left += 9;
-            //    switchUserButton.Left += 9;
-            //    visibleScroll = true;
-            //}
-            //else visibleScroll = false;
+            if (dt.Rows.Count > 20)
+            {
+                meetingsDataGridView.Width = 1261;
+                addMeetingButton.Left = 1303;
+                browseAcquaintancesButton.Left = 1303;
+                userStatsButton.Left = 1303;
+                helpButton.Left = 1303;
+                switchUserButton.Left = 1303;
+            }else
+            {
+                meetingsDataGridView.Width = 1246;
+                addMeetingButton.Left = 1294;
+                browseAcquaintancesButton.Left = 1294;
+                userStatsButton.Left = 1294;
+                helpButton.Left = 1294;
+                switchUserButton.Left = 1294;
+            }
         }
 
         private void returnButton_Click(object sender, EventArgs e)
@@ -149,13 +155,28 @@ namespace rmanager
         }
         private void addMeetingButton_Click(object sender, EventArgs e)
         {
+            if (Application.OpenForms.OfType<addMeetingForm>().Count() == 1)
+                Application.OpenForms.OfType<addMeetingForm>().First().Close();
+
             addMeetingForm add = new addMeetingForm(this, user_id);
             add.Show();
         }
 
         private void userProfileForm_Click(object sender, EventArgs e)
         {
-            u.M($"{meetingsDataGridView.Width.ToString()}");
+            u.M($"{meetingsDataGridView.Width.ToString()} {addMeetingButton.Left.ToString()}");
+
+            //if (meetingsDataGridView.Controls.OfType<VScrollBar>().First().Visible == true && visibleScroll == false)
+            //{
+            //    meetingsDataGridView.Width += 17;
+            //    addMeetingButton.Left += 9;
+            //    browseAcquaintancesButton.Left += 9;
+            //    userStatsButton.Left += 9;
+            //    helpButton.Left += 9;
+            //    switchUserButton.Left += 9;
+            //    visibleScroll = true;
+            //}
+            //else visibleScroll = false;
         }
     }
 }
