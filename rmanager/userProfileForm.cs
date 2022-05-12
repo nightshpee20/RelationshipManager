@@ -17,7 +17,6 @@ namespace rmanager
         private int user_id;
         private mainForm parent;
         public List<string> user_info = new List<string>();
-        private bool visibleScroll = false;
        
 
         public userProfileForm(mainForm parent, int user_id)
@@ -71,19 +70,19 @@ namespace rmanager
 
             dgv.DataSource = dt;
 
-            if (meetingsDataGridView.Controls.OfType<VScrollBar>().First().Visible == true && visibleScroll == false)
-            {
-                meetingsDataGridView.Width += 17;
-                addMeetingButton.Left += 9;
-                browseAcquaintancesButton.Left += 9;
-                userStatsButton.Left += 9;
-                helpButton.Left += 9;
-                switchUserButton.Left += 9;
-                visibleScroll = true;
-            }
-            else visibleScroll = false;
+            //if (meetingsDataGridView.Controls.OfType<VScrollBar>().First().Visible == true && visibleScroll == false)
+            //{
+            //    meetingsDataGridView.Width += 17;
+            //    addMeetingButton.Left += 9;
+            //    browseAcquaintancesButton.Left += 9;
+            //    userStatsButton.Left += 9;
+            //    helpButton.Left += 9;
+            //    switchUserButton.Left += 9;
+            //    visibleScroll = true;
+            //}
+            //else visibleScroll = false;
         }
-        
+
         private void returnButton_Click(object sender, EventArgs e)
         {
             this.Close();
