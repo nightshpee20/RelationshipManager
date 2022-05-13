@@ -265,7 +265,10 @@ namespace rmanager
                    name = "relationships";
                    break;
            }
-       
+
+           if (Application.OpenForms.OfType<editForm>().Count() == 1)
+               Application.OpenForms.OfType<editForm>().First().Close();
+
            editForm edit = new editForm(name, user_id, this, parent);
            edit.Show();
        }

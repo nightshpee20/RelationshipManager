@@ -189,6 +189,7 @@ namespace rmanager
             this.locationsDropDownEditButton.TabIndex = 18;
             this.locationsDropDownEditButton.Text = "Edit";
             this.locationsDropDownEditButton.UseVisualStyleBackColor = true;
+            this.locationsDropDownEditButton.Click += new System.EventHandler(this.dropDownEditButton_Click);
             // 
             // reasonsDropDownEditButton
             // 
@@ -199,6 +200,7 @@ namespace rmanager
             this.reasonsDropDownEditButton.TabIndex = 19;
             this.reasonsDropDownEditButton.Text = "Edit";
             this.reasonsDropDownEditButton.UseVisualStyleBackColor = true;
+            this.reasonsDropDownEditButton.Click += new System.EventHandler(this.dropDownEditButton_Click);
             // 
             // timeLabel
             // 

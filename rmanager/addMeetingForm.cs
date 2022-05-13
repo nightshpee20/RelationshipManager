@@ -171,6 +171,32 @@ namespace rmanager
             commentsTextBox.Text = comments;
             oldValues.Add(comments);
         }
+
+        //TODO: MAKE THIS WORK
+        private void dropDownEditButton_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            string name = "";
+            switch (btn.Name)
+            {
+                //case "acquaintancesDropDownEditButton":
+                //    name = "acquaintance";
+                //    break;
+                case "locationsDropDownEditButton":
+                    name = "locations";
+                    break;
+                case "reasonsDropDownEditButton":
+                    name = "reasons";
+                    break;
+            }
+
+            if (Application.OpenForms.OfType<editForm>().Count() == 1)
+                Application.OpenForms.OfType<editForm>().First().Close();
+
+            editForm edit = new editForm(name, user_id, this, parent);
+            edit.Show();
+        }
+
         private void resetValues_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if(resetValues.Text == "Reset Values")
@@ -187,6 +213,24 @@ namespace rmanager
             {
                 //u.M($"{oldValues[0]}, {oldValues[1]}, {oldValues[2]}, {oldValues[3]}, {oldValues[4]}, {oldValues[5]}");
                 setOldValues(oldValues[0], oldValues[1], oldValues[2], oldValues[3], oldValues[4], oldValues[5]);
+            }
+        }
+        //EXPERIMENTAL
+        public void refreshDropdown(string name)
+        {
+            switch (name)
+            {
+                //case "acquaintances":
+                //    setDropDownValues(user_id, name, acquaintancesDropDown, ref dta);
+                //    break;
+                //
+                case "locations":
+                    setDropDownValues(user_id, name, locationsDropDown, ref dtl);
+                    break;
+
+                case "reasons":
+                    setDropDownValues(user_id, name, reasonsDropDown, ref dtr);
+                    break;
             }
         }
         private void exitButton_Click(object sender, EventArgs e)

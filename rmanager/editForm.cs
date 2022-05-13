@@ -19,7 +19,9 @@ namespace rmanager
         private string oldText;
         private bool changesMade = false;
         private acquaintancesForm grandparent;
-        private addAcquaintanceForm parent;
+        private addAcquaintanceForm parent; 
+        private Form gparent; //EXPERIMENTAL
+        private Form pparent; //EXPERIMENTAL
         private int max_width;
         
         public editForm(string name, int user_id, addAcquaintanceForm parent, acquaintancesForm grandparent)
@@ -47,7 +49,34 @@ namespace rmanager
             }
             displayTable(name);
         }
-        
+
+        //EXPERIMENTAL constructor
+        public editForm(string name, int user_id, Form parent, Form grandparent)
+        {
+            InitializeComponent();
+            this.pparent = parent;
+            this.gparent = grandparent;
+            this.Text = u.CapitalizeFirstLetters($"{name} Edit Form");
+            this.user_id = user_id;
+            this.name = name;
+            switch (name)
+            {
+                //case "acquaintances":
+                //    this.label1.Text = "Your ACQUAINTANCES:";
+                //    this.column = "city";
+                //    break;
+                case "locations":
+                    this.label1.Text = "Your LOCATIONS:";
+                    this.column = "location";
+                    break;
+                case "reasons":
+                    this.label1.Text = "Your REASONS:";
+                    this.column = "reason";
+                    break;
+            }
+            displayTable(name);
+        }
+
         private void displayTable(string name)
         {
             MySqlDataAdapter da = new MySqlDataAdapter();
@@ -77,6 +106,23 @@ namespace rmanager
                                               $"ORDER BY r.relationship ASC;", Connect.con);
                     break;
 
+                //EXPERIMENTAL case
+                case "locations":
+                    da = new MySqlDataAdapter($"SELECT l.location, l.id, ul.user_id " +
+                                              $"FROM user_locations ul " +
+                                              $"JOIN locations l ON ul.location_id = l.id " +
+                                              $"WHERE user_id = {user_id} " +
+                                              $"ORDER BY l.location ASC;", Connect.con);
+                    break;
+
+                //EXPERIMENTAL case
+                case "reasons":
+                    da = new MySqlDataAdapter($"SELECT r.reason, r.id, ur.user_id " +
+                                              $"FROM user_reasons ur " +
+                                              $"JOIN reasons r ON ur.reason_id = r.id " +
+                                              $"WHERE user_id = {user_id} " +
+                                              $"ORDER BY r.reason ASC;", Connect.con);
+                    break;
             }
             
             DataSet ds = new DataSet();
