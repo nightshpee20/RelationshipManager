@@ -20,8 +20,8 @@ namespace rmanager
         private bool changesMade = false;
         private acquaintancesForm grandparent;
         private addAcquaintanceForm parent; 
-        private Form gparent; //EXPERIMENTAL
-        private Form pparent; //EXPERIMENTAL
+        private userProfileForm gparent; //EXPERIMENTAL
+        private addMeetingForm pparent; //EXPERIMENTAL
         private int max_width;
         
         public editForm(string name, int user_id, addAcquaintanceForm parent, acquaintancesForm grandparent)
@@ -51,7 +51,7 @@ namespace rmanager
         }
 
         //EXPERIMENTAL constructor
-        public editForm(string name, int user_id, Form parent, Form grandparent)
+        public editForm(string name, int user_id, addMeetingForm parent, userProfileForm grandparent)
         {
             InitializeComponent();
             this.pparent = parent;
@@ -61,10 +61,10 @@ namespace rmanager
             this.name = name;
             switch (name)
             {
-                //case "acquaintances":
-                //    this.label1.Text = "Your ACQUAINTANCES:";
-                //    this.column = "city";
-                //    break;
+                case "acquaintances":
+                    this.label1.Text = "Your ACQUAINTANCES:";
+                    this.column = "acquaintance";
+                    break;
                 case "locations":
                     this.label1.Text = "Your LOCATIONS:";
                     this.column = "location";
@@ -100,10 +100,18 @@ namespace rmanager
 
                 case "relationships":
                     da = new MySqlDataAdapter($"SELECT r.relationship, r.id, ur.user_id " +
-                                              $"FROM user_relationships ur " +
-                                              $"JOIN relationships r ON ur.relationship_id = r.id " +
+                                             $"FROM user_relationships ur " +
+                                             $"JOIN relationships r ON ur.relationship_id = r.id " +
+                                             $"WHERE user_id = {user_id} " +
+                                             $"ORDER BY r.relationship ASC;", Connect.con);
+                    break;
+
+                //EXPERIMENTAL case
+                case "acquaintances":
+                    da = new MySqlDataAdapter($"SELECT (SELECT CONCAT(first_name, \" \", last_name, \", \", (SELECT city FROM cities c WHERE c.id = a.city_id)) FROM acquaintances a WHERE a.id = ua.acquaintance_id) AS acquaintance, ua.acquaintance_id AS id, ua.user_id " +
+                                              $"FROM user_acquaintance_relationships ua " +
                                               $"WHERE user_id = {user_id} " +
-                                              $"ORDER BY r.relationship ASC;", Connect.con);
+                                              $"ORDER BY acquaintance ASC;", Connect.con);
                     break;
 
                 //EXPERIMENTAL case

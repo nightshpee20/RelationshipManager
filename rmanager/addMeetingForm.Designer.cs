@@ -179,6 +179,7 @@ namespace rmanager
             this.acquaintancesDropDownEditButton.TabIndex = 17;
             this.acquaintancesDropDownEditButton.Text = "Edit";
             this.acquaintancesDropDownEditButton.UseVisualStyleBackColor = true;
+            this.acquaintancesDropDownEditButton.Click += new System.EventHandler(this.dropDownEditButton_Click);
             // 
             // locationsDropDownEditButton
             // 

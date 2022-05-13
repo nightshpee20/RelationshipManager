@@ -179,9 +179,9 @@ namespace rmanager
             string name = "";
             switch (btn.Name)
             {
-                //case "acquaintancesDropDownEditButton":
-                //    name = "acquaintance";
-                //    break;
+                case "acquaintancesDropDownEditButton":
+                    name = "acquaintances";
+                    break;
                 case "locationsDropDownEditButton":
                     name = "locations";
                     break;
