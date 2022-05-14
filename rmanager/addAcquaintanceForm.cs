@@ -50,6 +50,26 @@ namespace rmanager
             setDropDownValues(user_id, "relationships", relationshipsDropDown, ref dtr);
             maleRadioButton.Checked = true;
         }
+        public addAcquaintanceForm(int user_id, string name_city)
+        {
+            InitializeComponent();
+            name_city = name_city.Replace(',', ' '); // MOVE THIS TO EDIT FORM BEFORE THE CONSTRUCTOR IS CALLED
+            string[] arr = name_city.Split(' ');
+            MySqlCommand cmd = new MySqlCommand($"SELECT * FROM acquaintances WHERE first_name = \'pedal\' AND last_name = \'chakal\' AND city_id = (SELECT id FROM cities WHERE city = \'begai\');", Connect.con);
+            List<string> user_info = new List<string>();
+
+            Connect.con.Open();
+
+            var dr = cmd.ExecuteReader();
+            if (dr.HasRows)
+            {
+                dr.Read();
+
+                u.M($"{dr.GetString(0)} {dr.GetString(1)} {dr.GetString(2)}");
+            }
+
+            Connect.con.Close();
+        }
 
         private void setDropDownValues(int user_id, string name, ComboBox cb, ref DataTable dt)
         {
@@ -105,6 +125,59 @@ namespace rmanager
                 occupationsDropDownEditButton.Left = maxLength * 12 + 24;
             }
         }
+        private void setOldValues(string first, string last, string gender, string occ, string city, string address, string rel)
+        {
+            this.oldValues = new List<string>();
+
+            firstNameTextBox.Text = first;
+            oldValues.Add(first);
+
+            lastNameTextBox.Text = last;
+            oldValues.Add(last);
+
+            if (gender == "Female") { femaleRadioButton.Checked = true; oldValues.Add(gender); }
+            if (gender == "Male") { maleRadioButton.Checked = true; oldValues.Add(gender); }
+
+            setDropDownValues(user_id, "occupations", occupationsDropDown, ref dto);
+            for (int i = 0; i < dto.Rows.Count; i++)
+            {
+                if (occ == dto.Rows[i][0].ToString()) { occupationsDropDown.SelectedIndex = i; oldValues.Add(dto.Rows[i][0].ToString()); }
+            }
+
+            setDropDownValues(user_id, "cities", citiesDropDown, ref dtc);
+            for (int i = 0; i < dtc.Rows.Count; i++)
+            {
+                if (city == u.CapitalizeFirstLetters(dtc.Rows[i][0].ToString())) { citiesDropDown.SelectedIndex = i; oldValues.Add(dtc.Rows[i][0].ToString()); }
+            }
+            this.oldCityIndex = citiesDropDown.SelectedIndex;
+
+            addressTextBox.Text = address;
+            oldValues.Add(address);
+
+            setDropDownValues(user_id, "relationships", relationshipsDropDown, ref dtr);
+            for (int i = 0; i < dtr.Rows.Count; i++)
+            {
+                if (rel == dtr.Rows[i][0].ToString()) { relationshipsDropDown.SelectedIndex = i; oldValues.Add(dtr.Rows[i][0].ToString()); }
+            }
+        }
+        public void refreshDropdown(string name)
+        {
+            switch(name)
+            {
+                case "cities":
+                    setDropDownValues(user_id, name, citiesDropDown, ref dtc);
+                    break;
+
+                case "occupations":
+                    setDropDownValues(user_id, name, occupationsDropDown, ref  dto);
+                    break;
+
+                case "relationships":
+                    setDropDownValues(user_id, name, relationshipsDropDown, ref dtr);
+                    break;
+            }
+        }
+        //Events
         private void addAcquaintanceButton_Click(object sender, EventArgs e)
         {
             if (addAcquaintanceButton.Text == "Add")
@@ -198,89 +271,33 @@ namespace rmanager
 
             if(parent != null) parent.refreshAcquaintancesDataGridView();
         }
-
-        private void setOldValues(string first, string last, string gender, string occ, string city, string address, string rel)
-        {
-            this.oldValues = new List<string>();
-
-            firstNameTextBox.Text = first;
-            oldValues.Add(first);
-
-            lastNameTextBox.Text = last;
-            oldValues.Add(last);
-
-            if (gender == "Female") { femaleRadioButton.Checked = true; oldValues.Add(gender); }
-            if (gender == "Male") { maleRadioButton.Checked = true; oldValues.Add(gender); }
-
-            setDropDownValues(user_id, "occupations", occupationsDropDown, ref dto);
-            for (int i = 0; i < dto.Rows.Count; i++)
-            {
-                if (occ == dto.Rows[i][0].ToString()) { occupationsDropDown.SelectedIndex = i; oldValues.Add(dto.Rows[i][0].ToString()); }
-            }
-
-            setDropDownValues(user_id, "cities", citiesDropDown, ref dtc);
-            for (int i = 0; i < dtc.Rows.Count; i++)
-            {
-                if (city == u.CapitalizeFirstLetters(dtc.Rows[i][0].ToString())) { citiesDropDown.SelectedIndex = i; oldValues.Add(dtc.Rows[i][0].ToString()); }
-            }
-            this.oldCityIndex = citiesDropDown.SelectedIndex;
-
-            addressTextBox.Text = address;
-            oldValues.Add(address);
-
-            setDropDownValues(user_id, "relationships", relationshipsDropDown, ref dtr);
-            for (int i = 0; i < dtr.Rows.Count; i++)
-            {
-                if (rel == dtr.Rows[i][0].ToString()) { relationshipsDropDown.SelectedIndex = i; oldValues.Add(dtr.Rows[i][0].ToString()); }
-            }
-        }
         private void exitAcquaintnaceButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-        public void refreshDropdown(string name)
+        private void dropDownEditButton_Click(object sender, EventArgs e)
         {
-            switch(name)
+            Button btn = sender as Button;
+            string name = "";
+            switch (btn.Name)
             {
-                case "cities":
-                    setDropDownValues(user_id, name, citiesDropDown, ref dtc);
+                case "citiesDropDownEditButton":
+                    name = "cities";
                     break;
-
-                case "occupations":
-                    setDropDownValues(user_id, name, occupationsDropDown, ref  dto);
+                case "occupationsDropDownEditButton":
+                    name = "occupations";
                     break;
-
-                case "relationships":
-                    setDropDownValues(user_id, name, relationshipsDropDown, ref dtr);
+                case "relationshipsDropDownEditButton":
+                    name = "relationships";
                     break;
             }
+
+            if (Application.OpenForms.OfType<editForm>().Count() == 1)
+                Application.OpenForms.OfType<editForm>().First().Close();
+
+            editForm edit = new editForm(name, user_id, this, parent);
+            edit.Show();
         }
-        
-
-       private void dropDownEditButton_Click(object sender, EventArgs e)
-       {
-           Button btn = sender as Button;
-           string name = "";
-           switch (btn.Name)
-           {
-               case "citiesDropDownEditButton":
-                   name = "cities";
-                   break;
-               case "occupationsDropDownEditButton":
-                   name = "occupations";
-                   break;
-               case "relationshipsDropDownEditButton":
-                   name = "relationships";
-                   break;
-           }
-
-           if (Application.OpenForms.OfType<editForm>().Count() == 1)
-               Application.OpenForms.OfType<editForm>().First().Close();
-
-           editForm edit = new editForm(name, user_id, this, parent);
-           edit.Show();
-       }
     }
 }
 

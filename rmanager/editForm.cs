@@ -270,8 +270,19 @@ namespace rmanager
                 if (Application.OpenForms.OfType<addAcquaintanceForm>().Count() == 1)
                     Application.OpenForms.OfType<addAcquaintanceForm>().First().Close();
 
-                addAcquaintanceForm add = new addAcquaintanceForm(user_id);
-                add.Show();
+                switch (btn.Text)
+                {
+                    case "Add New":
+                        addAcquaintanceForm add = new addAcquaintanceForm(user_id);
+                        add.Show();
+                        break;
+
+                    case "Edit":
+                        addAcquaintanceForm edit = new addAcquaintanceForm(user_id, "pedal chakal, begai");
+                        edit.Show();
+                        break;
+                }
+                
             }else
             {
                 var arr = this.Controls.Find("txt" + btn.TabIndex, true);
