@@ -35,15 +35,15 @@ namespace rmanager
             switch(name)
             {
                 case "cities":
-                    this.label1.Text = "Your CITIES:";
+                    label1.Text = "Your CITIES:";
                     this.column = "city";
                     break;
                 case "occupations":
-                    this.label1.Text = "Your OCCUPATIONS:";
+                    label1.Text = "Your OCCUPATIONS:";
                     this.column = "occupation";
                     break;
                 case "relationships":
-                    this.label1.Text = "Your RELATIONSHIPS:";
+                    label1.Text = "Your RELATIONSHIPS:";
                     this.column = "relationship";
                     break;
             }
@@ -62,15 +62,17 @@ namespace rmanager
             switch (name)
             {
                 case "acquaintances":
-                    this.label1.Text = "Your ACQUAINTANCES:";
+                    label1.Text = "Your \nACQUAINTANCES:";
+                    label1.Top += 5;
+                    label1.Left += 15;
                     this.column = "acquaintance";
                     break;
                 case "locations":
-                    this.label1.Text = "Your LOCATIONS:";
+                    label1.Text = "Your LOCATIONS:";
                     this.column = "location";
                     break;
                 case "reasons":
-                    this.label1.Text = "Your REASONS:";
+                    label1.Text = "Your REASONS:";
                     this.column = "reason";
                     break;
             }
@@ -145,7 +147,6 @@ namespace rmanager
             }
             
             this.Width = 40 + max_width * 9 + 160;
-            
             
             addRow(0, "", 1);
             
@@ -246,13 +247,22 @@ namespace rmanager
             }
             else
             {
+                
+
                 btn = addButton(count, "add");
                 btn.Left += txt.Width + 4;
+                if (name == "acquaintances" || name == "locations")
+                {
+                    if(name == "locations") btn.Left = 0;
+                    pnl.Controls.Remove(txt);
+                }
                 pnl.Controls.Add(btn);
 
                 btn = addButton(count, "exit");
                 btn.Left += txt.Width + 8 + btn.Width;
                 pnl.Controls.Add(btn);
+
+                
             }
         }
         private void btn_Click(object Sender, EventArgs e)
