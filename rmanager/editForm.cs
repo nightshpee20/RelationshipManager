@@ -247,8 +247,6 @@ namespace rmanager
             }
             else
             {
-                
-
                 btn = addButton(count, "add");
                 btn.Left += txt.Width + 4;
                 if (name == "acquaintances" || name == "locations")
@@ -261,32 +259,62 @@ namespace rmanager
                 btn = addButton(count, "exit");
                 btn.Left += txt.Width + 8 + btn.Width;
                 pnl.Controls.Add(btn);
-
-                
             }
         }
         private void btn_Click(object Sender, EventArgs e)
         {
             Button btn = Sender as Button;
 
-            var arr = this.Controls.Find("txt" + btn.TabIndex, true);
-            TextBox txt = (TextBox)arr[0];
-
-            var arr1 = this.Controls.Find("row" + btn.TabIndex, true);
-            Panel row = (Panel)arr1[0];
-
-
-            switch (btn.Text)
+            if (name == "acquaintances" || name == "locations")
             {
-                case "Edit":
-                    oldText = txt.Text;
-                    txt.ReadOnly = false;
-                    btn.Text = "Commit"; 
-                    break;
+                if (Application.OpenForms.OfType<addAcquaintanceForm>().Count() == 1)
+                    Application.OpenForms.OfType<addAcquaintanceForm>().First().Close();
 
-                case "Commit":
-                    if(oldText != txt.Text)
-                    {
+                addAcquaintanceForm add = new addAcquaintanceForm(user_id);
+                add.Show();
+            }else
+            {
+                var arr = this.Controls.Find("txt" + btn.TabIndex, true);
+                TextBox txt = (TextBox)arr[0];
+
+                var arr1 = this.Controls.Find("row" + btn.TabIndex, true);
+                Panel row = (Panel)arr1[0];
+
+
+                switch (btn.Text)
+                {
+                    case "Edit":
+                        oldText = txt.Text;
+                        txt.ReadOnly = false;
+                        btn.Text = "Commit";
+                        break;
+
+                    case "Commit":
+                        if (oldText != txt.Text)
+                        {
+                            if (column != "city")
+                            {
+                                u.MySqlCommandImproved($"DELETE FROM user_{column}s WHERE {column}_id = {txt.TabIndex} AND user_id = {user_id};");
+                            }
+                            else
+                            {
+                                u.MySqlCommandImproved($"DELETE FROM user_cities WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
+                            }
+                            u.MySqlCommandImproved($"CALL sp_insertUser{u.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
+
+                            changesMade = true;
+                            removeTable();
+                            displayTable(name);
+                        }
+
+                        if (this.Controls.Count > 14) this.Width += 17;
+
+                        txt.ReadOnly = true;
+                        btn.Text = "Edit";
+                        break;
+
+                    case "Delete":
+
                         if (column != "city")
                         {
                             u.MySqlCommandImproved($"DELETE FROM user_{column}s WHERE {column}_id = {txt.TabIndex} AND user_id = {user_id};");
@@ -295,48 +323,26 @@ namespace rmanager
                         {
                             u.MySqlCommandImproved($"DELETE FROM user_cities WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
                         }
+
+                        changesMade = true;
+                        removeTable();
+                        displayTable(name);
+                        if (this.Controls.Count > 14) this.Width += 17;
+                        break;
+
+                    case "Add New":
                         u.MySqlCommandImproved($"CALL sp_insertUser{u.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
 
                         changesMade = true;
                         removeTable();
                         displayTable(name);
-                    }
-                    
-                    if (this.Controls.Count > 14) this.Width += 17;
+                        if (this.Controls.Count > 14) this.Width += 17;
+                        break;
 
-                    txt.ReadOnly = true;
-                    btn.Text = "Edit";
-                    break;
-
-                case "Delete":
-                    
-                    if(column != "city")
-                    {
-                        u.MySqlCommandImproved($"DELETE FROM user_{column}s WHERE {column}_id = {txt.TabIndex} AND user_id = {user_id};");
-                    }
-                    else
-                    {
-                        u.MySqlCommandImproved($"DELETE FROM user_cities WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
-                    }
-
-                    changesMade = true;
-                    removeTable();
-                    displayTable(name);
-                    if (this.Controls.Count > 14) this.Width += 17;
-                    break;
-
-                case "Add New":
-                    u.MySqlCommandImproved($"CALL sp_insertUser{u.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
-                    
-                    changesMade = true;
-                    removeTable();
-                    displayTable(name);
-                    if (this.Controls.Count > 14) this.Width += 17;
-                    break;
-
-                case "Exit":
-                    this.Close();
-                    break;
+                    case "Exit":
+                        this.Close();
+                        break;
+                }
             }
         }
         private void removeTable()

@@ -41,7 +41,16 @@ namespace rmanager
 
             setOldValues(first, last, gender, occ, city, address, rel);
         }
-       
+        public addAcquaintanceForm(int user_id)
+        {
+            InitializeComponent();
+            this.user_id = user_id;
+            setDropDownValues(user_id, "occupations", occupationsDropDown, ref dto);
+            setDropDownValues(user_id, "cities", citiesDropDown, ref dtc);
+            setDropDownValues(user_id, "relationships", relationshipsDropDown, ref dtr);
+            maleRadioButton.Checked = true;
+        }
+
         private void setDropDownValues(int user_id, string name, ComboBox cb, ref DataTable dt)
         {
             cb.DataSource = null;
@@ -187,7 +196,7 @@ namespace rmanager
                 setOldValues(firstNameTextBox.Text, lastNameTextBox.Text, gen, occupationsDropDown.GetItemText(occupationsDropDown.SelectedItem), citiesDropDown.GetItemText(citiesDropDown.SelectedItem), addressTextBox.Text, relationshipsDropDown.GetItemText(relationshipsDropDown.SelectedItem));
             }
 
-            parent.refreshAcquaintancesDataGridView();
+            if(parent != null) parent.refreshAcquaintancesDataGridView();
         }
 
         private void setOldValues(string first, string last, string gender, string occ, string city, string address, string rel)
