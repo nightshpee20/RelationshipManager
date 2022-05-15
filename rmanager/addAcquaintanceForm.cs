@@ -50,30 +50,11 @@ namespace rmanager
             setDropDownValues(user_id, "relationships", relationshipsDropDown, ref dtr);
             maleRadioButton.Checked = true;
         }
-        public addAcquaintanceForm(int user_id, string name_city)
-        {
-            InitializeComponent();
-            name_city = name_city.Replace(",", ""); // MOVE THIS TO EDIT FORM BEFORE THE CONSTRUCTOR IS CALLED
-            string[] arr = name_city.Split(' ');
-
-            u.M($"{arr[0]} {arr[1]} {arr[2]}");
-
-            MySqlCommand cmd = new MySqlCommand($"SELECT * FROM acquaintances WHERE first_name = \'dwadwa\' AND last_name = \'wdawda\' AND city_id = (SELECT id FROM cities WHERE city = \'begai\');", Connect.con);
-            List<string> user_info = new List<string>();
-
-            Connect.con.Open();
-
-            var dr = cmd.ExecuteReader();
-            if (dr.HasRows)
-            {
-                dr.Read();
-
-                u.M($"{dr.GetString(0)} {dr.GetString(1)} {dr.GetString(2)} {dr.GetString(3)} {dr.GetString(4)} {dr.GetString(5)}");
-                if (!dr.IsDBNull(6)) u.M($"{dr.GetString(6)}");
-            }
-
-            Connect.con.Close();
-        }
+        //public addAcquaintanceForm(int user_id, string name_city) ////////IF THE APP WORKS DELETE THIS
+        //{
+        //    InitializeComponent();
+        //    
+        //}
 
         private void setDropDownValues(int user_id, string name, ComboBox cb, ref DataTable dt)
         {

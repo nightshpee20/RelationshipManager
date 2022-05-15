@@ -109,7 +109,7 @@ namespace rmanager
 
         private void meetingsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow row = meetingsDataGridView.Rows[e.RowIndex];
+            DataGridViewRow row = meetingsDataGridView.Rows[e.RowIndex]; //TODO: System.ArgumentOutOfRangeException  make try catch 
             if (e.ColumnIndex == 0)
             {
                 addMeetingForm edit = new addMeetingForm(this, user_id,
