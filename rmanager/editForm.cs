@@ -49,8 +49,8 @@ namespace rmanager
             }
             displayTable(name);
         }
-
-        //EXPERIMENTAL constructor
+        //                                                                         || || || ||
+        //EXPERIMENTAL constructor THIS CONSTRUCTOR CAN BE MERGED WITH THE TOP ONE \/ \/ \/ \/
         public editForm(string name, int user_id, addMeetingForm parent, userProfileForm grandparent)
         {
             InitializeComponent();
@@ -145,9 +145,10 @@ namespace rmanager
             {
                 if (max_width <= dt.Rows[i][0].ToString().Length) max_width = dt.Rows[i][0].ToString().Length;
             }
-            
-            this.Width = 40 + max_width * 9 + 160;
-            
+
+            if (name != "locations") this.Width = 40 + max_width * 9 + 160;
+            else this.Width = 40 + max_width * 18 + 160;
+
             addRow(0, "", 1);
             
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -195,13 +196,18 @@ namespace rmanager
             {
                 case "edit":
                     btn.Text = "Edit";
-                    btn.Name = "editButton_" + count;
+                    btn.Name = "editButton" + count; //DELETED '_' at the end
                     btn.TabIndex = count;
+                    break;
+
+                case "edit_cities":
+                    btn.Text = "Edit Cities";
+                    btn.Name = "editCitiesButton";
                     break;
 
                 case "delete":
                     btn.Text = "Delete";
-                    btn.Name = "deleteButton_" + count;
+                    btn.Name = "deleteButton" + count; //DELETED '_' at the end
                     btn.TabIndex = count;
                     break;
 
@@ -234,6 +240,15 @@ namespace rmanager
             TextBox txt = addTextBox(id, txtValue, count);
             pnl.Controls.Add(txt);
 
+            if(name == "locations")
+            {
+                ComboBox cmb = new ComboBox();
+                cmb.Width = max_width * 9;
+                cmb.Font = new Font(txt.Font.FontFamily, 12);
+                cmb.Top = 2;
+                pnl.Controls.Add(cmb);
+            }
+
             Button btn = new Button(); 
             if(txtValue != "")
             {
@@ -242,7 +257,7 @@ namespace rmanager
                 pnl.Controls.Add(btn);
 
                 btn = addButton(count, "delete");
-                btn.Left += txt.Width + 8 + btn.Width;
+                btn.Left += txt.Width + 7 + btn.Width;
                 pnl.Controls.Add(btn);
             }
             else
@@ -256,9 +271,23 @@ namespace rmanager
                 }
                 pnl.Controls.Add(btn);
 
+                if (name == "locations")
+                {
+                    btn = addButton(count, "edit_cities");
+                    btn.Left += txt.Width + 4;
+                    pnl.Controls.Add(btn);
+                }
+
                 btn = addButton(count, "exit");
-                btn.Left += txt.Width + 8 + btn.Width;
+                btn.Left += txt.Width + 7 + btn.Width;
                 pnl.Controls.Add(btn);
+            }
+        }
+        private void removeTable()
+        {
+            for (int i = this.Controls.Count - 1; i >= 0; i--)
+            {
+                if (this.Controls[i] is Panel) this.Controls[i].Dispose();
             }
         }
         private void btn_Click(object Sender, EventArgs e)
@@ -281,43 +310,49 @@ namespace rmanager
                         break;
 
                     case "Edit":
-                        string name_city = txt.Text;
-                        name_city = name_city.Replace(",", ""); // MOVE THIS TO EDIT FORM BEFORE THE CONSTRUCTOR IS CALLED
-                        string[] arr1 = name_city.Split(' ');
-
-                        MySqlCommand cmd = new MySqlCommand($"SELECT a.first_name, a.last_name, a.gender, o.occupation, c.city, a.address, r.relationship " +
-                                                            $"FROM user_acquaintance_relationships ua " +
-                                                            $"JOIN acquaintances a ON ua.acquaintance_id = a.id " +
-                                                            $"JOIN cities c ON a.city_id = c.id " +
-                                                            $"JOIN occupations o ON a.occupation_id = o.id " +
-                                                            $"JOIN relationships r ON ua.relationship_id = r.id " +
-                                                            $"WHERE ua.user_id = {user_id} " +
-                                                            $"AND a.first_name = \'{arr1[0]}\' " +
-                                                            $"AND a.last_name = \'{arr1[1]}\' " +
-                                                            $"AND c.city = \'{arr1[2]}\'", Connect.con);
-                        
-                        Connect.con.Open();
-
-                        List<string> list = new List<string>();
-                        var dr = cmd.ExecuteReader();
-                        if (dr.HasRows)
+                        if (name == "acquaintances")
                         {
-                            dr.Read();
+                            string name_city = txt.Text;
+                            name_city = name_city.Replace(",", ""); // MOVE THIS TO EDIT FORM BEFORE THE CONSTRUCTOR IS CALLED
+                            string[] arr1 = name_city.Split(' ');
 
-                            list.Add(u.CapitalizeFirstLetters(dr.GetString(0))); //first_name
-                            list.Add(u.CapitalizeFirstLetters(dr.GetString(1))); //last_name
-                            list.Add(dr.GetString(2)); //gender
-                            list.Add(u.CapitalizeFirstLetters(dr.GetString(3))); //occupation
-                            list.Add(u.CapitalizeFirstLetters(dr.GetString(4))); //city
-                            if (!dr.IsDBNull(5)) list.Add(u.CapitalizeFirstLetters(dr.GetString(5))); //address
-                            else list.Add("");
-                            list.Add(u.CapitalizeFirstLetters(dr.GetString(6))); //relationship
+                            MySqlCommand cmd = new MySqlCommand($"SELECT a.first_name, a.last_name, a.gender, o.occupation, c.city, a.address, r.relationship " +
+                                                                $"FROM user_acquaintance_relationships ua " +
+                                                                $"JOIN acquaintances a ON ua.acquaintance_id = a.id " +
+                                                                $"JOIN cities c ON a.city_id = c.id " +
+                                                                $"JOIN occupations o ON a.occupation_id = o.id " +
+                                                                $"JOIN relationships r ON ua.relationship_id = r.id " +
+                                                                $"WHERE ua.user_id = {user_id} " +
+                                                                $"AND a.first_name = \'{arr1[0]}\' " +
+                                                                $"AND a.last_name = \'{arr1[1]}\' " +
+                                                                $"AND c.city = \'{arr1[2]}\'", Connect.con);
+
+                            Connect.con.Open();
+
+                            List<string> list = new List<string>();
+                            var dr = cmd.ExecuteReader();
+                            if (dr.HasRows)
+                            {
+                                dr.Read();
+
+                                list.Add(u.CapitalizeFirstLetters(dr.GetString(0))); //first_name
+                                list.Add(u.CapitalizeFirstLetters(dr.GetString(1))); //last_name
+                                list.Add(dr.GetString(2)); //gender
+                                list.Add(u.CapitalizeFirstLetters(dr.GetString(3))); //occupation
+                                list.Add(u.CapitalizeFirstLetters(dr.GetString(4))); //city
+                                if (!dr.IsDBNull(5)) list.Add(u.CapitalizeFirstLetters(dr.GetString(5))); //address
+                                else list.Add("");
+                                list.Add(u.CapitalizeFirstLetters(dr.GetString(6))); //relationship
+                            }
+
+                            Connect.con.Close();
+                            u.M($"{list[0]}, {list[1]}, {list[2]}, {list[3]}, {list[4]}, {list[5]}, {list[6]}");
+                            addAcquaintanceForm edit = new addAcquaintanceForm(null, user_id, list[0], list[1], list[2], list[3], list[4], list[5], list[6]);
+                            edit.Show();                            
+                        }else
+                        {
+                            //TODO: ADD CODE AFTER addLocationForm has been created.
                         }
-
-                        Connect.con.Close();
-                        u.M($"{list[0]}, {list[1]}, {list[2]}, {list[3]}, {list[4]}, {list[5]}, {list[6]}");
-                        addAcquaintanceForm edit = new addAcquaintanceForm(null, user_id, list[0], list[1], list[2], list[3], list[4], list[5], list[6]);
-                        edit.Show();
                         break;
                 }
                 
@@ -393,14 +428,6 @@ namespace rmanager
                 }
             }
         }
-        private void removeTable()
-        {
-            for (int i = this.Controls.Count - 1; i >= 0; i--)
-            {
-                if (this.Controls[i] is Panel) this.Controls[i].Dispose();
-            }
-        }
-
         private void editForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (changesMade)
