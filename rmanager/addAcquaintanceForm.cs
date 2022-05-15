@@ -50,12 +50,6 @@ namespace rmanager
             setDropDownValues(user_id, "relationships", relationshipsDropDown, ref dtr);
             maleRadioButton.Checked = true;
         }
-        //public addAcquaintanceForm(int user_id, string name_city) ////////IF THE APP WORKS DELETE THIS
-        //{
-        //    InitializeComponent();
-        //    
-        //}
-
         private void setDropDownValues(int user_id, string name, ComboBox cb, ref DataTable dt)
         {
             cb.DataSource = null;
@@ -74,20 +68,20 @@ namespace rmanager
                     break;
             }
 
-            MySqlDataAdapter da1 = new MySqlDataAdapter($"SELECT n.{attribute}, n.id, un.user_id " +
+            MySqlDataAdapter da = new MySqlDataAdapter($"SELECT n.{attribute}, n.id, un.user_id " +
                                                        $"FROM user_{name} un " +
                                                        $"JOIN {name} n ON un.{attribute}_id = n.id " +
                                                        $"WHERE user_id = {user_id} " +
                                                        $"ORDER BY n.{attribute} ASC;", Connect.con);
             
-            DataSet ds1 = new DataSet();
+            DataSet ds = new DataSet();
             dt = new DataTable();
 
-            da1.Fill(ds1, name); //TODO: REMOVE THE 1s AND FIX MySql.Data.MySqlClient.MySqlException 
-            dt = ds1.Tables[name];
+            da.Fill(ds, name);
+            dt = ds.Tables[name];
            
 
-            for (int i = 0; i < ds1.Tables[name].Rows.Count; i++)
+            for (int i = 0; i < ds.Tables[name].Rows.Count; i++)
             {
                 dt.Rows[i][attribute] = u.CapitalizeFirstLetters(dt.Rows[i][attribute].ToString());
             }
@@ -120,8 +114,8 @@ namespace rmanager
             lastNameTextBox.Text = last;
             oldValues.Add(last);
 
-            if (gender == "Female") { femaleRadioButton.Checked = true; oldValues.Add(gender); }
-            if (gender == "Male") { maleRadioButton.Checked = true; oldValues.Add(gender); }
+            if (gender == "Female" || gender == "f") { femaleRadioButton.Checked = true; oldValues.Add(gender); }
+            if (gender == "Male" || gender == "m") { maleRadioButton.Checked = true; oldValues.Add(gender); }
 
             setDropDownValues(user_id, "occupations", occupationsDropDown, ref dto);
             for (int i = 0; i < dto.Rows.Count; i++)

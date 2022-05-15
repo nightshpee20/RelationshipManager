@@ -284,8 +284,6 @@ namespace rmanager
                         string name_city = txt.Text;
                         name_city = name_city.Replace(",", ""); // MOVE THIS TO EDIT FORM BEFORE THE CONSTRUCTOR IS CALLED
                         string[] arr1 = name_city.Split(' ');
-                        
-                        u.M($"{arr1[0]} {arr1[1]} {arr1[2]}");
 
                         MySqlCommand cmd = new MySqlCommand($"SELECT a.first_name, a.last_name, a.gender, o.occupation, c.city, a.address, r.relationship " +
                                                             $"FROM user_acquaintance_relationships ua " +
@@ -299,23 +297,27 @@ namespace rmanager
                                                             $"AND c.city = \'{arr1[2]}\'", Connect.con);
                         
                         Connect.con.Open();
-                        
+
+                        List<string> list = new List<string>();
                         var dr = cmd.ExecuteReader();
                         if (dr.HasRows)
                         {
                             dr.Read();
 
-                            addAcquaintanceForm edit;
-                            if (!dr.IsDBNull(6)) edit = new addAcquaintanceForm(null, user_id, dr.GetString(0), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4), dr.GetString(5), dr.GetString(6)); //address
-                            else edit = new addAcquaintanceForm(null, user_id, dr.GetString(0), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4), "", dr.GetString(6));
-                            
-                            Connect.con.Close();
-                            edit.Show();
-
+                            list.Add(u.CapitalizeFirstLetters(dr.GetString(0))); //first_name
+                            list.Add(u.CapitalizeFirstLetters(dr.GetString(1))); //last_name
+                            list.Add(dr.GetString(2)); //gender
+                            list.Add(u.CapitalizeFirstLetters(dr.GetString(3))); //occupation
+                            list.Add(u.CapitalizeFirstLetters(dr.GetString(4))); //city
+                            if (!dr.IsDBNull(5)) list.Add(u.CapitalizeFirstLetters(dr.GetString(5))); //address
+                            else list.Add("");
+                            list.Add(u.CapitalizeFirstLetters(dr.GetString(6))); //relationship
                         }
 
-                        
-                        
+                        Connect.con.Close();
+                        u.M($"{list[0]}, {list[1]}, {list[2]}, {list[3]}, {list[4]}, {list[5]}, {list[6]}");
+                        addAcquaintanceForm edit = new addAcquaintanceForm(null, user_id, list[0], list[1], list[2], list[3], list[4], list[5], list[6]);
+                        edit.Show();
                         break;
                 }
                 
