@@ -211,7 +211,6 @@ namespace rmanager
             }
             else if(resetValues.Text == "Reset Old Values")
             {
-                //u.M($"{oldValues[0]}, {oldValues[1]}, {oldValues[2]}, {oldValues[3]}, {oldValues[4]}, {oldValues[5]}");
                 setOldValues(oldValues[0], oldValues[1], oldValues[2], oldValues[3], oldValues[4], oldValues[5]);
             }
         }

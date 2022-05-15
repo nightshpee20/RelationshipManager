@@ -37,6 +37,8 @@ namespace rmanager
             this.parent = parent;
             this.user_id = user_id;
             this.Text = "Edit Acquaintance";
+            mainLabel.Text = "Edit Acquaintance:";
+            resetValues.Text = "Reset Old Values";
             addAcquaintanceButton.Text = "Commit";
 
             setOldValues(first, last, gender, occ, city, address, rel);
@@ -250,6 +252,26 @@ namespace rmanager
 
             if(parent != null) parent.refreshAcquaintancesDataGridView();
         }
+
+        private void resetValues_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (resetValues.Text == "Reset Values")
+            {
+                firstNameTextBox.Text = "";
+                lastNameTextBox.Text = "";
+                maleRadioButton.Checked = true;
+                occupationsDropDown.SelectedIndex = 0;
+                citiesDropDown.SelectedIndex = 0;
+                addressTextBox.Text = "";
+                relationshipsDropDown.SelectedIndex = 0;
+
+            }
+            else if (resetValues.Text == "Reset Old Values")
+            {
+                setOldValues(oldValues[0], oldValues[1], oldValues[2], oldValues[3], oldValues[4], oldValues[5], oldValues[6]);
+            }
+        }
+
         private void exitAcquaintnaceButton_Click(object sender, EventArgs e)
         {
             this.Close();

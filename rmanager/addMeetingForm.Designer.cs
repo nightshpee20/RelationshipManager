@@ -55,7 +55,7 @@ namespace rmanager
             // dateLabel
             // 
             this.dateLabel.AutoSize = true;
-            this.dateLabel.Location = new System.Drawing.Point(16, 48);
+            this.dateLabel.Location = new System.Drawing.Point(16, 69);
             this.dateLabel.Name = "dateLabel";
             this.dateLabel.Size = new System.Drawing.Size(83, 32);
             this.dateLabel.TabIndex = 1;
@@ -64,7 +64,7 @@ namespace rmanager
             // addMeetingDate
             // 
             this.addMeetingDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addMeetingDate.Location = new System.Drawing.Point(22, 83);
+            this.addMeetingDate.Location = new System.Drawing.Point(22, 104);
             this.addMeetingDate.MaxSelectionCount = 1;
             this.addMeetingDate.Name = "addMeetingDate";
             this.addMeetingDate.TabIndex = 2;
@@ -72,7 +72,7 @@ namespace rmanager
             // acquaintanceLabel
             // 
             this.acquaintanceLabel.AutoSize = true;
-            this.acquaintanceLabel.Location = new System.Drawing.Point(269, 49);
+            this.acquaintanceLabel.Location = new System.Drawing.Point(269, 70);
             this.acquaintanceLabel.Name = "acquaintanceLabel";
             this.acquaintanceLabel.Size = new System.Drawing.Size(197, 32);
             this.acquaintanceLabel.TabIndex = 3;
@@ -82,7 +82,7 @@ namespace rmanager
             // 
             this.acquaintancesDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.acquaintancesDropDown.FormattingEnabled = true;
-            this.acquaintancesDropDown.Location = new System.Drawing.Point(275, 84);
+            this.acquaintancesDropDown.Location = new System.Drawing.Point(275, 105);
             this.acquaintancesDropDown.Name = "acquaintancesDropDown";
             this.acquaintancesDropDown.Size = new System.Drawing.Size(372, 39);
             this.acquaintancesDropDown.TabIndex = 4;
@@ -91,7 +91,7 @@ namespace rmanager
             // 
             this.locationsDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.locationsDropDown.FormattingEnabled = true;
-            this.locationsDropDown.Location = new System.Drawing.Point(275, 170);
+            this.locationsDropDown.Location = new System.Drawing.Point(275, 191);
             this.locationsDropDown.Name = "locationsDropDown";
             this.locationsDropDown.Size = new System.Drawing.Size(372, 39);
             this.locationsDropDown.TabIndex = 6;
@@ -99,7 +99,7 @@ namespace rmanager
             // locationLabel
             // 
             this.locationLabel.AutoSize = true;
-            this.locationLabel.Location = new System.Drawing.Point(269, 135);
+            this.locationLabel.Location = new System.Drawing.Point(269, 156);
             this.locationLabel.Name = "locationLabel";
             this.locationLabel.Size = new System.Drawing.Size(132, 32);
             this.locationLabel.TabIndex = 5;
@@ -109,7 +109,7 @@ namespace rmanager
             // 
             this.reasonsDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.reasonsDropDown.FormattingEnabled = true;
-            this.reasonsDropDown.Location = new System.Drawing.Point(275, 258);
+            this.reasonsDropDown.Location = new System.Drawing.Point(275, 279);
             this.reasonsDropDown.Name = "reasonsDropDown";
             this.reasonsDropDown.Size = new System.Drawing.Size(372, 39);
             this.reasonsDropDown.TabIndex = 8;
@@ -117,7 +117,7 @@ namespace rmanager
             // reasonLabel
             // 
             this.reasonLabel.AutoSize = true;
-            this.reasonLabel.Location = new System.Drawing.Point(269, 223);
+            this.reasonLabel.Location = new System.Drawing.Point(269, 244);
             this.reasonLabel.Name = "reasonLabel";
             this.reasonLabel.Size = new System.Drawing.Size(113, 32);
             this.reasonLabel.TabIndex = 7;
@@ -126,7 +126,7 @@ namespace rmanager
             // commentsLabel
             // 
             this.commentsLabel.AutoSize = true;
-            this.commentsLabel.Location = new System.Drawing.Point(16, 301);
+            this.commentsLabel.Location = new System.Drawing.Point(16, 322);
             this.commentsLabel.Name = "commentsLabel";
             this.commentsLabel.Size = new System.Drawing.Size(159, 32);
             this.commentsLabel.TabIndex = 9;
@@ -134,7 +134,7 @@ namespace rmanager
             // 
             // commentsTextBox
             // 
-            this.commentsTextBox.Location = new System.Drawing.Point(22, 336);
+            this.commentsTextBox.Location = new System.Drawing.Point(22, 357);
             this.commentsTextBox.Multiline = true;
             this.commentsTextBox.Name = "commentsTextBox";
             this.commentsTextBox.Size = new System.Drawing.Size(697, 179);
@@ -142,7 +142,7 @@ namespace rmanager
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(589, 529);
+            this.exitButton.Location = new System.Drawing.Point(589, 550);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(130, 48);
             this.exitButton.TabIndex = 11;
@@ -152,7 +152,7 @@ namespace rmanager
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(440, 529);
+            this.addButton.Location = new System.Drawing.Point(440, 550);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(130, 48);
             this.addButton.TabIndex = 12;
@@ -164,7 +164,7 @@ namespace rmanager
             // 
             this.mainLabel.AutoSize = true;
             this.mainLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainLabel.Location = new System.Drawing.Point(16, 10);
+            this.mainLabel.Location = new System.Drawing.Point(16, 18);
             this.mainLabel.Name = "mainLabel";
             this.mainLabel.Size = new System.Drawing.Size(220, 38);
             this.mainLabel.TabIndex = 13;
@@ -173,7 +173,7 @@ namespace rmanager
             // acquaintancesDropDownEditButton
             // 
             this.acquaintancesDropDownEditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.acquaintancesDropDownEditButton.Location = new System.Drawing.Point(653, 83);
+            this.acquaintancesDropDownEditButton.Location = new System.Drawing.Point(653, 104);
             this.acquaintancesDropDownEditButton.Name = "acquaintancesDropDownEditButton";
             this.acquaintancesDropDownEditButton.Size = new System.Drawing.Size(66, 36);
             this.acquaintancesDropDownEditButton.TabIndex = 17;
@@ -184,7 +184,7 @@ namespace rmanager
             // locationsDropDownEditButton
             // 
             this.locationsDropDownEditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.locationsDropDownEditButton.Location = new System.Drawing.Point(653, 169);
+            this.locationsDropDownEditButton.Location = new System.Drawing.Point(653, 190);
             this.locationsDropDownEditButton.Name = "locationsDropDownEditButton";
             this.locationsDropDownEditButton.Size = new System.Drawing.Size(66, 36);
             this.locationsDropDownEditButton.TabIndex = 18;
@@ -195,7 +195,7 @@ namespace rmanager
             // reasonsDropDownEditButton
             // 
             this.reasonsDropDownEditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reasonsDropDownEditButton.Location = new System.Drawing.Point(653, 257);
+            this.reasonsDropDownEditButton.Location = new System.Drawing.Point(653, 278);
             this.reasonsDropDownEditButton.Name = "reasonsDropDownEditButton";
             this.reasonsDropDownEditButton.Size = new System.Drawing.Size(66, 36);
             this.reasonsDropDownEditButton.TabIndex = 19;
@@ -206,7 +206,7 @@ namespace rmanager
             // timeLabel
             // 
             this.timeLabel.AutoSize = true;
-            this.timeLabel.Location = new System.Drawing.Point(16, 261);
+            this.timeLabel.Location = new System.Drawing.Point(16, 282);
             this.timeLabel.Name = "timeLabel";
             this.timeLabel.Size = new System.Drawing.Size(86, 32);
             this.timeLabel.TabIndex = 27;
@@ -215,7 +215,7 @@ namespace rmanager
             // columnLabel
             // 
             this.columnLabel.AutoSize = true;
-            this.columnLabel.Location = new System.Drawing.Point(135, 257);
+            this.columnLabel.Location = new System.Drawing.Point(135, 278);
             this.columnLabel.Margin = new System.Windows.Forms.Padding(0);
             this.columnLabel.Name = "columnLabel";
             this.columnLabel.Size = new System.Drawing.Size(23, 32);
@@ -286,7 +286,7 @@ namespace rmanager
             "57",
             "58",
             "59"});
-            this.addMeetingMinute.Location = new System.Drawing.Point(153, 257);
+            this.addMeetingMinute.Location = new System.Drawing.Point(153, 278);
             this.addMeetingMinute.Name = "addMeetingMinute";
             this.addMeetingMinute.Size = new System.Drawing.Size(50, 39);
             this.addMeetingMinute.TabIndex = 25;
@@ -320,7 +320,7 @@ namespace rmanager
             "21",
             "22",
             "23"});
-            this.addMeetingHour.Location = new System.Drawing.Point(85, 257);
+            this.addMeetingHour.Location = new System.Drawing.Point(85, 278);
             this.addMeetingHour.Name = "addMeetingHour";
             this.addMeetingHour.Size = new System.Drawing.Size(50, 39);
             this.addMeetingHour.TabIndex = 24;
@@ -330,7 +330,7 @@ namespace rmanager
             this.resetValues.AutoSize = true;
             this.resetValues.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resetValues.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.resetValues.Location = new System.Drawing.Point(595, 21);
+            this.resetValues.Location = new System.Drawing.Point(595, 31);
             this.resetValues.Name = "resetValues";
             this.resetValues.Size = new System.Drawing.Size(128, 25);
             this.resetValues.TabIndex = 28;
@@ -342,7 +342,7 @@ namespace rmanager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(735, 590);
+            this.ClientSize = new System.Drawing.Size(735, 613);
             this.Controls.Add(this.resetValues);
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.columnLabel);
