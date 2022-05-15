@@ -74,20 +74,20 @@ namespace rmanager
                     break;
             }
 
-            MySqlDataAdapter da = new MySqlDataAdapter($"SELECT n.{attribute}, n.id, un.user_id " +
+            MySqlDataAdapter da1 = new MySqlDataAdapter($"SELECT n.{attribute}, n.id, un.user_id " +
                                                        $"FROM user_{name} un " +
                                                        $"JOIN {name} n ON un.{attribute}_id = n.id " +
                                                        $"WHERE user_id = {user_id} " +
                                                        $"ORDER BY n.{attribute} ASC;", Connect.con);
             
-            DataSet ds = new DataSet();
+            DataSet ds1 = new DataSet();
             dt = new DataTable();
 
-            da.Fill(ds, name);
-            dt = ds.Tables[name];
+            da1.Fill(ds1, name); //TODO: REMOVE THE 1s AND FIX MySql.Data.MySqlClient.MySqlException 
+            dt = ds1.Tables[name];
            
 
-            for (int i = 0; i < ds.Tables[name].Rows.Count; i++)
+            for (int i = 0; i < ds1.Tables[name].Rows.Count; i++)
             {
                 dt.Rows[i][attribute] = u.CapitalizeFirstLetters(dt.Rows[i][attribute].ToString());
             }

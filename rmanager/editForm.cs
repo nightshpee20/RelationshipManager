@@ -281,37 +281,41 @@ namespace rmanager
                         break;
 
                     case "Edit":
-                        //string name_city = txt.Text;
-                        //name_city = name_city.Replace(",", ""); // MOVE THIS TO EDIT FORM BEFORE THE CONSTRUCTOR IS CALLED
-                        //string[] arr1 = name_city.Split(' ');
-                        //
-                        //u.M($"{arr1[0]} {arr1[1]} {arr1[2]}");
-                        //
-                        //MySqlCommand cmd = new MySqlCommand($"SELECT * FROM acquaintances WHERE first_name = \'{arr1[0]}\' AND last_name = \'{arr1[1]}\' AND city_id = (SELECT id FROM cities WHERE city = \'{arr1[2]}\');", Connect.con);
-                        //
-                        //
-                        //Connect.con.Open();
-                        //
-                        //var dr = cmd.ExecuteReader();
-                        //if (dr.HasRows)
-                        //{
-                        //    dr.Read();
-                        //
-                        //    user_info.Add(dr.GetString(0)); //id
-                        //    user_info.Add(dr.GetString(1)); //first_name
-                        //    user_info.Add(dr.GetString(2)); //last_name
-                        //    user_info.Add(dr.GetString(3)); //gender
-                        //    user_info.Add(dr.GetString(4)); //occupation_id
-                        //    user_info.Add(dr.GetString(5)); //city_id
-                        //
-                        //    addAcquaintanceForm edit = new addAcquaintanceForm(null, user_id, dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4), dr.GetString(5))
-                        //
-                        //    if (!dr.IsDBNull(6)) user_info.Add(dr.GetString(6)); //address
-                        //}
-                        //
-                        //Connect.con.Close();
-                        //addAcquaintanceForm edit = new addAcquaintanceForm(user_id, "pedal chakal, begai");
-                        //edit.Show();
+                        string name_city = txt.Text;
+                        name_city = name_city.Replace(",", ""); // MOVE THIS TO EDIT FORM BEFORE THE CONSTRUCTOR IS CALLED
+                        string[] arr1 = name_city.Split(' ');
+                        
+                        u.M($"{arr1[0]} {arr1[1]} {arr1[2]}");
+
+                        MySqlCommand cmd = new MySqlCommand($"SELECT a.first_name, a.last_name, a.gender, o.occupation, c.city, a.address, r.relationship " +
+                                                            $"FROM user_acquaintance_relationships ua " +
+                                                            $"JOIN acquaintances a ON ua.acquaintance_id = a.id " +
+                                                            $"JOIN cities c ON a.city_id = c.id " +
+                                                            $"JOIN occupations o ON a.occupation_id = o.id " +
+                                                            $"JOIN relationships r ON ua.relationship_id = r.id " +
+                                                            $"WHERE ua.user_id = {user_id} " +
+                                                            $"AND a.first_name = \'{arr1[0]}\' " +
+                                                            $"AND a.last_name = \'{arr1[1]}\' " +
+                                                            $"AND c.city = \'{arr1[2]}\'", Connect.con);
+                        
+                        Connect.con.Open();
+                        
+                        var dr = cmd.ExecuteReader();
+                        if (dr.HasRows)
+                        {
+                            dr.Read();
+
+                            addAcquaintanceForm edit;
+                            if (!dr.IsDBNull(6)) edit = new addAcquaintanceForm(null, user_id, dr.GetString(0), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4), dr.GetString(5), dr.GetString(6)); //address
+                            else edit = new addAcquaintanceForm(null, user_id, dr.GetString(0), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4), "", dr.GetString(6));
+                            
+                            Connect.con.Close();
+                            edit.Show();
+
+                        }
+
+                        
+                        
                         break;
                 }
                 

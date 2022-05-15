@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 
 namespace rmanager
 {
+    //TODO: PUT THE BUTTONS BELOW THE DGV AND MAKE IT LOOK LIKE ACQUAINTANCES
     public partial class userProfileForm : Form
     {
         private int user_id;
