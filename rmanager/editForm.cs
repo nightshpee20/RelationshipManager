@@ -23,7 +23,8 @@ namespace rmanager
         private userProfileForm gparent; //EXPERIMENTAL
         private addMeetingForm pparent; //EXPERIMENTAL
         private int max_width;
-        private DataTable dt;
+        private DataTable dtc;
+        private DataTable dtl;
         
         public editForm(string name, int user_id, addAcquaintanceForm parent, acquaintancesForm grandparent)
         {
@@ -71,7 +72,7 @@ namespace rmanager
                 case "locations":
                     label1.Text = "Your LOCATIONS:";
                     this.column = "location";
-                    getDropDownValues(user_id, ref dt);
+                    getDropDownValues(user_id, ref dtc);
                     break;
                 case "reasons":
                     label1.Text = "Your REASONS:";
@@ -120,9 +121,10 @@ namespace rmanager
 
                 //EXPERIMENTAL case
                 case "locations":
-                    da = new MySqlDataAdapter($"SELECT l.location, l.id, ul.user_id " +
+                    da = new MySqlDataAdapter($"SELECT l.location, l.id AS location_id, c.id AS city_id, ul.user_id " +
                                               $"FROM user_locations ul " +
                                               $"JOIN locations l ON ul.location_id = l.id " +
+                                              $"JOIN cities c ON l.city_id = c.id " +
                                               $"WHERE user_id = {user_id} " +
                                               $"ORDER BY l.location ASC;", Connect.con);
                     break;
@@ -143,6 +145,8 @@ namespace rmanager
             da.Fill(ds, name);
             dt = ds.Tables[name];
 
+            if (name == "locations") dtl = dt;
+
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 if (max_width <= dt.Rows[i][0].ToString().Length) max_width = dt.Rows[i][0].ToString().Length;
@@ -155,7 +159,7 @@ namespace rmanager
             
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                addRow(int.Parse(dt.Rows[i]["id"].ToString()), dt.Rows[i][0].ToString(), i + 2);
+                addRow(int.Parse(dt.Rows[i]["location_id"].ToString()), dt.Rows[i][0].ToString(), i + 2);
             }
             
             
@@ -170,20 +174,9 @@ namespace rmanager
                 this.Height = 119 + (dt.Rows.Count) * 40;
             }
         }
-        public static int GetDropDownItemIndex(ComboBox cb, DataTable dt)
+        private void getDropDownValues(int user_id, ref DataTable dtc)
         {
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                if (cb.Text == dt.Rows[i][0].ToString())
-                {
-                    return (int)dt.Rows[i][1];
-                }
-            }
-            return -1;
-        }
-        private void getDropDownValues(int user_id, ref DataTable dt)
-        {
-            MySqlDataAdapter da = new MySqlDataAdapter($"SELECT l.id, l.location, c.id, c.city " +
+            MySqlDataAdapter da = new MySqlDataAdapter($"SELECT DISTINCT(c.city), c.id " +
                                                        $"FROM user_locations ul " +
                                                        $"JOIN locations l ON ul.location_id = l.id " +
                                                        $"JOIN cities c ON l.city_id = c.id " +
@@ -191,22 +184,23 @@ namespace rmanager
                                                        $"ORDER BY c.city ASC;", Connect.con);
 
             DataSet ds = new DataSet();
-            dt = new DataTable();
+            dtc = new DataTable();
 
             da.Fill(ds, name);
-            dt = ds.Tables[name];
+            dtc = ds.Tables[name];
 
 
             for (int i = 0; i < ds.Tables[name].Rows.Count; i++)
             {
-                dt.Rows[i]["city"] = u.CapitalizeFirstLetters(dt.Rows[i]["city"].ToString());
+                dtc.Rows[i]["city"] = u.CapitalizeFirstLetters(dtc.Rows[i]["city"].ToString());
             }
         }
         private void setDropDownValues(ComboBox cb)
         {
             cb.DisplayMember = "city";
             cb.ValueMember = "id";
-            cb.DataSource = dt;
+            cb.BindingContext = this.BindingContext;
+            cb.DataSource = dtc;
         }
         private TextBox addTextBox(int id, string txtValue, int count)
         {
@@ -282,13 +276,22 @@ namespace rmanager
 
             ComboBox cmb = new ComboBox();
 
-            if (name == "locations")
+            if (name == "locations" && txtValue != "")
             {
+                cmb.Name = "cmb" + count;
                 cmb.Width = max_width * 9;
                 cmb.Font = new Font(txt.Font.FontFamily, 12);
                 cmb.Top = 2;
                 cmb.Left += txt.Width + 8;
                 setDropDownValues(cmb);
+                
+                for (int i = 0; i < dtc.Rows.Count; i++)
+                {
+                    //u.M($"{i}");
+                    //u.M($"{dtc.Rows[i]["id"].ToString()} city, {dtl.Rows[count]["location"].ToString()}, {i} index");
+                    if (dtc.Rows[i]["id"].ToString() == dtl.Rows[count - 2]["city_id"].ToString()) { cmb.SelectedIndex = i; break; }
+                }
+
                 pnl.Controls.Add(cmb);
             }
 
