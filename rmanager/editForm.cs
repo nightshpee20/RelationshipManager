@@ -147,7 +147,7 @@ namespace rmanager
             }
 
             if (name != "locations") this.Width = 40 + max_width * 9 + 160;
-            else this.Width = 40 + max_width * 18 + 160;
+            else this.Width = 40 + max_width * 18 + 171;
 
             addRow(0, "", 1);
             
@@ -231,42 +231,48 @@ namespace rmanager
         {
             Panel pnl = new Panel();
             this.Controls.Add(pnl);
-
             pnl.Name = "row" + count;
             pnl.Top = 40 * count;
             pnl.Left = 8;
             pnl.Height = 40;
             pnl.Width = max_width * 9 + 168;
+            if(name == "locations") pnl.Width = max_width * 18 + 180;
             TextBox txt = addTextBox(id, txtValue, count);
             pnl.Controls.Add(txt);
 
-            if(name == "locations")
+            ComboBox cmb = new ComboBox();
+
+            if (name == "locations")
             {
-                ComboBox cmb = new ComboBox();
                 cmb.Width = max_width * 9;
                 cmb.Font = new Font(txt.Font.FontFamily, 12);
                 cmb.Top = 2;
+                cmb.Left += txt.Width + 8;
                 pnl.Controls.Add(cmb);
             }
 
             Button btn = new Button(); 
             if(txtValue != "")
             {
+                
                 btn = addButton(count, "edit");
-                btn.Left += txt.Width + 4;
+                btn.Left += txt.Width + 8;
+                if (name == "locations") btn.Left += cmb.Width + 8;
                 pnl.Controls.Add(btn);
 
                 btn = addButton(count, "delete");
-                btn.Left += txt.Width + 7 + btn.Width;
+                btn.Left += txt.Width + 8 + btn.Width;
+                if (name == "locations") btn.Left += cmb.Width + 12;
                 pnl.Controls.Add(btn);
             }
             else
             {
+                pnl.Controls.Remove(cmb);
                 btn = addButton(count, "add");
-                btn.Left += txt.Width + 4;
+                btn.Left += txt.Width + 8;
                 if (name == "acquaintances" || name == "locations")
                 {
-                    if(name == "locations") btn.Left = 0;
+                    if(name == "locations") btn.Left = -1;
                     pnl.Controls.Remove(txt);
                 }
                 pnl.Controls.Add(btn);
@@ -274,12 +280,13 @@ namespace rmanager
                 if (name == "locations")
                 {
                     btn = addButton(count, "edit_cities");
-                    btn.Left += txt.Width + 4;
+                    btn.Left += txt.Width + 7;
                     pnl.Controls.Add(btn);
                 }
 
                 btn = addButton(count, "exit");
-                btn.Left += txt.Width + 7 + btn.Width;
+                btn.Left += txt.Width + 8 + btn.Width;
+                if (name == "locations") btn.Left += cmb.Width + 12;
                 pnl.Controls.Add(btn);
             }
         }
