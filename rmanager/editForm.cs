@@ -195,12 +195,12 @@ namespace rmanager
                 dtc.Rows[i]["city"] = u.CapitalizeFirstLetters(dtc.Rows[i]["city"].ToString());
             }
         }
-        private void setDropDownValues(ComboBox cb)
+        private void setDropDownValues(ComboBox cb, int count)
         {
             cb.DisplayMember = "city";
             cb.ValueMember = "id";
-            cb.BindingContext = this.BindingContext;
             cb.DataSource = dtc;
+
         }
         private TextBox addTextBox(int id, string txtValue, int count)
         {
@@ -278,22 +278,18 @@ namespace rmanager
 
             if (name == "locations" && txtValue != "")
             {
+                cmb = new ComboBox();
                 cmb.Name = "cmb" + count;
                 cmb.Width = max_width * 9;
                 cmb.Font = new Font(txt.Font.FontFamily, 12);
                 cmb.Top = 2;
                 cmb.Left += txt.Width + 8;
-                setDropDownValues(cmb);
-                
-                for (int i = 0; i < dtc.Rows.Count; i++)
-                {
-                    //u.M($"{i}");
-                    //u.M($"{dtc.Rows[i]["id"].ToString()} city, {dtl.Rows[count]["location"].ToString()}, {i} index");
-                    if (dtc.Rows[i]["id"].ToString() == dtl.Rows[count - 2]["city_id"].ToString()) { cmb.SelectedIndex = i; break; }
-                }
+                setDropDownValues(cmb, count);
 
                 pnl.Controls.Add(cmb);
             }
+
+            
 
             Button btn = new Button(); 
             if(txtValue != "")
@@ -479,12 +475,36 @@ namespace rmanager
                 }
             }
         }
+        
         private void editForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (changesMade)
             {
                 parent.refreshDropdown(name);
                 grandparent.refreshAcquaintancesDataGridView();
+            }
+        }
+
+
+        private void editForm_Load(object sender, EventArgs e)
+        {
+            int i = -1;
+            foreach (Panel pnl in this.Controls.OfType<Panel>())
+            {
+                if (pnl.Controls.Count > 3)
+                {
+                    //u.M($"{pnl.Controls.OfType<ComboBox>().First().Items.Count}");
+                    //u.M($"{this.Controls.Count}");
+                    for (int j = 0; j < dtc.Rows.Count; j++)
+                    {
+                        //string name = "cmb" + (i + 1);
+                        //u.M(name + " aaa ");
+                        //break;
+                        if (dtl.Rows[i]["city_id"].ToString() == dtc.Rows[j]["id"].ToString()) { pnl.Controls.OfType<ComboBox>().First().SelectedIndex = j; break; }
+                    }
+                    
+                }
+                i++;
             }
         }
     }
