@@ -488,24 +488,36 @@ namespace rmanager
 
         private void editForm_Load(object sender, EventArgs e)
         {
-            int i = -1;
-            foreach (Panel pnl in this.Controls.OfType<Panel>())
-            {
-                if (pnl.Controls.Count > 3)
-                {
-                    //u.M($"{pnl.Controls.OfType<ComboBox>().First().Items.Count}");
-                    //u.M($"{this.Controls.Count}");
-                    for (int j = 0; j < dtc.Rows.Count; j++)
-                    {
-                        //string name = "cmb" + (i + 1);
-                        //u.M(name + " aaa ");
-                        //break;
-                        if (dtl.Rows[i]["city_id"].ToString() == dtc.Rows[j]["id"].ToString()) { pnl.Controls.OfType<ComboBox>().First().SelectedIndex = j; break; }
-                    }
-                    
-                }
-                i++;
-            }
+            //int i = -1; //we skip the first iteration
+            //foreach (Panel pnl in this.Controls.OfType<Panel>())
+            //{
+            //    if (pnl.Controls.Count > 3)
+            //    {
+            //        //u.M($"{pnl.Controls.OfType<ComboBox>().First().Items.Count}");
+            //        //u.M($"{this.Controls.Count}");
+            //        for (int j = 0; j < dtc.Rows.Count; j++)
+            //        {
+            //            string name = "cmb" + (i + 2);
+            //
+            //            ComboBox cmb = pnl.Controls.Find(name, true).FirstOrDefault() as ComboBox;
+            //
+            //            //if (dtl.Rows[i]["city_id"].ToString() == dtc.Rows[j]["id"].ToString()) { pnl.Controls.OfType<ComboBox>().First().SelectedIndex = j; break; }
+            //
+            //            if (dtl.Rows[i]["city_id"].ToString() == dtc.Rows[j]["id"].ToString()) { u.M($"{cmb.Name} {j}"); cmb.SelectedIndex = j ; break; }
+            //        }
+            //        
+            //    }
+            //    i++;
+            //}
+        }
+
+        private void editForm_Click(object sender, EventArgs e)
+        {
+            Panel pnl = this.Controls.Find("row2",true).FirstOrDefault() as Panel;
+
+            ComboBox cmb = pnl.Controls.Find("cmb2", false).First() as ComboBox;
+
+            if (cmb.Name == "cmb2") cmb.SelectedIndex = 3;
         }
     }
 }
