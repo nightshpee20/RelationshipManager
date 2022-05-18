@@ -121,7 +121,7 @@ namespace rmanager
 
                 //EXPERIMENTAL case
                 case "locations":
-                    da = new MySqlDataAdapter($"SELECT l.location, l.id AS location_id, c.id AS city_id, ul.user_id " +
+                    da = new MySqlDataAdapter($"SELECT l.location, l.id, c.id AS city_id, ul.user_id " +
                                               $"FROM user_locations ul " +
                                               $"JOIN locations l ON ul.location_id = l.id " +
                                               $"JOIN cities c ON l.city_id = c.id " +
@@ -159,7 +159,7 @@ namespace rmanager
             
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                addRow(int.Parse(dt.Rows[i]["location_id"].ToString()), dt.Rows[i][0].ToString(), i + 2);
+                addRow(int.Parse(dt.Rows[i]["id"].ToString()), dt.Rows[i][0].ToString(), i + 2);
             }
             
             

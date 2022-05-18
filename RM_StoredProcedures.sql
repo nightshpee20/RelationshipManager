@@ -275,3 +275,22 @@ END$
 DELIMITER ;
 
 ######################################################### EXPERIMENTAL
+
+DELIMITER $ 
+CREATE PROCEDURE sp_updateUserLocation (old_location VARCHAR(40) CHARACTER SET utf16, old_city INT, new_location VARCHAR(40) CHARACTER SET utf16, new_city INT, user_id INT)
+BEGIN
+
+	CALL sp_insertLocation(new_location, new_city);
+
+    SET @new_location_id = (SELECT id FROM locations WHERE location = new_location);
+    SET @old_location_id = (SELECT id FROM locations WHERE location = old_location);
+    
+    UPDATE user_locations SET location_id = @new_location_id WHERE location_id = @old_location_id AND user_id = user_id;
+    IF
+		((SELECT COUNT(*) FROM user_locations WHERE location_id = @old_location_id) = 0)
+	THEN
+		DELETE FROM locations WHERE id = @old_location_id;
+	END IF;
+    
+END$
+DELIMITER ;
