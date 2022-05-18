@@ -195,13 +195,7 @@ namespace rmanager
                 dtc.Rows[i]["city"] = u.CapitalizeFirstLetters(dtc.Rows[i]["city"].ToString());
             }
         }
-        private void setDropDownValues(ComboBox cb, int count)
-        {
-            cb.DisplayMember = "city";
-            cb.ValueMember = "id";
-            cb.DataSource = dtc;
-
-        }
+        
         private TextBox addTextBox(int id, string txtValue, int count)
         {
             TextBox txt = new TextBox();
@@ -284,7 +278,13 @@ namespace rmanager
                 cmb.Font = new Font(txt.Font.FontFamily, 12);
                 cmb.Top = 2;
                 cmb.Left += txt.Width + 8;
-                setDropDownValues(cmb, count);
+                cmb.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                for (int i = 0; i < dtc.Rows.Count; i++)
+                {
+                    cmb.Items.Add(dtc.Rows[i]["city"].ToString());
+                    if (dtl.Rows[count - 2]["city_id"].ToString() == dtc.Rows[i]["id"].ToString()) cmb.SelectedIndex = i;
+                }
 
                 pnl.Controls.Add(cmb);
             }
@@ -483,41 +483,6 @@ namespace rmanager
                 parent.refreshDropdown(name);
                 grandparent.refreshAcquaintancesDataGridView();
             }
-        }
-
-
-        private void editForm_Load(object sender, EventArgs e)
-        {
-            //int i = -1; //we skip the first iteration
-            //foreach (Panel pnl in this.Controls.OfType<Panel>())
-            //{
-            //    if (pnl.Controls.Count > 3)
-            //    {
-            //        //u.M($"{pnl.Controls.OfType<ComboBox>().First().Items.Count}");
-            //        //u.M($"{this.Controls.Count}");
-            //        for (int j = 0; j < dtc.Rows.Count; j++)
-            //        {
-            //            string name = "cmb" + (i + 2);
-            //
-            //            ComboBox cmb = pnl.Controls.Find(name, true).FirstOrDefault() as ComboBox;
-            //
-            //            //if (dtl.Rows[i]["city_id"].ToString() == dtc.Rows[j]["id"].ToString()) { pnl.Controls.OfType<ComboBox>().First().SelectedIndex = j; break; }
-            //
-            //            if (dtl.Rows[i]["city_id"].ToString() == dtc.Rows[j]["id"].ToString()) { u.M($"{cmb.Name} {j}"); cmb.SelectedIndex = j ; break; }
-            //        }
-            //        
-            //    }
-            //    i++;
-            //}
-        }
-
-        private void editForm_Click(object sender, EventArgs e)
-        {
-            Panel pnl = this.Controls.Find("row2",true).FirstOrDefault() as Panel;
-
-            ComboBox cmb = pnl.Controls.Find("cmb2", false).First() as ComboBox;
-
-            if (cmb.Name == "cmb2") cmb.SelectedIndex = 3;
         }
     }
 }
