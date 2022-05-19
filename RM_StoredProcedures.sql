@@ -300,7 +300,7 @@ DELIMITER $
 CREATE PROCEDURE sp_updateUserMeeting (old_acquaintance_id INT, old_date_time DATETIME,
 									   new_acquaintance_id INT, new_date_time DATETIME, new_reason_id INT, new_location_id INT, user_id INT)
 BEGIN
-	UPDATE user_meetings SET date_time = new_date_time AND acquaintance_id = new_acquaintance_id AND reason_id = new_reason_id AND location_id = new_location_id
+	UPDATE user_meetings SET date_time = new_date_time, acquaintance_id = new_acquaintance_id, reason_id = new_reason_id, location_id = new_location_id
     WHERE user_id = user_id AND acquaintance_id = old_acquaintance_id AND date_time = old_date_time;
 END$
 DELIMITER ;
