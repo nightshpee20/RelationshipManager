@@ -116,19 +116,35 @@ namespace rmanager
             }
             else if (addButton.Text == "Commit")
             {
-                MySqlCommand cmd = new MySqlCommand($"SELECT a.id FROM acquaintances a JOIN cities c ON a.city_id = c.id WHERE CONCAT(a.first_name, \' \', a.last_name, \', \', c.city) = \'{oldValues[1]}\'", Connect.con);
+                string[] info = acquaintancesDropDown.Text.Replace(",","").Split(' ');
+                int id = 0;
 
-                Connect.con.Open();
+                MySqlCommand cmd = new MySqlCommand($"SELECT id FROM acquaintances WHERE first_name = \'{info[0]}\' AND last_name = \'{info[1]}\' AND city_id = (SELECT id FROM cities WHERE city = \'{info[2]}\')",Connect.con);
 
-                var dr = cmd.ExecuteReader();
-                if (dr.HasRows)
+                try
                 {
-                    dr.Read();
+                    Connect.con.Open();
 
-                    u.M(dr.GetInt32(0).ToString());
+                    var dr = cmd.ExecuteReader();
+                    if(dr.HasRows)
+                    {
+                        dr.Read();
+                        id = dr.GetInt32(0);
+                    }
+                    u.M($"{id}");
+                }
+                catch (Exception ex)
+                {
+                    u.M(ex.Message);
+                }
+                finally
+                {
+                    Connect.con.Close();
                 }
 
-                Connect.con.Close();
+                
+                //u.MySqlCommandImproved($"CALL sp_updateUserMeeting({})");
+
             }
 
             parent.refreshMeetingsDataGridView();
