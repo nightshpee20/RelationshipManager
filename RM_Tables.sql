@@ -179,8 +179,7 @@ CREATE TABLE user_meetings ( /* CHECKED */
     ON DELETE CASCADE,
     
     FOREIGN KEY (acquaintance_id)
-    REFERENCES acquaintances(id)
-    ON DELETE CASCADE,
+    REFERENCES acquaintances(id),
     
     FOREIGN KEY (reason_id)
     REFERENCES reasons(id)

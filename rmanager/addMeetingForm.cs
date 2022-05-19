@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace rmanager
         private DataTable dta, dtl, dtr;
         private string attribute;
         private List<string> oldValues;
+        private int old_acquaintance_id;
         public addMeetingForm(userProfileForm parent, int user_id)
         {
             InitializeComponent();
@@ -42,8 +44,10 @@ namespace rmanager
             mainLabel.Text = "Edit Meeting:";
             resetValues.Text = "Reset Old Values";
             addButton.Text = "Commit";
-
+            
             setOldValues(date, time, acquaintance, location, reason, comments);
+            old_acquaintance_id = (int) dta.Rows[acquaintancesDropDown.SelectedIndex]["acquaintance_id"];
+            
         }
 
         private void setDropDownValues(int user_id, string name, ComboBox cb, ref DataTable dt)
@@ -116,35 +120,22 @@ namespace rmanager
             }
             else if (addButton.Text == "Commit")
             {
-                string[] info = acquaintancesDropDown.Text.Replace(",","").Split(' ');
-                int id = 0;
+                u.M($"CALL sp_updateUserMeeting({old_acquaintance_id}, " +
+                                              $"{DateTime.Parse(oldValues[0]).ToString("yyyy-MM-dd")} {DateTime.Parse(oldValues[1]).ToString("HH:mm")}, " +
+                                              $"{dta.Rows[acquaintancesDropDown.SelectedIndex]["acquaintance_id"]}, " +
+                                              $"{addMeetingDate.SelectionStart.ToString("yyyy-MM-dd")} {addMeetingHour.SelectedItem}:{addMeetingMinute.SelectedItem}, " +
+                                              $"{dtr.Rows[reasonsDropDown.SelectedIndex]["id"]}, " +
+                                              $"{dtl.Rows[locationsDropDown.SelectedIndex]["id"]}, " +
+                                              $"{user_id})");
 
-                MySqlCommand cmd = new MySqlCommand($"SELECT id FROM acquaintances WHERE first_name = \'{info[0]}\' AND last_name = \'{info[1]}\' AND city_id = (SELECT id FROM cities WHERE city = \'{info[2]}\')",Connect.con);
 
-                try
-                {
-                    Connect.con.Open();
-
-                    var dr = cmd.ExecuteReader();
-                    if(dr.HasRows)
-                    {
-                        dr.Read();
-                        id = dr.GetInt32(0);
-                    }
-                    u.M($"{id}");
-                }
-                catch (Exception ex)
-                {
-                    u.M(ex.Message);
-                }
-                finally
-                {
-                    Connect.con.Close();
-                }
-
-                
-                //u.MySqlCommandImproved($"CALL sp_updateUserMeeting({})");
-
+                u.MySqlCommandImproved($"CALL sp_updateUserMeeting({old_acquaintance_id}, " +
+                                                                 $"\'{DateTime.Parse(oldValues[0]).ToString("yyyy-MM-dd")} {DateTime.Parse(oldValues[1]).ToString("HH:mm")}\', " +
+                                                                 $"{dta.Rows[acquaintancesDropDown.SelectedIndex]["acquaintance_id"]}, " +
+                                                                 $"\'{addMeetingDate.SelectionStart.ToString("yyyy-MM-dd")} {addMeetingHour.SelectedItem}:{addMeetingMinute.SelectedItem}\', " +
+                                                                 $"{dtr.Rows[reasonsDropDown.SelectedIndex]["id"]}, " +
+                                                                 $"{dtl.Rows[locationsDropDown.SelectedIndex]["id"]}, " +
+                                                                 $"{user_id})");
             }
 
             parent.refreshMeetingsDataGridView();
@@ -163,7 +154,7 @@ namespace rmanager
             addMeetingDate.SetDate(datetime);
 
             addMeetingHour.SelectedIndex = int.Parse(time.Substring(0, 2));
-            addMeetingMinute.SelectedIndex = int.Parse(time.Substring(4, 2)) - 1;
+            addMeetingMinute.SelectedIndex = int.Parse(time.Substring(4, 2));
             oldValues.Add(time);
 
             setDropDownValues(user_id, "acquaintances", acquaintancesDropDown, ref dta);

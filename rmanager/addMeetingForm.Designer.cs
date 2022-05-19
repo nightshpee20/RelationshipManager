@@ -227,6 +227,7 @@ namespace rmanager
             this.addMeetingMinute.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.addMeetingMinute.FormattingEnabled = true;
             this.addMeetingMinute.Items.AddRange(new object[] {
+            "00",
             "01",
             "02",
             "03",
