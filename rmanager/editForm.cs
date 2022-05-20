@@ -279,6 +279,7 @@ namespace rmanager
                 cmb.Top = 2;
                 cmb.Left += txt.Width + 8;
                 cmb.DropDownStyle = ComboBoxStyle.DropDownList;
+                cmb.Enabled = false;
 
                 for (int i = 0; i < dtc.Rows.Count; i++)
                 {
@@ -343,6 +344,12 @@ namespace rmanager
 
             var arr = this.Controls.Find("txt" + btn.TabIndex, true);
             TextBox txt = (TextBox)arr[0];
+            
+            var arr1 = this.Controls.Find("row" + btn.TabIndex, true);
+            Panel row = (Panel)arr1[0];
+
+            ComboBox cmb = row.Controls.OfType<ComboBox>().First();
+            int oldCityId = 0;
 
             if (name == "acquaintances" || name == "locations")
             {
@@ -361,7 +368,7 @@ namespace rmanager
                         {
                             string name_city = txt.Text;
                             name_city = name_city.Replace(",", ""); // MOVE THIS TO EDIT FORM BEFORE THE CONSTRUCTOR IS CALLED
-                            string[] arr1 = name_city.Split(' ');
+                            string[] arr2 = name_city.Split(' ');
 
                             MySqlCommand cmd = new MySqlCommand($"SELECT a.first_name, a.last_name, a.gender, o.occupation, c.city, a.address, r.relationship " +
                                                                 $"FROM user_acquaintance_relationships ua " +
@@ -370,9 +377,9 @@ namespace rmanager
                                                                 $"JOIN occupations o ON a.occupation_id = o.id " +
                                                                 $"JOIN relationships r ON ua.relationship_id = r.id " +
                                                                 $"WHERE ua.user_id = {user_id} " +
-                                                                $"AND a.first_name = \'{arr1[0]}\' " +
-                                                                $"AND a.last_name = \'{arr1[1]}\' " +
-                                                                $"AND c.city = \'{arr1[2]}\'", Connect.con);
+                                                                $"AND a.first_name = \'{arr2[0]}\' " +
+                                                                $"AND a.last_name = \'{arr2[1]}\' " +
+                                                                $"AND c.city = \'{arr2[2]}\'", Connect.con);
 
                             Connect.con.Open();
 
@@ -398,19 +405,43 @@ namespace rmanager
                             edit.Show();                            
                         }else
                         {
-                            //TODO: ADD CODE AFTER addLocationForm has been created.
+                            btn.Text = "Commit";
+                            oldText = txt.Text;
+                            oldCityId = (int) dtc.Rows[cmb.SelectedIndex]["id"];
+
+                            cmb.Enabled = true;
+                            txt.ReadOnly = false;
+                            
                         }
                         break;
+                    case "Commit":
+                        if (oldText != txt.Text)
+                        {
+                            if (name == "locations")
+                            {
+                                u.MySqlCommandImproved($"CALL sp_updateUserLocation(\'{oldText}\', {oldCityId}, \'{txt.Text}\', {dtc.Rows[cmb.SelectedIndex]["id"]}, {user_id})");
+
+                                txt.ReadOnly = true;
+                                cmb.Enabled = false;
+
+                            }
+                            changesMade = true;
+                            removeTable();
+                            displayTable(name);
+                        }
+
+                        if (this.Controls.Count > 14) this.Width += 17;
+
+                        txt.ReadOnly = true;
+                        btn.Text = "Edit";
+                        break;
+
                 }
-                
-            }else
+
+            }
+            else
             {
-                
-
-                //var arr1 = this.Controls.Find("row" + btn.TabIndex, true);
-                //Panel row = (Panel)arr1[0];
-
-
+               
                 switch (btn.Text)
                 {
                     case "Edit":
@@ -422,15 +453,13 @@ namespace rmanager
                     case "Commit":
                         if (oldText != txt.Text)
                         {
-                            if (column != "city")
+                            if (name == "locations")
                             {
-                                u.MySqlCommandImproved($"DELETE FROM user_{column}s WHERE {column}_id = {txt.TabIndex} AND user_id = {user_id};");
+                                u.MySqlCommandImproved($"CALL sp_updateUserLocation(\'{oldText}\', {oldCityId}, \'{txt.Text}\', {dtc.Rows[cmb.SelectedIndex]["id"]}, {user_id})");
+
+                                txt.ReadOnly = true;
+                                cmb.Enabled = false;
                             }
-                            else
-                            {
-                                u.MySqlCommandImproved($"DELETE FROM user_cities WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
-                            }
-                            u.MySqlCommandImproved($"CALL sp_insertUser{u.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
 
                             changesMade = true;
                             removeTable();
