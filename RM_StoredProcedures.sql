@@ -276,6 +276,41 @@ DELIMITER ;
 
 
 ######################################################### EXPERIMENTAL
+DELIMITER $
+CREATE PROCEDURE sp_updateUserAcquaintance(old_acq_id INT, new_first_name VARCHAR(30) CHARACTER SET utf16,
+														   new_last_name VARCHAR(30) CHARACTER SET utf16,
+														   new_gender CHAR(1),
+														   new_occupation_id INT,
+														   new_city_id INT,
+														   new_address VARCHAR(40) CHARACTER SET utf16,
+														   new_relationship_id INT,
+														   usr_id INT)
+BEGIN
+	IF
+		((SELECT COUNT(*) FROM acquaintances WHERE first_name = new_first_name AND last_name = new_last_name AND city_id = new_city_id) = 0)
+	THEN
+		CALL sp_insertAcquaintance(new_first_name, new_last_name, new_gender, new_occupation_id, new_city_id, new_address);
+	END IF;
+	
+    SET @new_acq_id := (SELECT id FROM acquaintances WHERE first_name = new_first_name AND
+														   last_name = new_last_name AND
+														   city_id = new_city_id);
+																
+	UPDATE user_acquaintance_relationships SET acquaintance_id = @new_acq_id, relationship_id = new_relationship_id 
+    WHERE user_id = usr_id AND acquaintance_id = old_acq_id;
+
+	UPDATE user_meetings SET acquaintance_id = @new_acq_id WHERE user_id = usr_id AND
+																 acquaintance_id = old_acq_id;
+																		
+	IF
+		((SELECT COUNT(*) FROM acquaintances WHERE id = old_acq_id) = 0)
+	THEN
+		DELETE FROM acquaintances WHERE id = old_acq_id;
+	END IF;
+END$
+DELIMITER ;
+
+
 /* CHECKED */
 DELIMITER $ 
 CREATE PROCEDURE sp_updateUserLocation (old_location VARCHAR(40) CHARACTER SET utf16, old_city INT, new_location VARCHAR(40) CHARACTER SET utf16, new_city INT, usr_id INT)
