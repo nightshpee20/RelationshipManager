@@ -287,8 +287,8 @@ BEGIN
 		CALL sp_insertLocation(new_location, new_city);
     END IF; 
 
-	SET @new_location_id = (SELECT id FROM locations WHERE location = new_location);
-    SET @old_location_id = (SELECT id FROM locations WHERE location = old_location);
+	SET @new_location_id := (SELECT id FROM locations WHERE location = new_location);
+    SET @old_location_id := (SELECT id FROM locations WHERE location = old_location);
     
 	UPDATE user_locations SET location_id = @new_location_id WHERE user_id = usr_id AND location_id = @old_location_id;
     UPDATE user_meetings SET location_id = @new_location_id WHERE location_id = @old_location_id AND user_id = usr_id;
@@ -310,3 +310,27 @@ BEGIN
     WHERE user_id = user_id AND acquaintance_id = old_acquaintance_id AND date_time = old_date_time;
 END$
 DELIMITER ;
+
+
+DELIMITER $
+CREATE PROCEDURE sp_updateUserReason(old_reason VARCHAR(50) CHARACTER SET utf16, new_reason VARCHAR(50) CHARACTER SET utf16, usr_id INT)
+BEGIN
+	IF
+		((SELECT COUNT(*) FROM reasons WHERE reason = new_reason) = 0)
+	THEN
+		CALL sp_insertReason(new_reason);
+	END if;
+    
+    SET @new_reason_id := (SELECT id FROM reasons WHERE reason = new_reason);
+	SET @old_reason_id := (SELECT id FROM reasons WHERE reason = old_reason);
+    
+	UPDATE user_reasons SET reason_id = @new_reason_id WHERE reason_id = @old_reason_id AND user_id = usr_id;
+    UPDATE user_meetings SET reason_id = @new_reason_id WHERE reason_id = @old_reason_id AND user_id = usr_id;
+    
+    IF
+		((SELECT COUNT(*) FROM user_reasons WHERE reason_id = @old_reason_id) = 0)
+	THEN
+		DELETE FROM reasons WHERE id = @old_reason_id;
+	END IF;
+END$
+DELIMITER ; 
