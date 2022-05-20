@@ -274,24 +274,30 @@ BEGIN
 END$
 DELIMITER ;
 
-######################################################### EXPERIMENTAL
 
+######################################################### EXPERIMENTAL
+/* CHECKED */
 DELIMITER $ 
-CREATE PROCEDURE sp_updateUserLocation (old_location VARCHAR(40) CHARACTER SET utf16, old_city INT, new_location VARCHAR(40) CHARACTER SET utf16, new_city INT, user_id INT)
+CREATE PROCEDURE sp_updateUserLocation (old_location VARCHAR(40) CHARACTER SET utf16, old_city INT, new_location VARCHAR(40) CHARACTER SET utf16, new_city INT, usr_id INT)
 BEGIN
 
-	CALL sp_insertLocation(new_location, new_city);
+	IF 
+		((SELECT COUNT(*) FROM locations WHERE location = new_location AND city_id = new_city) = 0)
+    THEN 
+		CALL sp_insertLocation(new_location, new_city);
+    END IF; 
 
-    SET @new_location_id = (SELECT id FROM locations WHERE location = new_location);
+	SET @new_location_id = (SELECT id FROM locations WHERE location = new_location);
     SET @old_location_id = (SELECT id FROM locations WHERE location = old_location);
     
-    UPDATE user_locations SET location_id = @new_location_id WHERE location_id = @old_location_id AND user_id = user_id;
+	UPDATE user_locations SET location_id = @new_location_id WHERE user_id = usr_id AND location_id = @old_location_id;
+    UPDATE user_meetings SET location_id = @new_location_id WHERE location_id = @old_location_id AND user_id = usr_id;
+    
     IF
 		((SELECT COUNT(*) FROM user_locations WHERE location_id = @old_location_id) = 0)
 	THEN
 		DELETE FROM locations WHERE id = @old_location_id;
 	END IF;
-    
 END$
 DELIMITER ;
 
