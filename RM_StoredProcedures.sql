@@ -303,7 +303,7 @@ BEGIN
 																 acquaintance_id = old_acq_id;
 																		
 	IF
-		((SELECT COUNT(*) FROM acquaintances WHERE id = old_acq_id) = 0)
+		((SELECT COUNT(*) FROM user_acquaintance_relationships WHERE acquaintance_id = old_acq_id) = 0)
 	THEN
 		DELETE FROM acquaintances WHERE id = old_acq_id;
 	END IF;
@@ -369,3 +369,26 @@ BEGIN
 	END IF;
 END$
 DELIMITER ; 
+
+
+DELIMITER $
+CREATE PROCEDURE sp_updateUserRelationship(old_rel_id INT, new_relationship VARCHAR(30) CHARACTER SET utf16, usr_id INT)
+BEGIN
+	IF
+		((SELECT COUNT(*) FROM relationships WHERE relationship = new_relationship) = 0)
+	THEN
+		CALL sp_insertRelationship(new_relationship);
+    END IF;
+    
+    SET @new_rel_id := (SELECT id FROM relationships WHERE relationship = new_relationship);
+    
+    UPDATE user_relationships SET relationship_id = @new_rel_id WHERE user_id = usr_id AND relationship_id = old_rel_id;
+    UPDATE user_acquaintance_relationships SET relationship_id = @new_rel_id WHERE user_id = usr_id AND relationship_id = old_rel_id;
+
+	IF
+		((SELECT COUNT(*) FROM user_relationships WHERE relationship_id = old_rel_id) = 0)
+	THEN
+		DELETE FROM relationships WHERE id = old_rel_id;
+    END IF;
+END$
+DELIMITER ;
