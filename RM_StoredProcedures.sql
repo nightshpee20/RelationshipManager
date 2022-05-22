@@ -396,22 +396,25 @@ DELIMITER ;
 
 ## EXTRA EXPERIMENTAL
 DELIMITER $
-CREATE PROCEDURE test_update(old_occupation_id INT)
+CREATE PROCEDURE test_update(old_occupation_id INT, new_occupation VARCHAR(30) CHARACTER SET utf16, usr_id INT)
 BEGIN
-	#DECLARE fname, lname VARCHAR(30) CHARACTER SET utf16;
-    #DECLARE gen CHAR(1);
-    #DECLARE occ_id, ct_id INT;
-    #DECLARE adrs JSON;
+    DECLARE i INT;
     
-    DECLARE no INT;
-    SET no = 0;
-    loops: LOOP
-        SELECT * FROM acquaintances ORDER BY id DESC LIMIT no,1;
-		SET no = no + 1;
-        IF no = (SELECT COUNT(*) FROM acquaintances) THEN
-        LEAVE loops;
-        END IF;
-	END LOOP loops;
+    IF
+		((SELECT COUNT(*) FROM occupations WHERE occupation = new_occupation) = 0)
+	THEN
+		SET i = 0;
+		loops: LOOP
+			SELECT first_name, last_name INTO @fname, @lname FROM acquaintances ORDER BY id DESC LIMIT no,1;
+			SELECT CONCAT(@fname, @lname);
+			SET i = i + 1;
+			IF i = (SELECT COUNT(*) FROM acquaintances) THEN
+			LEAVE loops;
+			END IF;
+		END LOOP loops;
+	ELSE
+		loops: LOOP
+			
     #SELECT no;
 END$
 DELIMITER ;
