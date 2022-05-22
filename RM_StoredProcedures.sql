@@ -392,3 +392,26 @@ BEGIN
     END IF;
 END$
 DELIMITER ;
+
+
+## EXTRA EXPERIMENTAL
+DELIMITER $
+CREATE PROCEDURE test_update(old_occupation_id INT)
+BEGIN
+	#DECLARE fname, lname VARCHAR(30) CHARACTER SET utf16;
+    #DECLARE gen CHAR(1);
+    #DECLARE occ_id, ct_id INT;
+    #DECLARE adrs JSON;
+    
+    DECLARE no INT;
+    SET no = 0;
+    loops: LOOP
+        SELECT * FROM acquaintances ORDER BY id DESC LIMIT no,1;
+		SET no = no + 1;
+        IF no = (SELECT COUNT(*) FROM acquaintances) THEN
+        LEAVE loops;
+        END IF;
+	END LOOP loops;
+    #SELECT no;
+END$
+DELIMITER ;
