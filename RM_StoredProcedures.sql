@@ -403,17 +403,36 @@ BEGIN
     IF
 		((SELECT COUNT(*) FROM occupations WHERE occupation = new_occupation) = 0)
 	THEN
+		#CALL sp_insertUserOccupation(new_occupation, usr_id);
+        #@new_occ_id
 		SET i = 0;
 		loops: LOOP
-			SELECT first_name, last_name INTO @fname, @lname FROM acquaintances ORDER BY id DESC LIMIT no,1;
-			SELECT CONCAT(@fname, @lname);
+			SELECT first_name, last_name, gender, city_id, address, relationship_id 
+            INTO @fname, @lname, @gen, @ct_id, @adrs, @rel_id 
+            FROM user_acquaintance_relationships ua
+            JOIN acquaintances a ON ua.acquaintance_id = a.id 
+            LIMIT i, 1;
+			
+            IF
+				((SELECT COUNT(*) FROM acquaintances WHERE first_name = @fname AND last_name = @lname AND city_id = @ct_id) = 0)
+			THEN
+				CALL sp_insertUserAcquaintance(@fname, @lname, @gen, @new_occ_id, @ct_id, @adrs, @rel_id);
+			ELSE
+            
+            UPDATE user_acquaintance_relationships SET acquaintance_id = () WHERE user_id = usr_id 
+            AND acquaintance_id = (SELECT id FROM acquaintances WHERE first_name = @fname AND last_name  = @lname AND city_id = @ct_id);
+            
+            SELECT @fname, @lname, @gen, @ct_id, @adrs, @rel_id;
+            
 			SET i = i + 1;
-			IF i = (SELECT COUNT(*) FROM acquaintances) THEN
+            
+			IF i = (SELECT COUNT(*) FROM user_acquaintance_relationships WHERE user_id = usr_id) THEN
 			LEAVE loops;
 			END IF;
 		END LOOP loops;
-	ELSE
-		loops: LOOP
+	END IF;
+    #ELSE
+	#	loops: LOOP
 			
     #SELECT no;
 END$
