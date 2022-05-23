@@ -31,11 +31,6 @@ namespace rmanager
         {
             this.switchUserButton = new System.Windows.Forms.Button();
             this.meetingsDataGridView = new System.Windows.Forms.DataGridView();
-            this.meetingsLabel = new System.Windows.Forms.Label();
-            this.addMeetingButton = new System.Windows.Forms.Button();
-            this.browseAcquaintancesButton = new System.Windows.Forms.Button();
-            this.userStatsButton = new System.Windows.Forms.Button();
-            this.helpButton = new System.Windows.Forms.Button();
             this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.acquaintance = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,12 +39,15 @@ namespace rmanager
             this.comments = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.meetingsLabel = new System.Windows.Forms.Label();
+            this.addMeetingButton = new System.Windows.Forms.Button();
+            this.browseAcquaintancesButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.meetingsDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // switchUserButton
             // 
-            this.switchUserButton.Location = new System.Drawing.Point(1294, 417);
+            this.switchUserButton.Location = new System.Drawing.Point(1294, 242);
             this.switchUserButton.Name = "switchUserButton";
             this.switchUserButton.Size = new System.Drawing.Size(218, 61);
             this.switchUserButton.TabIndex = 1;
@@ -84,54 +82,6 @@ namespace rmanager
             this.meetingsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.meetingsDataGridView_CellClick);
             this.meetingsDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.meetingsDataGridView_DataBindingComplete);
             // 
-            // meetingsLabel
-            // 
-            this.meetingsLabel.AutoSize = true;
-            this.meetingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.meetingsLabel.Location = new System.Drawing.Point(14, 16);
-            this.meetingsLabel.Name = "meetingsLabel";
-            this.meetingsLabel.Size = new System.Drawing.Size(334, 46);
-            this.meetingsLabel.TabIndex = 4;
-            this.meetingsLabel.Text = "Recent Meetings";
-            // 
-            // addMeetingButton
-            // 
-            this.addMeetingButton.Location = new System.Drawing.Point(1294, 69);
-            this.addMeetingButton.Name = "addMeetingButton";
-            this.addMeetingButton.Size = new System.Drawing.Size(218, 61);
-            this.addMeetingButton.TabIndex = 5;
-            this.addMeetingButton.Text = "Add Meeting";
-            this.addMeetingButton.UseVisualStyleBackColor = true;
-            this.addMeetingButton.Click += new System.EventHandler(this.addMeetingButton_Click);
-            // 
-            // browseAcquaintancesButton
-            // 
-            this.browseAcquaintancesButton.Location = new System.Drawing.Point(1294, 156);
-            this.browseAcquaintancesButton.Name = "browseAcquaintancesButton";
-            this.browseAcquaintancesButton.Size = new System.Drawing.Size(218, 61);
-            this.browseAcquaintancesButton.TabIndex = 6;
-            this.browseAcquaintancesButton.Text = "Acquaintances";
-            this.browseAcquaintancesButton.UseVisualStyleBackColor = true;
-            this.browseAcquaintancesButton.Click += new System.EventHandler(this.browseAcquaintancesButton_Click);
-            // 
-            // userStatsButton
-            // 
-            this.userStatsButton.Location = new System.Drawing.Point(1294, 243);
-            this.userStatsButton.Name = "userStatsButton";
-            this.userStatsButton.Size = new System.Drawing.Size(218, 61);
-            this.userStatsButton.TabIndex = 7;
-            this.userStatsButton.Text = "User Stats";
-            this.userStatsButton.UseVisualStyleBackColor = true;
-            // 
-            // helpButton
-            // 
-            this.helpButton.Location = new System.Drawing.Point(1294, 330);
-            this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(218, 61);
-            this.helpButton.TabIndex = 8;
-            this.helpButton.Text = "Help";
-            this.helpButton.UseVisualStyleBackColor = true;
-            // 
             // date
             // 
             this.date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -153,6 +103,7 @@ namespace rmanager
             this.time.MinimumWidth = 6;
             this.time.Name = "time";
             this.time.ReadOnly = true;
+            this.time.Width = 125;
             // 
             // acquaintance
             // 
@@ -212,6 +163,7 @@ namespace rmanager
             this.edit.ReadOnly = true;
             this.edit.Text = "Edit";
             this.edit.UseColumnTextForButtonValue = true;
+            this.edit.Width = 125;
             // 
             // delete
             // 
@@ -223,14 +175,43 @@ namespace rmanager
             this.delete.ReadOnly = true;
             this.delete.Text = "Delete";
             this.delete.UseColumnTextForButtonValue = true;
+            this.delete.Width = 125;
+            // 
+            // meetingsLabel
+            // 
+            this.meetingsLabel.AutoSize = true;
+            this.meetingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.meetingsLabel.Location = new System.Drawing.Point(14, 16);
+            this.meetingsLabel.Name = "meetingsLabel";
+            this.meetingsLabel.Size = new System.Drawing.Size(334, 46);
+            this.meetingsLabel.TabIndex = 4;
+            this.meetingsLabel.Text = "Recent Meetings";
+            // 
+            // addMeetingButton
+            // 
+            this.addMeetingButton.Location = new System.Drawing.Point(1294, 69);
+            this.addMeetingButton.Name = "addMeetingButton";
+            this.addMeetingButton.Size = new System.Drawing.Size(218, 61);
+            this.addMeetingButton.TabIndex = 5;
+            this.addMeetingButton.Text = "Add Meeting";
+            this.addMeetingButton.UseVisualStyleBackColor = true;
+            this.addMeetingButton.Click += new System.EventHandler(this.addMeetingButton_Click);
+            // 
+            // browseAcquaintancesButton
+            // 
+            this.browseAcquaintancesButton.Location = new System.Drawing.Point(1294, 156);
+            this.browseAcquaintancesButton.Name = "browseAcquaintancesButton";
+            this.browseAcquaintancesButton.Size = new System.Drawing.Size(218, 61);
+            this.browseAcquaintancesButton.TabIndex = 6;
+            this.browseAcquaintancesButton.Text = "Acquaintances";
+            this.browseAcquaintancesButton.UseVisualStyleBackColor = true;
+            this.browseAcquaintancesButton.Click += new System.EventHandler(this.browseAcquaintancesButton_Click);
             // 
             // userProfileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1560, 815);
-            this.Controls.Add(this.helpButton);
-            this.Controls.Add(this.userStatsButton);
             this.Controls.Add(this.browseAcquaintancesButton);
             this.Controls.Add(this.addMeetingButton);
             this.Controls.Add(this.meetingsLabel);
@@ -254,8 +235,6 @@ namespace rmanager
         private System.Windows.Forms.Label meetingsLabel;
         private System.Windows.Forms.Button addMeetingButton;
         private System.Windows.Forms.Button browseAcquaintancesButton;
-        private System.Windows.Forms.Button userStatsButton;
-        private System.Windows.Forms.Button helpButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn date;
         private System.Windows.Forms.DataGridViewTextBoxColumn time;
         private System.Windows.Forms.DataGridViewTextBoxColumn acquaintance;
