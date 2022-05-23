@@ -47,7 +47,7 @@ namespace rmanager
             // 
             // switchUserButton
             // 
-            this.switchUserButton.Location = new System.Drawing.Point(1294, 242);
+            this.switchUserButton.Location = new System.Drawing.Point(521, 729);
             this.switchUserButton.Name = "switchUserButton";
             this.switchUserButton.Size = new System.Drawing.Size(218, 61);
             this.switchUserButton.TabIndex = 1;
@@ -189,7 +189,7 @@ namespace rmanager
             // 
             // addMeetingButton
             // 
-            this.addMeetingButton.Location = new System.Drawing.Point(1294, 69);
+            this.addMeetingButton.Location = new System.Drawing.Point(22, 729);
             this.addMeetingButton.Name = "addMeetingButton";
             this.addMeetingButton.Size = new System.Drawing.Size(218, 61);
             this.addMeetingButton.TabIndex = 5;
@@ -199,7 +199,7 @@ namespace rmanager
             // 
             // browseAcquaintancesButton
             // 
-            this.browseAcquaintancesButton.Location = new System.Drawing.Point(1294, 156);
+            this.browseAcquaintancesButton.Location = new System.Drawing.Point(273, 729);
             this.browseAcquaintancesButton.Name = "browseAcquaintancesButton";
             this.browseAcquaintancesButton.Size = new System.Drawing.Size(218, 61);
             this.browseAcquaintancesButton.TabIndex = 6;
@@ -211,7 +211,7 @@ namespace rmanager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1560, 815);
+            this.ClientSize = new System.Drawing.Size(1299, 815);
             this.Controls.Add(this.browseAcquaintancesButton);
             this.Controls.Add(this.addMeetingButton);
             this.Controls.Add(this.meetingsLabel);
