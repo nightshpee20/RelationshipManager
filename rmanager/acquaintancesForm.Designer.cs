@@ -41,6 +41,7 @@ namespace rmanager
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.editButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.deleteButton = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.acquaintancesLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.acquaintancesDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -181,11 +182,22 @@ namespace rmanager
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseColumnTextForButtonValue = true;
             // 
+            // acquaintancesLabel
+            // 
+            this.acquaintancesLabel.AutoSize = true;
+            this.acquaintancesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.acquaintancesLabel.Location = new System.Drawing.Point(12, 18);
+            this.acquaintancesLabel.Name = "acquaintancesLabel";
+            this.acquaintancesLabel.Size = new System.Drawing.Size(495, 58);
+            this.acquaintancesLabel.TabIndex = 5;
+            this.acquaintancesLabel.Text = "Your Acquaintances";
+            // 
             // acquaintancesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1325, 728);
+            this.Controls.Add(this.acquaintancesLabel);
             this.Controls.Add(this.acquaintancesDataGridView);
             this.Controls.Add(this.returnButton);
             this.Controls.Add(this.addAcquaintanceButton);
@@ -198,6 +210,7 @@ namespace rmanager
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.acquaintancesForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.acquaintancesDataGridView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -215,5 +228,6 @@ namespace rmanager
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewButtonColumn editButton;
         private System.Windows.Forms.DataGridViewButtonColumn deleteButton;
+        private System.Windows.Forms.Label acquaintancesLabel;
     }
 }
