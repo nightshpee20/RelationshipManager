@@ -188,7 +188,7 @@ namespace rmanager
             this.acquaintancesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.acquaintancesLabel.Location = new System.Drawing.Point(12, 18);
             this.acquaintancesLabel.Name = "acquaintancesLabel";
-            this.acquaintancesLabel.Size = new System.Drawing.Size(495, 58);
+            this.acquaintancesLabel.Size = new System.Drawing.Size(396, 46);
             this.acquaintancesLabel.TabIndex = 5;
             this.acquaintancesLabel.Text = "Your Acquaintances";
             // 
