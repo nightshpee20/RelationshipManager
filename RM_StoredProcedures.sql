@@ -398,38 +398,50 @@ DELIMITER ;
 DELIMITER $
 CREATE PROCEDURE test_update(old_occupation_id INT, new_occupation VARCHAR(30) CHARACTER SET utf16, usr_id INT)
 BEGIN
-    DECLARE i INT;
     
-    IF
-		((SELECT COUNT(*) FROM occupations WHERE occupation = new_occupation) = 0)
-	THEN
-		#CALL sp_insertUserOccupation(new_occupation, usr_id);
-        #@new_occ_id
-		SET i = 0;
-		loops: LOOP
-			SELECT first_name, last_name, gender, city_id, address, relationship_id 
-            INTO @fname, @lname, @gen, @ct_id, @adrs, @rel_id 
-            FROM user_acquaintance_relationships ua
-            JOIN acquaintances a ON ua.acquaintance_id = a.id 
-            LIMIT i, 1;
-			
-            IF
-				((SELECT COUNT(*) FROM acquaintances WHERE first_name = @fname AND last_name = @lname AND city_id = @ct_id) = 0)
-			THEN
-				CALL sp_insertUserAcquaintance(@fname, @lname, @gen, @new_occ_id, @ct_id, @adrs, @rel_id);
-			ELSE
-            
-            UPDATE user_acquaintance_relationships SET acquaintance_id = () WHERE user_id = usr_id 
-            AND acquaintance_id = (SELECT id FROM acquaintances WHERE first_name = @fname AND last_name  = @lname AND city_id = @ct_id);
-            
-            SELECT @fname, @lname, @gen, @ct_id, @adrs, @rel_id;
-            
-			SET i = i + 1;
-            
-			IF i = (SELECT COUNT(*) FROM user_acquaintance_relationships WHERE user_id = usr_id) THEN
-			LEAVE loops;
-			END IF;
-		END LOOP loops;
+DECLARE i INT;
+
+IF (new_occ !EXISTS IN occupations)
+THEN	CALL sp_insertUserOccupation()
+END IF;
+
+SET @new_occ_id = (SELECT id FROM occupations WHERE occupation = new_occupation);
+SET @old_id_acqs_count = (SELECT COUNT(*) FROM user_acquaintances_relationships ua JOIN acquaintances a ON ua.acquaintance_id = a.id WHERE occupation_id = old_occ_id AND user_id = usr_id);
+SET i = 0;
+
+IF (@old_id_acqs_count > 0)
+THEN
+	loops: LOOP
+
+		SELECT first_name, last_name, gender, city_id, address, relationship_id 
+        	INTO @fname, @lname, @gen, @ct_id, @adrs, @rel_id 
+        	FROM user_acquaintance_relationships ua
+        	JOIN acquaintances a ON ua.acquaintance_id = a.id 
+        	WHERE user_id = usr_id
+        	LIMIT i, 1;
+
+		IF ((SELECT COUNT(*) FROM acquaintances WHERE first_name = @fname, last_name = @lname, gender = @gen, 
+      						      occupation_id = @new_occ_id, city_id = @ct_id, address = @adrs) = 0)
+		THEN
+			CALL sp_insertUserAcquaintance(@fname, @lname, @gen, @new_occ_id, @ct_id, @adrs, @rel_id);
+			@new_acq_id = (SELECT id FROM acquaintances WHERE first_name = @fname AND last_name = @lname AND city_id = @ct_id);	
+		ELSE
+			@new_acq_id = (SELECT id FROM acquaintances WHERE first_name = @fname AND last_name = @lname AND city_id = @ct_id);	
+		END IF;
+
+		UPDATE user_acquaintance_relationships SET acquaintance_id = @new_acq_id WHERE user_id = usr_id AND acquaintance_id = (SELECT id FROM acquaintances WHERE first_name = @fname
+		AND last_name = @lname AND city_id = @ct_id AND occupation_id = @old_occ_id);
+
+		IF ((SELECT COUNT(*) FROM acquaintances WHERE first_name = @fname AND last_name = @lname AND city_id = @ct_id AND occupation_id = @old_occ_id) = 0)
+		THEN DELETE FROM acquaintances WHERE first_name = @fname AND last_name = @lname AND city_id = @ct_id AND occupation_id = @old_occ_id;
+		END IF;
+	
+		SET i = i + 1;
+		IF i = @old_id_acqs_count 
+		THEN LEAVE loops;
+		END IF;
+		
+	END LOOP loops;
 	END IF;
     #ELSE
 	#	loops: LOOP
