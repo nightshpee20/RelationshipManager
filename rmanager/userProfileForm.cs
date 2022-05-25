@@ -122,25 +122,10 @@ namespace rmanager
             {
                 if (MessageBox.Show("Are you sure you wish to delete this record?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    //u.MySqlCommandImproved($"DELETE FROM user_meetings WHERE user_id = {user_id} AND");
                     DateTime date = DateTime.Parse($"{meetingsDataGridView[2, e.RowIndex].Value.ToString()} {meetingsDataGridView[3, e.RowIndex].Value.ToString()}");
 
                     u.MySqlCommandImproved($"DELETE FROM user_meetings WHERE user_id = {user_id} AND date_time = \'{date.ToString("yyyy-MM-dd HH:mm:ss")}\' AND acquaintance_id = (SELECT a.id FROM acquaintances a JOIN cities c ON a.city_id = c.id WHERE CONCAT(a.first_name, \" \", a.last_name, \", \", c.city) = \'{meetingsDataGridView[4, e.RowIndex].Value.ToString()}\')");
                     
-                    //MySqlCommand cmd = new MySqlCommand($"SELECT acquaintance_id FROM user_meetings WHERE user_id = {user_id} AND date_time = \'{date.ToString("yyyy-MM-dd HH:mm:ss")}\' AND acquaintance_id = (SELECT a.id FROM acquaintances a JOIN cities c ON a.city_id = c.id WHERE CONCAT(a.first_name, \" \", a.last_name, \", \", c.city) = \'{meetingsDataGridView[4, e.RowIndex].Value.ToString()}\')", Connect.con);
-                    //
-                    //Connect.con.Open();
-                    //
-                    //var dr = cmd.ExecuteReader();
-                    //if (dr.HasRows)
-                    //{
-                    //    dr.Read();
-                    //
-                    //    u.M($"{dr.GetString(0)}, {user_id}, {date.ToString("yyyy-MM-dd HH:mm:ss")}");
-                    //}
-                    //
-                    //Connect.con.Close();
-
                     refreshMeetingsDataGridView();
                 }
             }
@@ -163,17 +148,6 @@ namespace rmanager
         {
             u.M($"{meetingsDataGridView.Width.ToString()} {addMeetingButton.Left.ToString()}");
 
-            //if (meetingsDataGridView.Controls.OfType<VScrollBar>().First().Visible == true && visibleScroll == false)
-            //{
-            //    meetingsDataGridView.Width += 17;
-            //    addMeetingButton.Left += 9;
-            //    browseAcquaintancesButton.Left += 9;
-            //    userStatsButton.Left += 9;
-            //    helpButton.Left += 9;
-            //    switchUserButton.Left += 9;
-            //    visibleScroll = true;
-            //}
-            //else visibleScroll = false;
         }
     }
 }
