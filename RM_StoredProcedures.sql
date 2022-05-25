@@ -444,5 +444,9 @@ THEN
 ELSE
 	UPDATE user_occupations SET occupation_id = @new_occ_id WHERE user_id = usr_id AND occupation_id = @old_occ_id;
 END IF;
+
+IF((SELECT COUNT(*) FROM user_acquaintance_relationships WHERE acquaintance_id IN (SELECT id FROM acquaintances WHERE occupation_id = @old_occ_id)) = 0)
+THEN DELETE FROM occupations WHERE id = @old_occ_id;
+END IF;
 END$
 DELIMITER ;
