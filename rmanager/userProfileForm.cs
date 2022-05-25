@@ -70,20 +70,6 @@ namespace rmanager
             }
 
             dgv.DataSource = dt;
-
-            //if (dt.Rows.Count > 20)
-            //{
-            //    meetingsDataGridView.Width = 1261;
-            //    addMeetingButton.Left = 1303;
-            //    browseAcquaintancesButton.Left = 1303;
-            //    switchUserButton.Left = 1303;
-            //}else
-            //{
-            //    meetingsDataGridView.Width = 1246;
-            //    addMeetingButton.Left = 1294;
-            //    browseAcquaintancesButton.Left = 1294;
-            //    switchUserButton.Left = 1294;
-            //}
         }
 
         private void returnButton_Click(object sender, EventArgs e)
@@ -142,12 +128,6 @@ namespace rmanager
 
             addMeetingForm add = new addMeetingForm(this, user_id);
             add.Show();
-        }
-
-        private void userProfileForm_Click(object sender, EventArgs e)
-        {
-            u.M($"{meetingsDataGridView.Width.ToString()} {addMeetingButton.Left.ToString()}");
-
         }
     }
 }

@@ -31,9 +31,6 @@ namespace rmanager
         {
             this.switchUserButton = new System.Windows.Forms.Button();
             this.meetingsDataGridView = new System.Windows.Forms.DataGridView();
-            this.meetingsLabel = new System.Windows.Forms.Label();
-            this.addMeetingButton = new System.Windows.Forms.Button();
-            this.browseAcquaintancesButton = new System.Windows.Forms.Button();
             this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.acquaintance = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,6 +39,9 @@ namespace rmanager
             this.comments = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.meetingsLabel = new System.Windows.Forms.Label();
+            this.addMeetingButton = new System.Windows.Forms.Button();
+            this.browseAcquaintancesButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.meetingsDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,36 +83,6 @@ namespace rmanager
             this.meetingsDataGridView.TabIndex = 3;
             this.meetingsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.meetingsDataGridView_CellClick);
             this.meetingsDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.meetingsDataGridView_DataBindingComplete);
-            // 
-            // meetingsLabel
-            // 
-            this.meetingsLabel.AutoSize = true;
-            this.meetingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.meetingsLabel.Location = new System.Drawing.Point(14, 16);
-            this.meetingsLabel.Name = "meetingsLabel";
-            this.meetingsLabel.Size = new System.Drawing.Size(334, 46);
-            this.meetingsLabel.TabIndex = 4;
-            this.meetingsLabel.Text = "Recent Meetings";
-            // 
-            // addMeetingButton
-            // 
-            this.addMeetingButton.Location = new System.Drawing.Point(22, 726);
-            this.addMeetingButton.Name = "addMeetingButton";
-            this.addMeetingButton.Size = new System.Drawing.Size(218, 61);
-            this.addMeetingButton.TabIndex = 5;
-            this.addMeetingButton.Text = "Add Meeting";
-            this.addMeetingButton.UseVisualStyleBackColor = true;
-            this.addMeetingButton.Click += new System.EventHandler(this.addMeetingButton_Click);
-            // 
-            // browseAcquaintancesButton
-            // 
-            this.browseAcquaintancesButton.Location = new System.Drawing.Point(273, 726);
-            this.browseAcquaintancesButton.Name = "browseAcquaintancesButton";
-            this.browseAcquaintancesButton.Size = new System.Drawing.Size(218, 61);
-            this.browseAcquaintancesButton.TabIndex = 6;
-            this.browseAcquaintancesButton.Text = "Acquaintances";
-            this.browseAcquaintancesButton.UseVisualStyleBackColor = true;
-            this.browseAcquaintancesButton.Click += new System.EventHandler(this.browseAcquaintancesButton_Click);
             // 
             // date
             // 
@@ -200,6 +170,36 @@ namespace rmanager
             this.delete.Text = "Delete";
             this.delete.UseColumnTextForButtonValue = true;
             // 
+            // meetingsLabel
+            // 
+            this.meetingsLabel.AutoSize = true;
+            this.meetingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.meetingsLabel.Location = new System.Drawing.Point(14, 16);
+            this.meetingsLabel.Name = "meetingsLabel";
+            this.meetingsLabel.Size = new System.Drawing.Size(334, 46);
+            this.meetingsLabel.TabIndex = 4;
+            this.meetingsLabel.Text = "Recent Meetings";
+            // 
+            // addMeetingButton
+            // 
+            this.addMeetingButton.Location = new System.Drawing.Point(22, 726);
+            this.addMeetingButton.Name = "addMeetingButton";
+            this.addMeetingButton.Size = new System.Drawing.Size(218, 61);
+            this.addMeetingButton.TabIndex = 5;
+            this.addMeetingButton.Text = "Add Meeting";
+            this.addMeetingButton.UseVisualStyleBackColor = true;
+            this.addMeetingButton.Click += new System.EventHandler(this.addMeetingButton_Click);
+            // 
+            // browseAcquaintancesButton
+            // 
+            this.browseAcquaintancesButton.Location = new System.Drawing.Point(273, 726);
+            this.browseAcquaintancesButton.Name = "browseAcquaintancesButton";
+            this.browseAcquaintancesButton.Size = new System.Drawing.Size(218, 61);
+            this.browseAcquaintancesButton.TabIndex = 6;
+            this.browseAcquaintancesButton.Text = "Acquaintances";
+            this.browseAcquaintancesButton.UseVisualStyleBackColor = true;
+            this.browseAcquaintancesButton.Click += new System.EventHandler(this.browseAcquaintancesButton_Click);
+            // 
             // userProfileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
@@ -215,7 +215,6 @@ namespace rmanager
             this.Name = "userProfileForm";
             this.Text = "Relationship Manager";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Click += new System.EventHandler(this.userProfileForm_Click);
             ((System.ComponentModel.ISupportInitialize)(this.meetingsDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
