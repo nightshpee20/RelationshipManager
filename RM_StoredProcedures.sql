@@ -132,23 +132,22 @@ CREATE PROCEDURE sp_insertUserAcquaintance (usr_id INT,
                                            fn VARCHAR(30) CHARACTER SET utf16,
 										   ln VARCHAR(30) CHARACTER SET utf16,
 										   gen CHAR(1),
-                                           ocp_id INT,
+                                           occ_id INT,
                                            ct_id INT, 
                                            adrs VARCHAR(40) CHARACTER SET utf16,
                                            rel_id INT)
 BEGIN
     ### If there are no matching records in acquaintances, insert a new one and retrieve its id, else retrieve its id.
 	IF
-		((SELECT COUNT(*) FROM acquaintances WHERE first_name = fn AND 
-		 										  last_name =ln AND
-                                                  city_id = ct_id) = 0)
+		((SELECT COUNT(*) FROM acquaintances WHERE first_name = fn AND last_name = ln AND gender = gen 
+                                                   AND occupation_id = occ_id AND city_id = ct_id) = 0)
 	THEN 
-		IF (adrs = '') THEN SET adrs := null; END IF;
-
-		CALL sp_insertAcquaintance(fn, ln, gen, ocp_id, ct_id, adrs);
+		#IF (adrs = '') THEN SET adrs := null; END IF;
+		CALL sp_insertAcquaintance(fn, ln, gen, occ_id, ct_id, adrs);
 	END IF;
     
-	SET @id := (SELECT id FROM acquaintances WHERE first_name = fn AND last_name = ln AND city_id = ct_id);
+	SET @id := (SELECT id FROM acquaintances WHERE first_name = fn AND last_name = ln AND gender = gen 
+                                                   AND occupation_id = occ_id AND city_id = ct_id);
     
     IF
 		(rel_id IN (SELECT relationship_id FROM user_relationships WHERE user_id = usr_id))
@@ -412,20 +411,20 @@ BEGIN
 				SELECT first_name, last_name, gender, city_id, address, relationship_id
                 INTO @fname, @lname, @gen, @ct_id, @adrs, @rel_id
                 FROM user_acquaintance_relationships ua JOIN acquaintances a ON ua.acquaintance_id = a.id
-                WHERE user_id = usr_id
-                LIMIT i, 1;
-                SELECT "CHK1", i;
+                WHERE user_id = usr_id AND occupation_id = old_occ_id
+                LIMIT 1;
+                SELECT "CHK1", @fname, @lname, @gen, @ct_id, @adrs; #@rel_id
 				
                 IF((SELECT COUNT(*) FROM acquaintances WHERE first_name = @fname AND last_name = @lname AND gender = @gen
 					AND occupation_id = @new_occ_id AND city_id = @ct_id AND address = @adrs) = 0)
-                    THEN CALL sp_insertUserAcquaintance(usr_id, @fname, @lname, @gen, @new_occ_id, @ct_id, @adrs, @rel_id);
+                    THEN CALL sp_insertAcquaintance(@fname, @lname, @gen, @new_occ_id, @ct_id, @adrs);
 				END IF;
-                SELECT "CHK2", i;
+                SELECT "CHK2", old_occ_id, @new_occ_id;
                 SET @new_acq_id := (SELECT id FROM acquaintances WHERE first_name = @fname AND last_name = @lname
 									AND gender = @gen AND occupation_id = @new_occ_id AND city_id = @ct_id AND address = @adrs);
 				SET @old_acq_id := (SELECT id FROM acquaintances WHERE first_name = @fname AND last_name = @lname
 									AND gender = @gen AND occupation_id = old_occ_id AND city_id = @ct_id AND address = @adrs);
-                SELECT "CHK3", i;                    
+                SELECT "CHK3", @new_acq_id, @old_acq_id;                   
 				UPDATE user_acquaintance_relationships SET acquaintance_id = @new_acq_id
                 WHERE user_id = usr_id AND acquaintance_id = @old_acq_id;
                 SELECT "CHK4", i;
@@ -448,7 +447,7 @@ BEGIN
 	END IF;
 			
 	IF((SELECT COUNT(*) FROM user_occupations WHERE occupation_id = @old_occ_id) = 0)
-    THEN DELETE FROM occupations WHERE id = @old_occ_id;
+		THEN DELETE FROM occupations WHERE id = @old_occ_id;
     END IF;
 END$
 DELIMITER ;
