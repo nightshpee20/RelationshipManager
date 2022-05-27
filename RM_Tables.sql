@@ -158,7 +158,7 @@ CREATE TABLE acquaintances ( /* CHECKED */
     ON DELETE CASCADE,
     
     CONSTRAINT uq_acquaintancesRecords
-    UNIQUE (first_name, last_name, city_id),
+    UNIQUE (first_name, last_name, gender, occupation_id, city_id),
     
     CONSTRAINT chk_genderValue
     CHECK (gender IN ('m','f'))
