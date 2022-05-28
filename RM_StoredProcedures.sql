@@ -271,6 +271,88 @@ DELIMITER ;
 
 
 /* CHECKED */
+DELIMITER $
+CREATE PROCEDURE sp_updateUserCity(old_ct_id INT, new_city VARCHAR(40) CHARACTER SET utf16, usr_id INT)
+BEGIN
+	DECLARE i INT;
+    
+    IF((SELECT COUNT(*) FROM cities WHERE city = new_city) = 0)
+		THEN CALL sp_insertUserCity(new_city, usr_id);
+	END IF;
+    
+    SET @new_ct_id := (SELECT id FROM cities WHERE city = new_city);
+    SET @loc_count := (SELECT COUNT(*) FROM user_locations ul JOIN locations l ON ul.location_id = l.id
+					   WHERE user_id = usr_id AND city_id = old_ct_id);
+    SET @acq_count := (SELECT COUNT(*) FROM user_acquaintance_relationships ua JOIN acquaintances a ON ua.acquaintance_id = a.id
+					  WHERE city_id = old_ct_id AND user_id = usr_id);
+	SET i := 0;
+    
+	IF(@loc_count > 0)
+		THEN
+			loop1: LOOP
+			
+				SET @location := (SELECT location FROM user_locations ul JOIN locations l ON ul.location_id = l.id
+								  WHERE user_id = usr_id AND city_id = old_ct_Id LIMIT 1);
+	
+				 
+				CALL sp_updateUserLocation(@location, old_ct_id, @location, @new_ct_id, usr_id);
+                
+                SET i := i + 1;
+                IF(i = @loc_count) THEN LEAVE loop1; END IF;
+			END LOOP;
+    END IF;
+    SET i := 0;
+    
+    IF(@acq_count > 0)
+		THEN
+			loop2: LOOP
+				
+				SELECT first_name, last_name, gender, occupation_id, address, relationship_id
+                INTO @fname, @lname, @gen, @occ_id, @adrs, @rel_id
+                FROM user_acquaintance_relationships ua JOIN acquaintances a ON ua.acquaintance_id = a.id
+                WHERE user_id = usr_id AND city_id = old_ct_id
+                LIMIT 1;
+                
+
+                IF((SELECT COUNT(*) FROM acquaintances WHERE first_name = @fname AND last_name = @lname AND gender = @gen
+					AND occupation_id = @occ_id AND city_id = @new_ct_id AND address = @adrs) = 0)
+                    THEN CALL sp_insertAcquaintance(@fname, @lname, @gen, @occ_id, @new_ct_id, @adrs);
+				END IF;
+                
+                SET @new_acq_id := (SELECT id FROM acquaintances WHERE first_name = @fname AND last_name = @lname
+									AND gender = @gen AND occupation_id = @occ_id AND /**/city_id = @new_ct_id/**/ AND address = @adrs);
+				SET @old_acq_id := (SELECT id FROM acquaintances WHERE first_name = @fname AND last_name = @lname
+									AND gender = @gen AND occupation_id = @occ_id AND /**/city_id = old_ct_id/**/ AND address = @adrs);
+				
+				
+				
+                
+				UPDATE user_acquaintance_relationships SET acquaintance_id = @new_acq_id
+                WHERE user_id = usr_id AND acquaintance_id = @old_acq_id;
+                
+                UPDATE user_meetings SET acquaintance_id = @new_acq_id
+				WHERE user_id = usr_id AND acquaintance_id = @old_acq_id;
+
+				IF((SELECT COUNT(*) FROM user_acquaintance_relationships WHERE acquaintance_id = @old_acq_id) = 0) 
+					THEN DELETE FROM acquaintances WHERE id = @old_acq_id;
+				END IF;
+                
+                SET i := i + 1;
+				IF(i = @acq_count) THEN LEAVE loop2; END IF;
+			END LOOP;
+	END IF;
+	
+    DELETE FROM user_cities WHERE user_id = usr_id AND city_id = old_ct_id;
+    
+	IF((SELECT COUNT(*) FROM user_cities WHERE city_id = old_ct_id) = 0)
+		THEN DELETE FROM cities WHERE id = old_ct_id;
+    END IF;
+    
+END$
+DELIMITER ;
+
+
+/* CHECKED */
 DELIMITER $ 
 CREATE PROCEDURE sp_updateUserLocation (old_location VARCHAR(40) CHARACTER SET utf16, old_city INT, new_location VARCHAR(40) CHARACTER SET utf16, new_city INT, usr_id INT)
 BEGIN
@@ -281,8 +363,8 @@ BEGIN
 		CALL sp_insertLocation(new_location, new_city);
     END IF; 
 
-	SET @new_location_id := (SELECT id FROM locations WHERE location = new_location);
-    SET @old_location_id := (SELECT id FROM locations WHERE location = old_location);
+	SET @new_location_id := (SELECT id FROM locations WHERE location = new_location AND city_id = new_city);
+    SET @old_location_id := (SELECT id FROM locations WHERE location = old_location AND city_id = old_city);
     
 	UPDATE user_locations SET location_id = @new_location_id WHERE user_id = usr_id AND location_id = @old_location_id;
     UPDATE user_meetings SET location_id = @new_location_id WHERE location_id = @old_location_id AND user_id = usr_id;

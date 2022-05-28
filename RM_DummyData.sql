@@ -149,9 +149,9 @@ CALL sp_insertUserAcquaintance(1, 'Elena', 'Elenova', 'F', 7, 3, '', 5); #sfa
 CALL sp_insertUserAcquaintance(1, 'Stoyan', 'Stoyanov', 'M', 1, 8, '', 6); #lom
 CALL sp_insertUserAcquaintance(1, 'Kiril', 'Kirilov', 'M', 3, 7, '', 7); #shm
 CALL sp_insertUserAcquaintance(1, 'Gergana', 'Gerganova', 'F', 3, 10, '', 3); #mnt
-CALL sp_insertUserAcquaintance(1, 'Yoana', 'Yoanova', 'F', 2, 1, '', 10); #vrn
-CALL sp_insertUserAcquaintance(1, 'Angel', 'Angelov', 'M', 6, 1, '', 9); #vrn
-CALL sp_insertUserAcquaintance(1, 'Martin', 'Martinov', 'M', 1,  8, '', 4); #lom
+CALL sp_insertUserAcquaintance(1, 'Yoana', 'Yoanova', 'F', 2, 2, '', 10); #vrn
+CALL sp_insertUserAcquaintance(1, 'Angel', 'Angelov', 'M', 6, 2, '', 9); #vrn
+CALL sp_insertUserAcquaintance(1, 'Martin', 'Martinov', 'M', 2,  8, '', 4); #lom
 
 #CALL sp_insertUserAcquaintance(2, 'Georgi', 'Georgiev', 'M', 1, 4, null, 1);
 #CALL sp_insertUserAcquaintance(2, 'Nikola', 'Nikolov', 'M', 4, 2, null, 2);
