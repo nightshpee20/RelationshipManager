@@ -356,7 +356,6 @@ DELIMITER ;
 DELIMITER $ 
 CREATE PROCEDURE sp_updateUserLocation (old_location VARCHAR(40) CHARACTER SET utf16, old_city INT, new_location VARCHAR(40) CHARACTER SET utf16, new_city INT, usr_id INT)
 BEGIN
-
 	IF 
 		((SELECT COUNT(*) FROM locations WHERE location = new_location AND city_id = new_city) = 0)
     THEN 

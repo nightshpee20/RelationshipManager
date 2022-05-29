@@ -17,6 +17,7 @@ namespace rmanager
         private string name;
         private string column;
         private string oldText;
+        private int oldCityId = 0;
         private bool changesMade = false;
         private acquaintancesForm grandparent;
         private addAcquaintanceForm parent; 
@@ -224,7 +225,7 @@ namespace rmanager
             {
                 case "edit":
                     btn.Text = "Edit";
-                    btn.Name = "editButton" + count; //DELETED '_' at the end
+                    btn.Name = "editButton" + count;
                     btn.TabIndex = count;
                     break;
 
@@ -235,7 +236,7 @@ namespace rmanager
 
                 case "delete":
                     btn.Text = "Delete";
-                    btn.Name = "deleteButton" + count; //DELETED '_' at the end
+                    btn.Name = "deleteButton" + count;
                     btn.TabIndex = count;
                     break;
 
@@ -327,7 +328,7 @@ namespace rmanager
 
                 btn = addButton(count, "exit");
                 btn.Left += txt.Width + 8 + btn.Width;
-                if (name == "locations") btn.Left += cmb.Width + 12;
+                if (name == "locations") btn.Left += cmb.Width + 26;
                 pnl.Controls.Add(btn);
             }
         }
@@ -349,7 +350,7 @@ namespace rmanager
             Panel row = (Panel)arr1[0];
 
             ComboBox cmb = row.Controls.OfType<ComboBox>().First();
-            int oldCityId = 0;
+            
 
             if (name == "acquaintances" || name == "locations")
             {
@@ -408,18 +409,24 @@ namespace rmanager
                             btn.Text = "Commit";
                             oldText = txt.Text;
                             oldCityId = (int) dtc.Rows[cmb.SelectedIndex]["id"];
-
+                            u.M($"{oldCityId}");
                             cmb.Enabled = true;
                             txt.ReadOnly = false;
-                            
                         }
                         break;
                     case "Commit":
-                        if (oldText != txt.Text)
+                        if (oldText != txt.Text || (int)dtc.Rows[cmb.SelectedIndex]["id"] != oldCityId)
                         {
                             if (name == "locations")
                             {
-                                u.MySqlCommandImproved($"CALL sp_updateUserLocation(\'{oldText}\', {oldCityId}, \'{txt.Text}\', {dtc.Rows[cmb.SelectedIndex]["id"]}, {user_id})");
+                                string newText = txt.Text;
+                                if (oldText.Contains("'")) oldText = oldText.Replace("'", "\\'");
+
+                                if (txt.Text.Contains("'")) newText = newText.Replace("'", "\\'");
+
+
+                                u.M($"CALL sp_updateUserLocation(\'{oldText}\', {oldCityId}, \'{newText}\', {dtc.Rows[cmb.SelectedIndex]["id"]}, {user_id})");
+                                u.MySqlCommandImproved($"CALL sp_updateUserLocation(\'{oldText}\', {oldCityId}, \'{newText}\', {dtc.Rows[cmb.SelectedIndex]["id"]}, {user_id})");
 
                                 txt.ReadOnly = true;
                                 cmb.Enabled = false;
