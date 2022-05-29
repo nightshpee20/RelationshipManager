@@ -232,7 +232,11 @@ namespace rmanager
                 //
                 case "locations":
                     setDropDownValues(user_id, name, locationsDropDown, ref dtl);
-                    if(oldValues[3] == oldTxt) setOldValues(oldValues[0], oldValues[1], oldValues[2], newTxt, oldValues[4], oldValues[5]);
+
+                   
+;                   if (oldValues[3] == oldTxt) setOldValues(oldValues[0], oldValues[1], oldValues[2], newTxt, oldValues[4], oldValues[5]);
+                    else setOldValues(oldValues[0], oldValues[1], oldValues[2], oldValues[3], oldValues[4], oldValues[5]);
+
                     break;
 
                 case "reasons":
