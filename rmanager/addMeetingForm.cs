@@ -166,7 +166,7 @@ namespace rmanager
             setDropDownValues(user_id, "locations", locationsDropDown, ref dtl);
             for (int i = 0; i < dtl.Rows.Count; i++)
             {
-                if (location == u.CapitalizeFirstLetters(dtl.Rows[i][0].ToString())) { locationsDropDown.SelectedIndex = i; oldValues.Add(dtl.Rows[i][0].ToString()); }
+                if (u.CapitalizeFirstLetters(location) == u.CapitalizeFirstLetters(dtl.Rows[i][0].ToString())) { locationsDropDown.SelectedIndex = i; oldValues.Add(dtl.Rows[i][0].ToString()); }
             }
 
             setDropDownValues(user_id, "reasons", reasonsDropDown, ref dtr);
@@ -222,7 +222,7 @@ namespace rmanager
             }
         }
         //EXPERIMENTAL
-        public void refreshDropdown(string name)
+        public void refreshDropdown(string name, string newTxt, string oldTxt)
         {
             switch (name)
             {
@@ -232,12 +232,14 @@ namespace rmanager
                 //
                 case "locations":
                     setDropDownValues(user_id, name, locationsDropDown, ref dtl);
+                    if(oldValues[3] == oldTxt) setOldValues(oldValues[0], oldValues[1], oldValues[2], newTxt, oldValues[4], oldValues[5]);
                     break;
 
                 case "reasons":
                     setDropDownValues(user_id, name, reasonsDropDown, ref dtr);
                     break;
             }
+            
         }
         private void exitButton_Click(object sender, EventArgs e)
         {

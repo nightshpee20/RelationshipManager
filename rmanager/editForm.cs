@@ -17,6 +17,7 @@ namespace rmanager
         private string name;
         private string column;
         private string oldText;
+        private string newText;
         private int oldCityId = 0;
         private bool changesMade = false;
         private acquaintancesForm grandparent;
@@ -409,7 +410,7 @@ namespace rmanager
                             btn.Text = "Commit";
                             oldText = txt.Text;
                             oldCityId = (int) dtc.Rows[cmb.SelectedIndex]["id"];
-                            u.M($"{oldCityId}");
+
                             cmb.Enabled = true;
                             txt.ReadOnly = false;
                         }
@@ -419,13 +420,12 @@ namespace rmanager
                         {
                             if (name == "locations")
                             {
-                                string newText = txt.Text;
+                                newText = txt.Text;
                                 if (oldText.Contains("'")) oldText = oldText.Replace("'", "\\'");
 
                                 if (txt.Text.Contains("'")) newText = newText.Replace("'", "\\'");
 
 
-                                u.M($"CALL sp_updateUserLocation(\'{oldText}\', {oldCityId}, \'{newText}\', {dtc.Rows[cmb.SelectedIndex]["id"]}, {user_id})");
                                 u.MySqlCommandImproved($"CALL sp_updateUserLocation(\'{oldText}\', {oldCityId}, \'{newText}\', {dtc.Rows[cmb.SelectedIndex]["id"]}, {user_id})");
 
                                 txt.ReadOnly = true;
@@ -516,8 +516,17 @@ namespace rmanager
         {
             if (changesMade)
             {
-                parent.refreshDropdown(name);
-                grandparent.refreshAcquaintancesDataGridView();
+                switch(name)
+                {
+                    case "locations":
+                        gparent.refreshMeetingsDataGridView();
+                        pparent.refreshDropdown(name, newText, oldText);
+                        break;
+                    case "acquaintances":
+                        parent.refreshDropdown(name);
+                        grandparent.refreshAcquaintancesDataGridView();
+                        break;
+                }
             }
         }
     }
