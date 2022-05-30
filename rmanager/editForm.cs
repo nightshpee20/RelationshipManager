@@ -149,6 +149,7 @@ namespace rmanager
 
             if (name == "locations") dtl = dt;
 
+            max_width = 0;
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 if (max_width <= dt.Rows[i][0].ToString().Length) max_width = dt.Rows[i][0].ToString().Length;
@@ -329,7 +330,8 @@ namespace rmanager
 
                 btn = addButton(count, "exit");
                 btn.Left += txt.Width + 8 + btn.Width;
-                if (name == "locations") btn.Left += cmb.Width + 26;
+
+               // if (name == "locations") btn.Left = txt.Width + 8 + btn.Width + max_width + 12;
                 pnl.Controls.Add(btn);
             }
         }
@@ -345,7 +347,7 @@ namespace rmanager
             Button btn = Sender as Button;
 
             var arr = this.Controls.Find("txt" + btn.TabIndex, true);
-            TextBox txt = (TextBox)arr[0];
+            TextBox txt = (TextBox)arr[0]; //TODO: Edit Cities in locationsEditForm doesnt work
             
             var arr1 = this.Controls.Find("row" + btn.TabIndex, true);
             Panel row = (Panel)arr1[0];
@@ -531,3 +533,4 @@ namespace rmanager
         }
     }
 }
+//
