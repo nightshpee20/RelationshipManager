@@ -8,5 +8,9 @@ namespace rmanager
 {
     class testingBranching
     {
+        public testingBranching()
+        {
+            //This should not exist in master.
+        }
     }
 }
