@@ -22,7 +22,7 @@ namespace rmanager
         private bool changesMade = false;
         private acquaintancesForm grandparent;
         private addAcquaintanceForm parent; 
-        private userProfileForm gparent; //EXPERIMENTAL
+        private userProfileForm2 gparent; //EXPERIMENTAL
         private addMeetingForm pparent; //EXPERIMENTAL
         private int max_width;
         private DataTable dtc;
@@ -55,7 +55,7 @@ namespace rmanager
         }
         //                                                                         || || || ||
         //EXPERIMENTAL constructor THIS CONSTRUCTOR CAN BE MERGED WITH THE TOP ONE \/ \/ \/ \/
-        public editForm(string name, int user_id, addMeetingForm parent, userProfileForm grandparent)
+        public editForm(string name, int user_id, addMeetingForm parent, userProfileForm2 grandparent)
         {
             InitializeComponent();
             this.pparent = parent;
@@ -94,7 +94,7 @@ namespace rmanager
                                               $"FROM user_cities uc " +
                                               $"JOIN cities c ON uc.city_id = c.id " +
                                               $"WHERE user_id = {user_id} " +
-                                              $"ORDER BY c.city ASC;", Connect.con);
+                                              $"ORDER BY c.city ASC;", Connect2.con);
                     break;
 
                 case "occupations":
@@ -102,7 +102,7 @@ namespace rmanager
                                               $"FROM user_occupations uo " +
                                               $"JOIN occupations o ON uo.occupation_id = o.id " +
                                               $"WHERE user_id = {user_id} " +
-                                              $"ORDER BY o.occupation ASC;", Connect.con);
+                                              $"ORDER BY o.occupation ASC;", Connect2.con);
                     break;
 
                 case "relationships":
@@ -110,7 +110,7 @@ namespace rmanager
                                              $"FROM user_relationships ur " +
                                              $"JOIN relationships r ON ur.relationship_id = r.id " +
                                              $"WHERE user_id = {user_id} " +
-                                             $"ORDER BY r.relationship ASC;", Connect.con);
+                                             $"ORDER BY r.relationship ASC;", Connect2.con);
                     break;
 
                 //EXPERIMENTAL case
@@ -118,7 +118,7 @@ namespace rmanager
                     da = new MySqlDataAdapter($"SELECT (SELECT CONCAT(first_name, \" \", last_name, \", \", (SELECT city FROM cities c WHERE c.id = a.city_id)) FROM acquaintances a WHERE a.id = ua.acquaintance_id) AS acquaintance, ua.acquaintance_id AS id, ua.user_id " +
                                               $"FROM user_acquaintance_relationships ua " +
                                               $"WHERE user_id = {user_id} " +
-                                              $"ORDER BY acquaintance ASC;", Connect.con);
+                                              $"ORDER BY acquaintance ASC;", Connect2.con);
                     break;
 
                 //EXPERIMENTAL case
@@ -128,7 +128,7 @@ namespace rmanager
                                               $"JOIN locations l ON ul.location_id = l.id " +
                                               $"JOIN cities c ON l.city_id = c.id " +
                                               $"WHERE user_id = {user_id} " +
-                                              $"ORDER BY l.location ASC;", Connect.con);
+                                              $"ORDER BY l.location ASC;", Connect2.con);
                     break;
 
                 //EXPERIMENTAL case
@@ -137,7 +137,7 @@ namespace rmanager
                                               $"FROM user_reasons ur " +
                                               $"JOIN reasons r ON ur.reason_id = r.id " +
                                               $"WHERE user_id = {user_id} " +
-                                              $"ORDER BY r.reason ASC;", Connect.con);
+                                              $"ORDER BY r.reason ASC;", Connect2.con);
                     break;
             }
             
@@ -184,7 +184,7 @@ namespace rmanager
                                                        $"JOIN locations l ON ul.location_id = l.id " +
                                                        $"JOIN cities c ON l.city_id = c.id " +
                                                        $"WHERE user_id = {user_id} " +
-                                                       $"ORDER BY c.city ASC;", Connect.con);
+                                                       $"ORDER BY c.city ASC;", Connect2.con);
 
             DataSet ds = new DataSet();
             dtc = new DataTable();
@@ -383,9 +383,9 @@ namespace rmanager
                                                                 $"WHERE ua.user_id = {user_id} " +
                                                                 $"AND a.first_name = \'{arr2[0]}\' " +
                                                                 $"AND a.last_name = \'{arr2[1]}\' " +
-                                                                $"AND c.city = \'{arr2[2]}\'", Connect.con);
+                                                                $"AND c.city = \'{arr2[2]}\'", Connect2.con);
 
-                            Connect.con.Open();
+                            Connect2.con.Open();
 
                             List<string> list = new List<string>();
                             var dr = cmd.ExecuteReader();
@@ -403,7 +403,7 @@ namespace rmanager
                                 list.Add(u.CapitalizeFirstLetters(dr.GetString(6))); //relationship
                             }
 
-                            Connect.con.Close();
+                            Connect2.con.Close();
                             u.M($"{list[0]}, {list[1]}, {list[2]}, {list[3]}, {list[4]}, {list[5]}, {list[6]}");
                             addAcquaintanceForm edit = new addAcquaintanceForm(null, user_id, list[0], list[1], list[2], list[3], list[4], list[5], list[6]);
                             edit.Show();                            

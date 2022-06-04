@@ -1,7 +1,7 @@
 ﻿
 namespace rmanager
 {
-    partial class userProfileForm
+    partial class userProfileForm2
     {
         /// <summary>
         /// Required designer variable.

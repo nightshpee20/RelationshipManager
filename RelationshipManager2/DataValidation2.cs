@@ -9,24 +9,24 @@ using MySql.Data.MySqlClient;
 
 namespace rmanager
 {
-    public static class DataValidation
+    public static class DataValidation2
     {
         //Check if the entered username and password are a match for an account. 
         public static int ValidateLoginData(TextBox username, TextBox password)
         {
-            MySqlCommand cmd = new MySqlCommand("SELECT id, username, password FROM users;", Connect.con);
-            Connect.con.Open();
+            MySqlCommand cmd = new MySqlCommand("SELECT id, username, password FROM users;", Connect2.con);
+            Connect2.con.Open();
             MySqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
                 if (username.Text == dr[1].ToString() && password.Text == dr[2].ToString())
                 {
                     int id = int.Parse(dr[0].ToString());
-                    Connect.con.Close();
+                    Connect2.con.Close();
                     return id;
                 }
             }
-            Connect.con.Close();
+            Connect2.con.Close();
 
             return -1;
         }
@@ -142,33 +142,33 @@ namespace rmanager
             }
 
             //Checks if the username, email and mobile number are already taken.
-            MySqlCommand cmd = new MySqlCommand("SELECT username, email, mobile_number FROM users;", Connect.con);
-            Connect.con.Open();
+            MySqlCommand cmd = new MySqlCommand("SELECT username, email, mobile_number FROM users;", Connect2.con);
+            Connect2.con.Open();
             MySqlDataReader dr = cmd.ExecuteReader();
             while(dr.Read())
             {
                 if(username.Text == dr[0].ToString())
                 {
                     usernameError.Text = "Username is already taken!";
-                    Connect.con.Close();
+                    Connect2.con.Close();
                     return false;
                 }
 
                 if(email.Text == dr[1].ToString())
                 {
                     emailError.Text = "Email is already taken!";
-                    Connect.con.Close();
+                    Connect2.con.Close();
                     return false;
                 }
 
                 if (number.Text == dr[2].ToString())
                 {
                     numberError.Text = "Number is already taken!";
-                    Connect.con.Close();
+                    Connect2.con.Close();
                     return false;
                 }
             }
-            Connect.con.Close();
+            Connect2.con.Close();
 
             return true;
         }

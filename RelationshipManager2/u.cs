@@ -38,11 +38,11 @@ namespace rmanager
 
         public static void MySqlCommandImproved(string command)
         {
-            MySqlCommand cmd = new MySqlCommand(command, Connect.con);
+            MySqlCommand cmd = new MySqlCommand(command, Connect2.con);
 
             try
             {
-                Connect.con.Open();
+                Connect2.con.Open();
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Success!");
             }
@@ -52,7 +52,7 @@ namespace rmanager
             }
             finally
             {
-                Connect.con.Close();
+                Connect2.con.Close();
             }
         }
         public static void M(string message)

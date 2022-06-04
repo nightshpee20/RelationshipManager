@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace rmanager
 {
-    public static class Connect
+    public static class Connect2
     {
         public static string CnnString(string dbName)
         {

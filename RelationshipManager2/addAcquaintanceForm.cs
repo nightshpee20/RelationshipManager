@@ -74,7 +74,7 @@ namespace rmanager
                                                        $"FROM user_{name} un " +
                                                        $"JOIN {name} n ON un.{attribute}_id = n.id " +
                                                        $"WHERE user_id = {user_id} " +
-                                                       $"ORDER BY n.{attribute} ASC;", Connect.con);
+                                                       $"ORDER BY n.{attribute} ASC;", Connect2.con);
             
             DataSet ds = new DataSet();
             dt = new DataTable();
@@ -225,9 +225,9 @@ namespace rmanager
 
                         int acq_id = -1;
 
-                        MySqlCommand cmd = new MySqlCommand($"SELECT id FROM acquaintances WHERE first_name = \'{oldValues[0]}\' AND last_name = \'{oldValues[1]}\' AND city_id = (SELECT id FROM cities WHERE city = \'{citiesDropDown.GetItemText(citiesDropDown.SelectedItem)}\')", Connect.con);
+                        MySqlCommand cmd = new MySqlCommand($"SELECT id FROM acquaintances WHERE first_name = \'{oldValues[0]}\' AND last_name = \'{oldValues[1]}\' AND city_id = (SELECT id FROM cities WHERE city = \'{citiesDropDown.GetItemText(citiesDropDown.SelectedItem)}\')", Connect2.con);
 
-                        Connect.con.Open();
+                        Connect2.con.Open();
 
                         var dr = cmd.ExecuteReader();
                         if (dr.HasRows)
@@ -236,7 +236,7 @@ namespace rmanager
                             acq_id = dr.GetInt32(0);
                         }
 
-                        Connect.con.Close();
+                        Connect2.con.Close();
 
                         u.MySqlCommandImproved($"DELETE FROM user_acquaintance_relationships WHERE user_id = {user_id} AND acquaintance_id = {acq_id}");
 

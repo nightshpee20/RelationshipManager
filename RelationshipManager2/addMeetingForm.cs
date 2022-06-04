@@ -14,13 +14,13 @@ namespace rmanager
 {
     public partial class addMeetingForm : Form
     {
-        private userProfileForm parent;
+        private userProfileForm2 parent;
         private int user_id;
         private DataTable dta, dtl, dtr;
         private string attribute;
         private List<string> oldValues;
         private int old_acquaintance_id;
-        public addMeetingForm(userProfileForm parent, int user_id)
+        public addMeetingForm(userProfileForm2 parent, int user_id)
         {
             InitializeComponent();
             this.parent = parent;
@@ -35,7 +35,7 @@ namespace rmanager
 
         }
 
-        public addMeetingForm(userProfileForm parent, int user_id, string date, string time, string acquaintance, string location, string reason, string comments)
+        public addMeetingForm(userProfileForm2 parent, int user_id, string date, string time, string acquaintance, string location, string reason, string comments)
         {
             InitializeComponent();
             this.parent = parent;
@@ -75,7 +75,7 @@ namespace rmanager
                                                $"FROM acquaintances a WHERE a.id = ua.acquaintance_id) AS acquaintance, ua.acquaintance_id " +
                                           $"FROM user_acquaintance_relationships ua " +
                                           $"WHERE user_id = 1 " +
-                                          $"ORDER BY acquaintance ASC", Connect.con);
+                                          $"ORDER BY acquaintance ASC", Connect2.con);
             }
             else
             {
@@ -83,7 +83,7 @@ namespace rmanager
                                           $"FROM user_{name} un " +
                                           $"JOIN {name} n ON un.{attribute}_id = n.id " +
                                           $"WHERE user_id = {user_id} " +
-                                          $"ORDER BY n.{attribute} ASC;", Connect.con);
+                                          $"ORDER BY n.{attribute} ASC;", Connect2.con);
             }
             
             

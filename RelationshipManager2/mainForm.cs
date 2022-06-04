@@ -50,14 +50,14 @@ namespace rmanager
             MySqlCommand cmd = new MySqlCommand($"CALL sp_insertUser({usernameRegisterTextBox.Text}, " +
                                                                    $"{passwordRegisterTextBox.Text}, " +
                                                                    $"{emailTextBox.Text}, " +
-                                                                   $"{numberTextBox.Text});",Connect.con);
+                                                                   $"{numberTextBox.Text});",Connect2.con);
             ResetErrors();
-            if(DataValidation.ValidateRegisterData(usernameRegisterTextBox, passwordRegisterTextBox, emailTextBox, numberTextBox,
+            if(DataValidation2.ValidateRegisterData(usernameRegisterTextBox, passwordRegisterTextBox, emailTextBox, numberTextBox,
                                     usernameRegisterErrorLabel, passwordRegisterErrorLabel, emailErrorLabel, numberErrorLabel))
             {
                 try
                 {
-                    Connect.con.Open();
+                    Connect2.con.Open();
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("You have registered successfully!");
                 }
@@ -67,7 +67,7 @@ namespace rmanager
                 }
                 finally
                 {
-                    Connect.con.Close();
+                    Connect2.con.Close();
                 }
             }
             ResetRegister();
@@ -77,7 +77,7 @@ namespace rmanager
         {
             // Calls the data validation method which assigns the id of the user profile to a variable.
             // If the method returns "-1", the login credentials are invalid.
-            int user_id = DataValidation.ValidateLoginData(usernameLoginTextBox, passwordLoginTextBox);
+            int user_id = DataValidation2.ValidateLoginData(usernameLoginTextBox, passwordLoginTextBox);
 
             if (user_id == -1)
             {
@@ -87,7 +87,7 @@ namespace rmanager
             else 
             {
                 this.Hide();
-                userProfileForm user = new userProfileForm(this, user_id);
+                userProfileForm2 user = new userProfileForm2(this, user_id);
                 user.Show();
             }
         }

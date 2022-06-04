@@ -13,14 +13,14 @@ using System.Data.SqlClient;
 namespace rmanager
 {
     //TODO: PUT THE BUTTONS BELOW THE DGV AND MAKE IT LOOK LIKE ACQUAINTANCES
-    public partial class userProfileForm : Form
+    public partial class userProfileForm2 : Form
     {
         private int user_id;
         private mainForm parent;
         public List<string> user_info = new List<string>();
        
 
-        public userProfileForm(mainForm parent, int user_id)
+        public userProfileForm2(mainForm parent, int user_id)
         {
             InitializeComponent();
             this.parent = parent;
@@ -28,7 +28,7 @@ namespace rmanager
             displayMeetings(meetingsDataGridView);
         }
 
-        public userProfileForm(int user_id)
+        public userProfileForm2(int user_id)
         {
             InitializeComponent();
             this.user_id = user_id;
@@ -54,7 +54,7 @@ namespace rmanager
                                                 $"JOIN reasons r " +
                                                     $"ON um.reason_id = r.id " +
                                                 $"WHERE user_id = {user_id} " +
-                                                $"ORDER BY date_time DESC, acquaintance ASC, location ASC;", Connect.con);
+                                                $"ORDER BY date_time DESC, acquaintance ASC, location ASC;", Connect2.con);
 
             MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
             DataTable dt = new DataTable();

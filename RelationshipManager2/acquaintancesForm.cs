@@ -13,9 +13,9 @@ namespace rmanager
 {
     public partial class acquaintancesForm : Form
     {
-        private userProfileForm parent;
+        private userProfileForm2 parent;
         private int user_id;
-        public acquaintancesForm(userProfileForm parent, int user_id)
+        public acquaintancesForm(userProfileForm2 parent, int user_id)
         {
             InitializeComponent();
             this.parent = parent;
@@ -50,7 +50,7 @@ namespace rmanager
                                                 $"JOIN relationships r " +
                                                     $"ON uar.relationship_id = r.id " +
                                                 $"WHERE user_id = {user_id} " +
-                                                $"ORDER BY first_name ASC, last_name ASC, city ASC;", Connect.con);
+                                                $"ORDER BY first_name ASC, last_name ASC, city ASC;", Connect2.con);
             MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adp.Fill(dt);
@@ -117,9 +117,9 @@ namespace rmanager
                 {
                     int acq_id = -1;
 
-                    MySqlCommand cmd = new MySqlCommand($"SELECT id FROM acquaintances WHERE first_name = \'{row.Cells[2].Value.ToString()}\' AND last_name = \'{row.Cells[3].Value.ToString()}\' AND city_id = (SELECT id FROM cities WHERE city = \'{row.Cells[6].Value.ToString()}\')", Connect.con);
+                    MySqlCommand cmd = new MySqlCommand($"SELECT id FROM acquaintances WHERE first_name = \'{row.Cells[2].Value.ToString()}\' AND last_name = \'{row.Cells[3].Value.ToString()}\' AND city_id = (SELECT id FROM cities WHERE city = \'{row.Cells[6].Value.ToString()}\')", Connect2.con);
 
-                    Connect.con.Open();
+                    Connect2.con.Open();
 
                     var dr = cmd.ExecuteReader();
                     if(dr.HasRows)
@@ -128,7 +128,7 @@ namespace rmanager
                         acq_id = dr.GetInt32(0);
                     }
 
-                    Connect.con.Close();
+                    Connect2.con.Close();
 
                     u.MySqlCommandImproved($"DELETE FROM user_acquaintance_relationships WHERE user_id = {user_id} AND acquaintance_id = {acq_id}");
                     refreshAcquaintancesDataGridView();
