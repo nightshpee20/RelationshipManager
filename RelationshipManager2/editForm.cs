@@ -349,6 +349,7 @@ namespace rmanager
             if(btn.Text == "Edit Cities")
             {
                 editForm cities = new editForm("cities", user_id, pparent, gparent);
+                cities.Show();
             }
             else 
             {
