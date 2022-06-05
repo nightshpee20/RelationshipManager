@@ -346,172 +346,181 @@ namespace rmanager
         {
             Button btn = Sender as Button;
 
-            var arr = this.Controls.Find("txt" + btn.TabIndex, true);
-            TextBox txt = (TextBox)arr[0]; //TODO: Edit Cities in locationsEditForm doesnt work
-            
-            var arr1 = this.Controls.Find("row" + btn.TabIndex, true);
-            Panel row = (Panel)arr1[0];
-
-            ComboBox cmb = row.Controls.OfType<ComboBox>().First();
-            
-
-            if (name == "acquaintances" || name == "locations")
+            if(btn.Text == "Edit Cities")
             {
-                if (Application.OpenForms.OfType<addAcquaintanceForm>().Count() == 1)
-                    Application.OpenForms.OfType<addAcquaintanceForm>().First().Close();
+                editForm cities = new editForm("cities", user_id, pparent, gparent);
+            }
+            else 
+            {
+                var arr = this.Controls.Find("txt" + btn.TabIndex, true);
+                TextBox txt = (TextBox)arr[0]; //TODO: Edit Cities in locationsEditForm doesnt work
 
-                switch (btn.Text)
+                var arr1 = this.Controls.Find("row" + btn.TabIndex, true);
+                Panel row = (Panel)arr1[0];
+
+                ComboBox cmb = row.Controls.OfType<ComboBox>().First();
+
+
+                if (name == "acquaintances" || name == "locations")
                 {
-                    case "Add New":
-                        addAcquaintanceForm add = new addAcquaintanceForm(user_id);
-                        add.Show();
-                        break;
+                    if (Application.OpenForms.OfType<addAcquaintanceForm>().Count() == 1)
+                        Application.OpenForms.OfType<addAcquaintanceForm>().First().Close();
 
-                    case "Edit":
-                        if (name == "acquaintances")
-                        {
-                            string name_city = txt.Text;
-                            name_city = name_city.Replace(",", ""); // MOVE THIS TO EDIT FORM BEFORE THE CONSTRUCTOR IS CALLED
-                            string[] arr2 = name_city.Split(' ');
+                    switch (btn.Text)
+                    {
+                        case "Add New":
+                            addAcquaintanceForm add = new addAcquaintanceForm(user_id);
+                            add.Show();
+                            break;
 
-                            MySqlCommand cmd = new MySqlCommand($"SELECT a.first_name, a.last_name, a.gender, o.occupation, c.city, a.address, r.relationship " +
-                                                                $"FROM user_acquaintance_relationships ua " +
-                                                                $"JOIN acquaintances a ON ua.acquaintance_id = a.id " +
-                                                                $"JOIN cities c ON a.city_id = c.id " +
-                                                                $"JOIN occupations o ON a.occupation_id = o.id " +
-                                                                $"JOIN relationships r ON ua.relationship_id = r.id " +
-                                                                $"WHERE ua.user_id = {user_id} " +
-                                                                $"AND a.first_name = \'{arr2[0]}\' " +
-                                                                $"AND a.last_name = \'{arr2[1]}\' " +
-                                                                $"AND c.city = \'{arr2[2]}\'", Connect2.con);
-
-                            Connect2.con.Open();
-
-                            List<string> list = new List<string>();
-                            var dr = cmd.ExecuteReader();
-                            if (dr.HasRows)
+                        case "Edit":
+                            if (name == "acquaintances")
                             {
-                                dr.Read();
+                                string name_city = txt.Text;
+                                name_city = name_city.Replace(",", ""); // MOVE THIS TO EDIT FORM BEFORE THE CONSTRUCTOR IS CALLED
+                                string[] arr2 = name_city.Split(' ');
 
-                                list.Add(u.CapitalizeFirstLetters(dr.GetString(0))); //first_name
-                                list.Add(u.CapitalizeFirstLetters(dr.GetString(1))); //last_name
-                                list.Add(dr.GetString(2)); //gender
-                                list.Add(u.CapitalizeFirstLetters(dr.GetString(3))); //occupation
-                                list.Add(u.CapitalizeFirstLetters(dr.GetString(4))); //city
-                                if (!dr.IsDBNull(5)) list.Add(u.CapitalizeFirstLetters(dr.GetString(5))); //address
-                                else list.Add("");
-                                list.Add(u.CapitalizeFirstLetters(dr.GetString(6))); //relationship
+                                MySqlCommand cmd = new MySqlCommand($"SELECT a.first_name, a.last_name, a.gender, o.occupation, c.city, a.address, r.relationship " +
+                                                                    $"FROM user_acquaintance_relationships ua " +
+                                                                    $"JOIN acquaintances a ON ua.acquaintance_id = a.id " +
+                                                                    $"JOIN cities c ON a.city_id = c.id " +
+                                                                    $"JOIN occupations o ON a.occupation_id = o.id " +
+                                                                    $"JOIN relationships r ON ua.relationship_id = r.id " +
+                                                                    $"WHERE ua.user_id = {user_id} " +
+                                                                    $"AND a.first_name = \'{arr2[0]}\' " +
+                                                                    $"AND a.last_name = \'{arr2[1]}\' " +
+                                                                    $"AND c.city = \'{arr2[2]}\'", Connect2.con);
+
+                                Connect2.con.Open();
+
+                                List<string> list = new List<string>();
+                                var dr = cmd.ExecuteReader();
+                                if (dr.HasRows)
+                                {
+                                    dr.Read();
+
+                                    list.Add(u.CapitalizeFirstLetters(dr.GetString(0))); //first_name
+                                    list.Add(u.CapitalizeFirstLetters(dr.GetString(1))); //last_name
+                                    list.Add(dr.GetString(2)); //gender
+                                    list.Add(u.CapitalizeFirstLetters(dr.GetString(3))); //occupation
+                                    list.Add(u.CapitalizeFirstLetters(dr.GetString(4))); //city
+                                    if (!dr.IsDBNull(5)) list.Add(u.CapitalizeFirstLetters(dr.GetString(5))); //address
+                                    else list.Add("");
+                                    list.Add(u.CapitalizeFirstLetters(dr.GetString(6))); //relationship
+                                }
+
+                                Connect2.con.Close();
+                                u.M($"{list[0]}, {list[1]}, {list[2]}, {list[3]}, {list[4]}, {list[5]}, {list[6]}");
+                                addAcquaintanceForm edit = new addAcquaintanceForm(null, user_id, list[0], list[1], list[2], list[3], list[4], list[5], list[6]);
+                                edit.Show();
+                            }
+                            else
+                            {
+                                btn.Text = "Commit";
+                                oldText = txt.Text;
+                                oldCityId = (int)dtc.Rows[cmb.SelectedIndex]["id"];
+
+                                cmb.Enabled = true;
+                                txt.ReadOnly = false;
+                            }
+                            break;
+                        case "Commit":
+                            if (oldText != txt.Text || (int)dtc.Rows[cmb.SelectedIndex]["id"] != oldCityId)
+                            {
+                                if (name == "locations")
+                                {
+                                    newText = txt.Text;
+                                    if (oldText.Contains("'")) oldText = oldText.Replace("'", "\\'");
+
+                                    if (txt.Text.Contains("'")) newText = newText.Replace("'", "\\'");
+
+
+                                    u.MySqlCommandImproved($"CALL sp_updateUserLocation(\'{oldText}\', {oldCityId}, \'{newText}\', {dtc.Rows[cmb.SelectedIndex]["id"]}, {user_id})");
+
+                                    txt.ReadOnly = true;
+                                    cmb.Enabled = false;
+
+                                }
+                                changesMade = true;
+                                removeTable();
+                                displayTable(name);
                             }
 
-                            Connect2.con.Close();
-                            u.M($"{list[0]}, {list[1]}, {list[2]}, {list[3]}, {list[4]}, {list[5]}, {list[6]}");
-                            addAcquaintanceForm edit = new addAcquaintanceForm(null, user_id, list[0], list[1], list[2], list[3], list[4], list[5], list[6]);
-                            edit.Show();                            
-                        }else
-                        {
-                            btn.Text = "Commit";
+                            if (this.Controls.Count > 14) this.Width += 17;
+
+                            txt.ReadOnly = true;
+                            btn.Text = "Edit";
+                            break;
+
+                    }
+
+                }
+                else
+                {
+
+                    switch (btn.Text)
+                    {
+                        case "Edit":
                             oldText = txt.Text;
-                            oldCityId = (int) dtc.Rows[cmb.SelectedIndex]["id"];
-
-                            cmb.Enabled = true;
                             txt.ReadOnly = false;
-                        }
-                        break;
-                    case "Commit":
-                        if (oldText != txt.Text || (int)dtc.Rows[cmb.SelectedIndex]["id"] != oldCityId)
-                        {
-                            if (name == "locations")
+                            btn.Text = "Commit";
+                            break;
+
+                        case "Commit":
+                            if (oldText != txt.Text)
                             {
-                                newText = txt.Text;
-                                if (oldText.Contains("'")) oldText = oldText.Replace("'", "\\'");
+                                if (name == "locations")
+                                {
+                                    u.MySqlCommandImproved($"CALL sp_updateUserLocation(\'{oldText}\', {oldCityId}, \'{txt.Text}\', {dtc.Rows[cmb.SelectedIndex]["id"]}, {user_id})");
 
-                                if (txt.Text.Contains("'")) newText = newText.Replace("'", "\\'");
+                                    txt.ReadOnly = true;
+                                    cmb.Enabled = false;
+                                }
 
-
-                                u.MySqlCommandImproved($"CALL sp_updateUserLocation(\'{oldText}\', {oldCityId}, \'{newText}\', {dtc.Rows[cmb.SelectedIndex]["id"]}, {user_id})");
-
-                                txt.ReadOnly = true;
-                                cmb.Enabled = false;
-
+                                changesMade = true;
+                                removeTable();
+                                displayTable(name);
                             }
-                            changesMade = true;
-                            removeTable();
-                            displayTable(name);
-                        }
 
-                        if (this.Controls.Count > 14) this.Width += 17;
+                            if (this.Controls.Count > 14) this.Width += 17;
 
-                        txt.ReadOnly = true;
-                        btn.Text = "Edit";
-                        break;
+                            txt.ReadOnly = true;
+                            btn.Text = "Edit";
+                            break;
 
-                }
+                        case "Delete":
 
-            }
-            else
-            {
-               
-                switch (btn.Text)
-                {
-                    case "Edit":
-                        oldText = txt.Text;
-                        txt.ReadOnly = false;
-                        btn.Text = "Commit";
-                        break;
-
-                    case "Commit":
-                        if (oldText != txt.Text)
-                        {
-                            if (name == "locations")
+                            if (column != "city")
                             {
-                                u.MySqlCommandImproved($"CALL sp_updateUserLocation(\'{oldText}\', {oldCityId}, \'{txt.Text}\', {dtc.Rows[cmb.SelectedIndex]["id"]}, {user_id})");
-
-                                txt.ReadOnly = true;
-                                cmb.Enabled = false;
+                                u.MySqlCommandImproved($"DELETE FROM user_{column}s WHERE {column}_id = {txt.TabIndex} AND user_id = {user_id};");
+                            }
+                            else
+                            {
+                                u.MySqlCommandImproved($"DELETE FROM user_cities WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
                             }
 
                             changesMade = true;
                             removeTable();
                             displayTable(name);
-                        }
+                            if (this.Controls.Count > 14) this.Width += 17;
+                            break;
 
-                        if (this.Controls.Count > 14) this.Width += 17;
+                        case "Add New":
+                            u.MySqlCommandImproved($"CALL sp_insertUser{u.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
 
-                        txt.ReadOnly = true;
-                        btn.Text = "Edit";
-                        break;
+                            changesMade = true;
+                            removeTable();
+                            displayTable(name);
+                            if (this.Controls.Count > 14) this.Width += 17;
+                            break;
 
-                    case "Delete":
-
-                        if (column != "city")
-                        {
-                            u.MySqlCommandImproved($"DELETE FROM user_{column}s WHERE {column}_id = {txt.TabIndex} AND user_id = {user_id};");
-                        }
-                        else
-                        {
-                            u.MySqlCommandImproved($"DELETE FROM user_cities WHERE city_id = {txt.TabIndex} AND user_id = {user_id};");
-                        }
-
-                        changesMade = true;
-                        removeTable();
-                        displayTable(name);
-                        if (this.Controls.Count > 14) this.Width += 17;
-                        break;
-
-                    case "Add New":
-                        u.MySqlCommandImproved($"CALL sp_insertUser{u.CapitalizeFirstLetters(column)}(\'{txt.Text}\', {user_id})");
-
-                        changesMade = true;
-                        removeTable();
-                        displayTable(name);
-                        if (this.Controls.Count > 14) this.Width += 17;
-                        break;
-
-                    case "Exit":
-                        this.Close();
-                        break;
+                        case "Exit":
+                            this.Close();
+                            break;
+                    }
                 }
             }
+            
         }
         
         private void editForm_FormClosing(object sender, FormClosingEventArgs e)
