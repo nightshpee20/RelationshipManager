@@ -71,6 +71,10 @@ namespace rmanager
                     label1.Left += 15;
                     this.column = "acquaintance";
                     break;
+                case "cities":
+                    label1.Text = "Your CITIES:";
+                    this.column = "city";
+                    break;
                 case "locations":
                     label1.Text = "Your LOCATIONS:";
                     this.column = "location";
@@ -359,7 +363,8 @@ namespace rmanager
                 var arr1 = this.Controls.Find("row" + btn.TabIndex, true);
                 Panel row = (Panel)arr1[0];
 
-                ComboBox cmb = row.Controls.OfType<ComboBox>().First();
+                ComboBox cmb = new ComboBox();
+                if (name == "locations") cmb = row.Controls.OfType<ComboBox>().First();
 
 
                 if (name == "acquaintances" || name == "locations")
